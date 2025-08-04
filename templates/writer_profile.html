@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة
+        {{ user.name if user.name else 'غير معروف' }}
+    </title>
+    <link rel="icon" href="../static/Website.jpg">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+
+<body>
+    <div class="location">
+        <a href="{{ url_for('website') }}">
+            <img src="{{ url_for('static', filename='Website.jpg') }}" alt="شعار الموقع" height="50" width="50" loading="lazy">
+            <sup>عوالمنا</sup>
+        </a>
+    </div>
+
+    <div class="personal-info">
+        <h1>
+            {{ user.name if user.name else 'مستخدم جديد' }}
+        </h1>
+
+        <table class="info-table">
+            <tr>
+                <th>الاسم</th>
+                <td>
+                    {{ user.name or '' }}
+                </td>
+            </tr>
+            <tr>
+                <th>تاريخ الانضمام</th>
+                <td>
+                    {{ user.created_at.strftime('%Y-%m-%d') if user.created_at else '' }}
+                </td>
+            </tr>
+            <tr>
+                <th>البريد الإلكتروني</th>
+                <td>
+                    {{ user.email or '' }}
+                </td>
+            </tr>
+        </table>
+
+        <h2>القصص</h2>
+        <table class="stories-table">
+            <thead>
+                <tr>
+                    <th>العنوان</th>
+                    <th>التقييم</th>
+                    <th>تاريخ النشر</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if stories %}
+                {% for story in stories %}
+                <tr>
+                    <td>{{ story.title }}</td>
+                    <td>
+                        <meter min="0" max="5" low="2" high="4" optimum="5" value="{{ story.avg_rating|round(1) if story.avg_rating is defined else 0 }}">
+                        </meter>
+                    </td>
+                    <td>{{ story.published_at.strftime('%Y-%m-%d') if story.published_at else '' }}</td>
+                    <td>
+                        <a href="{{ url_for('view_story', id=story.id) }}" class="read-btn">قراءة</a>
+                        <a href="{{ url_for('edit_story', id=story.id) }}" class="edit-btn">تعديل</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4">لا توجد قصص مضافة</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="actions">
+        <a href="{{ url_for('subscriptions') }}" class="subscriptions-btn">إدارة الاشتراكات</a>
+        <a href="{{ url_for('write_story') }}" class="add-story-btn">إضافة قصة جديدة</a>
+        <a href="{{ url_for('delete_account') }}" class="delete-account-btn" onclick="return confirm('هل أنت متأكد؟')">حذف الحساب</a>
+    </div>
+</body>
+
+</html>

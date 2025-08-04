@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="auto">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عوالمنا - صفحة المسؤول</title>
+    <link rel="icon" href="/static/Website.jpg">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_style.css') }}">
+</head>
+
+<!-- أضفنا الصنف "admin-page" للسماح بتطبيق أنماط مخصصة لهذه الصفحة فقط -->
+<body class="admin-page">
+    
+    <header>
+        <!-- تم الاعتماد على تنسيق الهيدر من style.css -->
+        <div class="header-container">
+            <div class="header-left">
+                <a href="/static/website">
+                    <img src="/static/Website.jpg" alt="شعار عوالمنا">
+                </a>
+                <a href="/static/website" class="header-awalimna-text">عوالمنا</a>
+            </div>
+            <div class="header-right">
+                <!-- يمكنك إضافة روابط هنا مثل تسجيل الخروج -->
+            </div>
+        </div>
+    </header>
+
+    <!-- بيانات الحساب للاختبار -->
+    {% set admin_info = { 'name': 'osamh64', 'email': 'osamh123451191@gmail.com', 'type': ' مؤسس ', 'completed_stories': 10, 'pending_stories': 5, 'accepted_stories': 7 } %}
+
+    {% set pending_stories = [
+        {'id': 1, 'title': 'رحلة إلى القمر', 'author': 'سارة أحمد', 'category': 'خيال علمي', 'language': 'العربية', 'description': 'بعد لقاء غير متوقع في متجر للآلات الموسيقية، تجد عازفة الكمان الموهوبة رسامًا وحيدًا، وتتعقد حياتهما معًا بينما يحاولان العثور على الوتر المفقود في لحن حب بدأ للتو.'},
+        {'id': 2, 'title': 'مغامرة في الغابة', 'author': 'محمد علي', 'category': 'مغامرة', 'language': 'العربية', 'description': 'تدور أحداث القصة في بغداد خلال العصر الذهبي للإسلام، وتتبع فارسًا نبيلًا يواجه مؤامرات سياسية وصراعات شخصية لحماية مدينته وتراثها من الغزاة.'},
+        {'id': 3, 'title': 'الكنز المفقود', 'author': 'ليلى حسن', 'category': 'دراما', 'language': 'العربية', 'description': 'تركز القصة على مجموعة من الجنود في خضم حرب طاحنة في الصحراء، حيث يواجهون ليس فقط الأعداء ولكن أيضًا قسوة الطبيعة والصراعات الداخلية، بحثًا عن بصيص أمل.'}
+    ] %}
+
+    <!-- المحتوى الرئيسي -->
+    <main class="container">
+        <br><br><br>
+
+        <!-- قسم معلومات الأدمن -->
+        <section class="admin-info">
+            <h2>لوحة تحكم المشرف</h2>
+            <ul>
+                <li><strong>اسم المشرف:</strong> <span id="admin-name">{{ admin_info.name }}</span></li>
+                <li><strong>البريد الإلكتروني:</strong> <span id="admin-email">{{ admin_info.email }}</span></li>
+                <li>
+                    <table>
+                        <tr>
+                            <th>نوع الحساب:</th>
+                            <td><span id="admin-type">{{ admin_info.type }}</span></td>
+                        </tr>
+                    </table>
+                </li>
+                <li><strong>القصص المكتملة:</strong> {{ admin_info.completed_stories }}</li>
+                <li><strong>القصص المعلقة:</strong> {{ admin_info.pending_stories }}</li>
+                <li><strong>القصص المقبولة:</strong> {{ admin_info.accepted_stories }}</li>
+            </ul>
+        </section>
+
+        <!-- عرض الرسائل -->
+        {% if message %}
+        <div class="feedback-message {{ message_type }}">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        <!-- قسم مراجعة القصص -->
+        <section class="review-stories">
+            <h2>القصص المطلوب مراجعتها</h2>
+
+            <table class="stories-table">
+                <thead>
+                    <tr>
+                        <th>الترتيب</th>
+                        <th>عنوان القصة</th>
+                        <th>اسم المؤلف</th>
+                        <th>الفئة</th>
+                        <th>اللغة</th>
+                        <th>الوصف</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if pending_stories %} {% for story in pending_stories %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ story.title }}</td>  {#} ابي اخلي العنوان رابط لكل صفحة عشان يقراه {#}
+                        <td>{{ story.author }}</td>
+                        <td>{{ story.category }}</td>
+                        <td>{{ story.language }}</td>
+                        <td>{{ story.description }}</td>
+                        
+                        <!-- تم تحسين هذه الخلية لإصلاح المظهر -->
+                        <td class="table-actions">
+                            <button class="flat-btn flat-accept">قبول</button>
+                            <button class="flat-btn flat-reject">رفض</button>
+                        </td>
+
+                    </tr>
+                    {% endfor %} {% else %}
+                    <tr>
+                        <td colspan="6">لا توجد قصص معلقة للمراجعة حالياً</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="site-footer">
+        <!-- تم إزالة style المضمن والاعتماد على التنسيق من style.css -->
+        <p>عوالمنا. جميع الحقوق محفوظة.</p>
+    </footer>
+
+</body>
+</html>

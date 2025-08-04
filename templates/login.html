@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 style='text-align: center'>تسجيل الدخول</h1>
+<form method="POST" action="/login">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+          <li style="color:red">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <label for="username">اسم المستخدم أو البريد الإلكتروني:</label><br>
+    <input type="text" id="username" name="username"><br>
+    <label for="password">كلمة المرور:</label><br>
+    <input type="password" id="password" name="password"><br><br>
+    <div style=  display: inline-block;>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <input type="checkbox" id="remember_me" name="remember_me">
+        <label for="remember_me">تذكرني</label>
+    </div>
+    <div>
+      <!-- زيادة حجم الزر-->
+        <input style="font-size: 1.2rem; padding: 1rem 5rem; text-size= 1000rem" type="submit" value="دخول">
+    </div>
+    <div>
+        <a href="/forgot_password">نسيت كلمة المرور؟</a>
+    </div>
+    <div>
+        <p>ليس لديك حساب؟ <a href="/register">سجل الآن</a></p>
+    </div>
+</div>
+</form>
+{% endblock %}

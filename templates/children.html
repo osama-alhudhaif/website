@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="age-groups">
+        <h2>الفئات العمرية</h2>
+        {% for age_group in age_groups %}
+            <button onclick="filterByAge('{{ age_group.range }}')">{{ age_group.label }}</button>
+        {% endfor %}
+    </div>
+
+    <div class="latest-stories">
+        <h2 class="new_story">أحدث القصص</h2>
+        {% for story in latest_stories %}
+            <div class="story">
+                <h3>{{ story.title }}</h3>
+                <p>{{ story.summary }}</p>
+                <a href="{{ url_for('read_story', story_id=story.id) }}">اقرأ المزيد</a>
+            </div>
+        {% else %}
+            <p>لا توجد قصص جديدة حالياً.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

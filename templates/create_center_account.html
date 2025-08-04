@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>انشاء حساب لمركز تعليمي - عوالمنا</title>
+    <link rel="icon" href="static/Website.jpg">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="../static/css/create_center_account.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="الموقع.html" style="text-decoration: none; color: inherit;">
+                <img src="static/Website.jpg" alt="شعار الموقع" height="50" width="50">
+                <h1>عوالمنا</h1>
+            </a>
+        </div>
+        <h2>انشاء حساب لمركز تعليمي</h2>
+    </header>
+    
+    <div class="form-container">
+        <form action="" method="post" id="centerForm">
+            <div class="owner_name">
+                <label for="owner_name">اسم المالك:</label>
+                <input type="text" id="owner_name" name="owner_name" value="{{ owner_name|default('') }}" required>
+            </div>
+            
+            <div class="center_name">
+                <label for="center_name">اسم المركز التعليمي:</label>
+                <input type="text" id="center_name" name="center_name" value="{{ center_name|default('') }}" required>
+            </div>
+            
+            <div class="email">
+                <label for="email">البريد الإلكتروني:</label>
+                <div class="input-group">
+                    <input type="text" id="email" name="email" value="{{ email|default('') }}" placeholder="أدخل البريد أو اسم المستخدم" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$|^[a-zA-Z0-9._%+-]+$" title="أدخل بريدًا صحيحًا أو اسم مستخدم">
+                    <select name="domain" id="domain" required>
+                        <option value="">اختر النطاق</option>
+                        <option value="gmail.com" {% if domain == 'gmail.com' %}selected{% endif %}>@gmail.com</option>
+                        <option value="outlook.com" {% if domain == 'outlook.com' %}selected{% endif %}>@outlook.com</option>
+                        <option value="yahoo.com" {% if domain == 'yahoo.com' %}selected{% endif %}>@yahoo.com</option>
+                        <option value="hotmail.com" {% if domain == 'hotmail.com' %}selected{% endif %}>@hotmail.com</option>
+                    </select>
+                </div>
+                <small id="emailHelp" style="color: #666; font-size: 12px; margin-top: 5px; display: block;">
+                    💡 يمكنك كتابة البريد الإلكتروني كاملاً وسيتم تحديد النطاق تلقائياً
+                </small>
+            </div>
+            
+            <div id="password" class="password">
+                <label for="passwordField">كلمة المرور:</label>
+                <input type="password" name="password" id="passwordField" required minlength="25" maxlength="25" placeholder="انقر لتوليد كلمة مرور" pattern=".{25}" title="يجب أن تكون 25 حرفًا بالضبط">
+                <div id="passwordOptions" style="display: none; margin-top: 10px;">
+                    <button type="button" onclick="generateNewPassword()">توليد كلمة مرور عشوائية</button>
+                </div>
+            </div>
+            
+            <div class="confirm_password">
+                <label for="confirmPasswordField">تأكيد كلمة المرور:</label>
+                <input type="password" name="confirm_password" id="confirmPasswordField" value="{{ confirm_password|default('') }}" required minlength="25" maxlength="25">
+            </div>
+            
+            <div class="center_address">
+                <label for="center_address">عنوان المركز التعليمي:</label>
+                <input type="text" id="center_address" name="center_address" value="{{ center_address|default('') }}" required>
+                <button type="button" class="location-picker-btn" onclick="getLocation()">حدد الموقع</button>
+            </div>
+            
+            <div id="map"></div>
+            
+            <div class="employee_accounts">
+                <label for="employee_accounts">عدد حسابات المعلمين:</label>
+                <input type="number" id="employee_accounts" name="employee_accounts" value="{{ employee_accounts|default(1) }}" required min="1">
+            </div>
+            
+            <div class="employee_accounts">
+                <label for="student_accounts">عدد حسابات الطلاب:</label>
+                <input type="number" id="student_accounts" name="student_accounts" value="{{ student_accounts|default(1) }}" required min="1">
+            </div>
+            
+            <input type="submit" value="ارسال">
+        </form>
+    </div>
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // تحسين تجربة المستخدم
+        document.addEventListener('DOMContentLoaded', function() {
+            // إضافة تأثيرات للحقول
+            const inputs = document.querySelectorAll('input[type="text"], input[type="password"], input[type="number"]');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'scale(1.02)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'scale(1)';
+                });
+            });
+            
+            // الكشف التلقائي عن النطاق
+            const emailInput = document.getElementById('email');
+            const domainSelect = document.getElementById('domain');
+            const emailHelp = document.getElementById('emailHelp');
+            
+            emailInput.addEventListener('input', function() {
+                const emailValue = this.value;
+                
+                // التحقق من وجود @ في البريد الإلكتروني
+                if (emailValue.includes('@')) {
+                    const parts = emailValue.split('@');
+                    if (parts.length === 2) {
+                        const domain = parts[1];
+                        
+                        // التحقق من النطاقات المدعومة
+                        const supportedDomains = ['gmail.com', 'outlook.com', 'yahoo.com', 'hotmail.com'];
+                        
+                        if (supportedDomains.includes(domain)) {
+                            // تحديد النطاق تلقائياً
+                            domainSelect.value = domain;
+                            
+                            // إزالة النطاق من حقل البريد الإلكتروني
+                            this.value = parts[0];
+                            
+                            // إضافة تأثير بصري
+                            domainSelect.style.backgroundColor = '#d4edda';
+                            emailHelp.textContent = '✅ تم تحديد النطاق تلقائياً: ' + domain;
+                            emailHelp.style.color = '#28a745';
+                            
+                            setTimeout(() => {
+                                domainSelect.style.backgroundColor = '';
+                                emailHelp.textContent = '💡 يمكنك كتابة البريد الإلكتروني كاملاً وسيتم تحديد النطاق تلقائياً';
+                                emailHelp.style.color = '#666';
+                            }, 2000);
+                        } else {
+                            // نطاق غير مدعوم
+                            emailHelp.textContent = '⚠️ النطاق غير مدعوم. الرجاء اختيار نطاق من القائمة';
+                            emailHelp.style.color = '#dc3545';
+                            
+                            setTimeout(() => {
+                                emailHelp.textContent = '💡 يمكنك كتابة البريد الإلكتروني كاملاً وسيتم تحديد النطاق تلقائياً';
+                                emailHelp.style.color = '#666';
+                            }, 3000);
+                        }
+                    }
+                } else {
+                    // إعادة تعيين الرسالة الأصلية
+                    emailHelp.textContent = '💡 يمكنك كتابة البريد الإلكتروني كاملاً وسيتم تحديد النطاق تلقائياً';
+                    emailHelp.style.color = '#666';
+                }
+            });
+            
+            // تحسين تجربة كلمة المرور
+            const passwordField = document.getElementById('passwordField');
+            const confirmPasswordField = document.getElementById('confirmPasswordField');
+            
+            passwordField.addEventListener('focus', function() {
+                document.getElementById('passwordOptions').style.display = 'block';
+            });
+            
+            // التحقق من تطابق كلمات المرور
+            function checkPasswordMatch() {
+                const password = passwordField.value;
+                const confirmPassword = confirmPasswordField.value;
+                
+                if (confirmPassword && password !== confirmPassword) {
+                    confirmPasswordField.setCustomValidity('كلمات المرور غير متطابقة');
+                } else {
+                    confirmPasswordField.setCustomValidity('');
+                }
+            }
+            
+            passwordField.addEventListener('input', checkPasswordMatch);
+            confirmPasswordField.addEventListener('input', checkPasswordMatch);
+        });
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+                document.getElementById('map').style.display = 'block';
+            } else {
+                alert("الموقع الجغرافي غير مدعوم في هذا المتصفح");
+            }
+        }
+
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            const map = L.map('map').setView([lat, lng], 15);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            L.marker([lat, lng]).addTo(map)
+                .bindPopup('موقع المركز')
+                .openPopup();
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('center_address').value = data.display_name;
+                });
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("الرجاء السماح باستخدام الموقع الجغرافي");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("معلومات الموقع غير متاحة");
+                    break;
+                case error.TIMEOUT:
+                    alert("طلب الموقع استغرق وقتاً طويلاً");
+                    break;
+            }
+        }
+
+        function generateNewPassword() {
+            const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+{}[]:;<>,.?/';
+            let password = '';
+            for (let i = 0; i < 25; i++) {
+                password += chars[Math.floor(Math.random() * chars.length)];
+            }
+            document.getElementById('passwordField').value = password;
+            document.getElementById('confirmPasswordField').value = password;
+            
+            // إضافة تأثير بصري
+            const passwordField = document.getElementById('passwordField');
+            passwordField.style.backgroundColor = '#d4edda';
+            setTimeout(() => {
+                passwordField.style.backgroundColor = '';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

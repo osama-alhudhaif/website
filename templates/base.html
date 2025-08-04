@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='Website.jpg') }}" type="image/x-icon">
+    <meta name="description" content="عوالمنا - موقع قصص وروايات عربية متنوعة">
+    <meta name="keywords" content="قصص, روايات, عربية, عوالمنا, خيال, دراما, كوميديا, رعب, مغامرة, تاريخي, فانتازي">
+    <meta name="author" content="Osama Alhudhaif - عوالمنا">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <title>عوالمنا</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_center_account.css') }}">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <!-- الهيدر -->
+        <header>
+            <div class="header-content">
+                <!-- الشعار واسم الموقع -->
+                <a href="/website" class="logo-section">
+                    <img src="{{ url_for('static', filename='Website.jpg') }}" alt="صورة الموقع" height="50" width="50">
+                    <h1 id="website-name">عوالمنا</h1>
+                </a>
+                
+                <!-- شريط التنقل -->
+                <div class="nav-links">
+                    <!-- زر الإشعارات - يظهر فقط للمستخدمين المسجلين -->
+                    {% if current_user.is_authenticated %}
+                    <div class="notifications-container">
+                        <button id="notifications-btn" class="notification-btn" type="button">
+                            🔔
+                            <span id="notification-badge" class="notification-badge">3</span>
+                        </button>
+                        
+                        <!-- قائمة الإشعارات -->
+                        <div id="notification-dropdown" class="notification-dropdown">
+                            <ul class="notification-list">
+                                <li class="notification-item notification-delete">
+                                    🚫 تم حذف تعليق بسبب مخالفة
+                                </li>
+                                <li class="notification-item notification-publish">
+                                    ✍️ تم نشر قصتك الجديدة
+                                </li>
+                                <li class="notification-item notification-comment">
+                                    💬 تعليق جديد على قصتك
+                                </li>
+                                <li class="notification-item notification-follow">
+                                    👤 قام شخص بمتابعتك
+                                </li>
+                                <li class="notification-item notification-approve">
+                                    ✅ تم قبول القصة بنجاح
+                                </li>
+                                <li class="notification-item notification-general">
+                                    🔔 إشعار عام أو ملاحظة إدارية
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- ترحيب بالمستخدم -->
+                    {% if current_user.is_authenticated %}
+                        <span>مرحباً، {{ current_user.username }}! 👋</span>
+                        <a href="/logout" class="nav-link">تسجيل الخروج</a>
+                    {% else %}
+                        <a href="/login" class="nav-link">تسجيل الدخول</a>
+                        <a href="/register" class="nav-link">إنشاء حساب</a>
+                    {% endif %}
+                    
+                    <!-- زر التصنيفات -->
+                    <button id="show-categories" class="btn-categories" type="button">
+                        التصنيفات
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <br><br><br>
+
+        <!-- التصنيفات -->
+        <div id="category-box" class="category-box">
+            <h2 style="text-align: center; margin-bottom: 20px; color: #333;">التصنيفات</h2>
+            <ul class="category-grid">
+                <li><a href="comedy.html" class="category-item">كوميديا</a></li>
+                <li><a href="science_fiction.html" class="category-item">خيال علمي</a></li>
+                <li><a href="fiction.html" class="category-item">خيال</a></li>
+                <li><a href="romance.html" class="category-item">الرومانسي</a></li>
+                <li><a href="crime_investigation.html" class="category-item">جريمة وتحقيق</a></li>
+                <li><a href="horror.html" class="category-item">الرعب</a></li>
+                <li><a href="adventure.html" class="category-item">مغامرة</a></li>
+                <li><a href="drama.html" class="category-item">دراما</a></li>
+                <li><a href="historical.html" class="category-item">تاريخي</a></li>
+                <li><a href="theft.html" class="category-item">سرقة</a></li>
+                <li><a href="war.html" class="category-item">حرب</a></li>
+                <li><a href="fantasy.html" class="category-item">فانتازي</a></li>
+                <li><a href="children.html" class="category-item">أطفال</a></li>
+            </ul>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <main>
+            {% block content %}
+            <!-- محتوى الصفحة الفرعية -->
+            {% endblock %}
+        </main>
+
+        <!-- الفوتر -->
+        <footer>
+            <div class="footer-content">
+                <a href="/website" class="logo-section">
+                    <img src="{{ url_for('static', filename='Website.jpg') }}" alt="صورة الموقع" height="40" width="40">
+                    <p id="copyright" style="margin: 0;">
+                        عوالمنا &copy; <span id="year"></span>
+                    </p>
+                </a>
+                
+                <div style="display: flex; gap: 20px;">
+                    <a href="/about" class="nav-link">من نحن</a>
+                    <a href="/contact" class="nav-link">تواصل معنا</a>
+                    <a href="/privacy" class="nav-link">سياسة الخصوصية</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- الجافا سكريبت -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin_script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/create_center_account.js') }}"></script>
+    
+    <script>
+        // تحديث السنة تلقائياً
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // إظهار وإخفاء التصنيفات
+        document.getElementById('show-categories').addEventListener('click', function() {
+            const categoryBox = document.getElementById('category-box');
+            const isVisible = categoryBox.style.display === 'block';
+            categoryBox.style.display = isVisible ? 'none' : 'block';
+        });
+
+        // وظيفة زر الإشعارات - فقط إذا كان المستخدم مسجل دخول
+        {% if current_user.is_authenticated %}
+        document.getElementById('notifications-btn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            const dropdown = document.getElementById('notification-dropdown');
+            const isVisible = dropdown.style.display === 'block';
+            dropdown.style.display = isVisible ? 'none' : 'block';
+        });
+
+        // إغلاق قائمة الإشعارات عند الضغط خارجها
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('notification-dropdown');
+            const button = document.getElementById('notifications-btn');
+            
+            if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        // منع إغلاق القائمة عند الضغط عليها
+        document.getElementById('notification-dropdown').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+        {% endif %}
+
+        // تأثيرات التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            // إضافة تأثيرات تحميل سلسة
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s ease-in-out';
+            
+            setTimeout(function() {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

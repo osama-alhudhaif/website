@@ -1,0 +1,162 @@
+/* ========== تحسين أزرار الجدول لتكون أقل بروزاً وأكثر تناسقاً ========== */
+
+.admin-page .table-actions .action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-page .table-actions form {
+    margin: 0;
+}
+
+.admin-page .table-actions .accept-btn,
+.admin-page .table-actions .reject-btn {
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-white);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    min-width: 50px;
+    text-align: center;
+    box-shadow: none;
+}
+
+.admin-page .table-actions .accept-btn:hover,
+.admin-page .table-actions .reject-btn:hover {
+    transform: none;
+    box-shadow: none;
+    opacity: 0.8;
+}
+
+.admin-page .table-actions .accept-btn {
+    background-color: var(--success-color);
+}
+
+.admin-page .table-actions .accept-btn:hover {
+    background-color: #6d8574;
+}
+
+.admin-page .table-actions .reject-btn {
+    background-color: var(--error-color);
+}
+
+.admin-page .table-actions .reject-btn:hover {
+    background-color: #b37669;
+}
+
+
+/* تحسين إضافي للخلية التي تحتوي على الأزرار */
+
+.admin-page .stories-table .table-actions {
+    padding: var(--spacing-sm);
+}
+
+
+/* البديل الأول: أزرار مسطحة أكثر */
+
+.admin-page .table-actions .flat-btn {
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 45px;
+    text-align: center;
+    background: transparent;
+}
+
+.admin-page .table-actions .flat-accept {
+    color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.admin-page .table-actions .flat-accept:hover {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.admin-page .table-actions .flat-reject {
+    color: var(--error-color);
+    border-color: var(--error-color);
+}
+
+.admin-page .table-actions .flat-reject:hover {
+    background-color: var(--error-color);
+    color: white;
+}
+
+
+/* البديل الثاني: أزرار نصية فقط */
+
+.admin-page .table-actions .text-btn {
+    background: none;
+    border: none;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.admin-page .table-actions .text-accept {
+    color: var(--success-color);
+}
+
+.admin-page .table-actions .text-accept:hover {
+    color: #6d8574;
+}
+
+.admin-page .table-actions .text-reject {
+    color: var(--error-color);
+}
+
+.admin-page .table-actions .text-reject:hover {
+    color: #b37669;
+}
+
+
+/* البديل الثالث: أيقونات صغيرة */
+
+.admin-page .table-actions .icon-btn {
+    background: none;
+    border: 1px solid;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.admin-page .table-actions .icon-accept {
+    color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.admin-page .table-actions .icon-accept:hover {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.admin-page .table-actions .icon-reject {
+    color: var(--error-color);
+    border-color: var(--error-color);
+}
+
+.admin-page .table-actions .icon-reject:hover {
+    background-color: var(--error-color);
+    color: white;
+}

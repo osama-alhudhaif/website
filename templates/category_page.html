@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}عوالمنا - {{ category_name_arabic }}{% endblock %}
+
+{% block content %}
+    <div class="category-header">
+        <h2>مرحبًا بك في قسم {{ category_name_arabic }}</h2>
+        <p>استمتع بأروع قصص {{ category_name_arabic }}</p>
+    </div>
+    <hr>
+    <div class="stories-list">
+        {% for story in stories %}
+            <div class="story-card">
+                <a href="{{ url_for('read_story', story_id=story.id) }}" class="story-title-link">
+                    <h2 class="story-title">{{ story.title }}</h2>
+                </a>
+                {% if story.description %}
+                    <p class="story-description">{{ story.description }}</p>
+                {% else %}
+                    <p class="story-description">لا يوجد وصف متاح لهذه القصة.</p>
+                {% endif %}
+                <div class="story-meta">
+                    <span class="story-categories">
+                        <span class="category-badge">{{ story.category }}</span>
+                    </span>
+                    {% if story.rating %}
+                        <span class="story-rating">التقييم: {{ story.rating }}/5</span>
+                    {% else %}
+                        <span class="story-rating">التقييم: غير متاح</span>
+                    {% endif %}
+                </div>
+                {% if story.author %}
+                    <div class="story-author">الكاتب: {{ story.author }}</div>
+                {% else %}
+                    <div class="story-author">الكاتب: غير محدد</div>
+                {% endif %}
+                <a class="read-more-btn" href="{{ url_for('read_story', story_id=story.id) }}">اقرأ المزيد...</a>
+            </div>
+        {% else %}
+            <div class="no-stories-message">
+                <p>لا توجد قصص في هذه الفئة حتى الآن.</p>
+                <a href="{{ url_for('write_story') }}" class="write-story-btn">اكتب أول قصة في هذه الفئة</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

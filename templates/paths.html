@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1>فحص المسارات</h1>
+    <p class="section-title">اختر الملف المطلوب من المجلد templates</p>
+    <div>
+        <p class="section-title">المسارات المتاحة:</p>
+        <ul>
+            <li>
+                <a href="/auth/register"><i class="fas fa-user-plus"></i> تسجيل مستخدم جديد</a>
+            </li>
+            <li>
+                <a href="/auth/login"><i class="fas fa-sign-in-alt"></i> تسجيل دخول</a>
+            </li>
+            <li>
+                <a href="/auth/refresh_token"><i class="fas fa-sync"></i> تجديد التوكن</a>
+            </li>
+            <li>
+                <a href="/auth/forgot_password"><i class="fas fa-key"></i> نسيت كلمة المرور</a>
+            </li>
+            <li>
+                <a href="/auth/reset_password"><i class="fas fa-lock"></i> إعادة تعيين كلمة المرور</a>
+            </li>
+            <li>
+                <a href="/stories"><i class="fas fa-book"></i> قائمة القصص</a>
+            </li>
+            <li>
+                <a href="/stories/{story_id}"><i class="fas fa-book-open"></i> عرض قصة معينة</a>
+            </li>
+            <li>
+                <a href="/stories/{story_id}/comments"><i class="fas fa-comments"></i> التعليقات على القصة</a>
+            </li>
+            <li>
+                <a href="/users/{user_id}"><i class="fas fa-user"></i> ملف المستخدم</a>
+            </li>
+            <li>
+                <a href="/centers/register"><i class="fas fa-school"></i> تسجيل مركز تعليمي</a>
+            </li>
+            <li>
+                <a href="/centers/accept"><i class="fas fa-check-circle"></i> قبول طلب مركز تعليمي</a>
+            </li>
+            <li>
+                <a href="/admin/statistics"><i class="fas fa-chart-bar"></i> الإحصائيات الإدارية</a>
+            </li>
+            <li>
+                <a href="/subscriptions"><i class="fas fa-credit-card"></i> إدارة الاشتراكات</a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

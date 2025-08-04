@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="success-box" style="text-align: center;">
+    <header>
+    </header>
+    <!-- صورة الموقع بالمنتصف -->
+    <img src="{{ url_for('static', filename='Website.jpg') }}" width="250" height="250">
+    <h2>شكرا لثقتكم</h2>
+    <p>تم استلام طلب مركز <strong>{{ center_name }}</strong> بنجاح</p>
+    <p>سيتم مراجعة الطلب من قبل الإدارة خلال 24-48 ساعة عمل</p>
+    <p>وسنتواصل معكم عبر البريد الإلكتروني للمتابعة</p>
+    <a href="{{ url_for('index') }}" class="btn">العودة إلى الصفحة الرئيسية</a>
+</div>
+{% endblock %}
