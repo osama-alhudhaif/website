@@ -1,130 +1,348 @@
-from flask import Flask, render_template, request
-from typing import Dict, Any
-from center_country import countries
-from center_language import languages
+import os
+from dotenv import load_dotenv
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, abort # pyright: ignore[reportUnusedImport, reportUnknownVariableType]
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
+from flask_mail import Mail
+from flask_wtf.csrf import CSRFProtect
+from flask_caching import Cache
+from flask_jwt_extended import JWTManager
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user # pyright: ignore[reportUnknownVariableType, reportUnusedImport]
+from wtforms import StringField, PasswordField, SubmitField # type: ignore
+from wtforms.validators import InputRequired, Length, ValidationError # pyright: ignore[reportUnusedImport]
+from flask_wtf import FlaskForm # type: ignore
+from flask_migrate import Migrate
+from flask_cors import CORS # type: ignore
 
-app = Flask(__name__, template_folder="templates")
+# --- تحميل متغيرات البيئة ---
+load_dotenv()
+secret_key = os.getenv('AWALLIMNA_SECRET_KEY')
+jwt_secret_key = os.getenv('AWALLIMNA_JWT_SECRET_KEY')
+if not secret_key or not jwt_secret_key:
+    raise ValueError("خطأ: لم يتم العثور على المفاتيح السرية.")
 
-# Context processor عشان نمرر current_user للقوالب (بدون flask-login)
-@app.context_processor # type: ignore
-def inject_current_user() -> Dict[str, Any]:
-    return dict(current_user=None)
+# --- إعدادات التطبيق ---
+Awallimna = Flask(__name__, template_folder="templates", static_folder="static")
+Awallimna.config['SECRET_KEY'] = secret_key
+Awallimna.config['JWT_SECRET_KEY'] = jwt_secret_key
+Awallimna.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/data_awallimna'
+Awallimna.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# قائمة الصفحات للمرجعية
-page_list = [
-    "accept_educational_center",
-    "adventure",
-    "center_profile", 
-    "children",
-    "comedy",
-    "confirmation_sent_email",
-    "create_center_account",
-    "crime_investigation",
-    "deleted_confirmation",
-    "delete_account",
-    "drama",
-    "fantasy",
-    "fiction",
-    "historic",
-    "historical",
-    "horror",
-    "reader_profile",
-    "reset_password",
-    "romance",
-    "science_fiction",
-    "statistics",
-    "subscriptions",
-    "terms_conditions",
-    "theft",
-    "war",
-    "writer_profile",
-    "write_story",
-    "forgot_password",
-    "review_story",
-    "admin_page",
-    "story_functions",
-    "header",
-    "footer",
-    "paths",
-    "read_story",
-    "teacher_accounts",
-    "sent_educational_center",
-    "update_story_status",
-    "register_center"
-]
+# --- تهيئة إضافات Flask ---
+db = SQLAlchemy(Awallimna)
+migrate = Migrate(Awallimna, db)
+bcrypt = Bcrypt(Awallimna)
+mail = Mail(Awallimna)
+csrf = CSRFProtect(Awallimna)
+cache = Cache(Awallimna) # ملاحظة: إذا لم تكن تستخدم الكاش، يمكنك تعطيله لتجنب التحذير
+jwt = JWTManager(Awallimna)
+login_manager = LoginManager()
+login_manager.init_app(Awallimna)
+login_manager.login_view = 'login'
+migrate = Migrate(Awallimna, db)
 
-@app.route("/")
-def home():
-    return render_template("website.html", countries=countries, languages=languages)
+# =====================================================================
+# --- موديلات قاعدة البيانات (Database Models) ---
+# =====================================================================
 
-# Add specific routes for commonly referenced pages
-@app.route("/login", methods=["GET", "POST"])
+class Story(db.Model):
+    __tablename__ = 'stories'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column('name', db.String(100), nullable=False)
+    category = db.Column('category', db.String(50), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    author = db.Column(db.String(100), nullable=True)
+    rating = db.Column(db.Float, default=0.0)
+    content = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
+    
+    def __repr__(self):
+        return f'<Story {self.title}>'
+
+class Teacher(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+
+class Student(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+
+
+# --- قاموس الفئات المركزي ---
+CATEGORIES = {
+    'comedy': 'كوميديا',
+    'science_fiction': 'خيال علمي',
+    'fiction': 'خيال',
+    'romance': 'الرومانسي',
+    'crime_investigation': 'جريمة وتحقيق',
+    'horror': 'الرعب',
+    'adventure': 'مغامرة',
+    'drama': 'دراما',
+    'historical': 'تاريخي',
+    'theft': 'سرقة',
+    'war': 'حرب',
+    'fantasy':'فانتازي',
+    'children': 'اطفال'
+}
+
+# --- قاموس الصفات المركزي ---
+pages = {
+    'about': 'عن الموقع',
+    'accept_educational_center': 'قبول مركز التعليم',
+    'admin_page': 'صفحة المسؤول',
+    'adventure': 'مغامرة',
+    'base': 'الأساس',
+    'category_page': 'صفحة الفئة',
+    'center_profile': 'ملف تعريف المركز',
+    'children': 'الأطفال',
+    'comedy': 'كوميديا',
+    'confirmation_sent_email': 'تأكيد إرسال البريد الإلكتروني',
+    'contact': 'اتصل بنا',
+    'create_center_account': 'إنشاء حساب مركز التعليم',
+    'crime_investigation': 'الجريمة والتحقيق',
+    'deleted_confirmation': 'تأكيد الحذف',
+    'delete_account': 'حذف الحساب',
+    'drama': 'دراما',
+    'error': 'خطأ',
+    'fantasy': 'فانتازيا',
+    'fiction': 'خيال',
+    'forgot_password': 'استعادة كلمة المرور',
+    'historic': 'تاريخي',
+    'historical': 'تاريخي',
+    'horror': 'رعب',
+    'login': 'تسجيل الدخول',
+    'paths': 'المسارات',
+    'privacy': 'سياسة الخصوصية',
+    'reader_profile': 'ملف تعريف القارئ',
+    'read_story': 'قراءة القصة',
+    'register': 'التسجيل',
+    'register_center': 'تسجيل مركز التعليم',
+    'reset_password': 'إعادة تعيين كلمة المرور',
+    'review_story': 'مراجعة القصة',
+    'romance': 'الرومانسي',
+    'science_fiction': 'خيال علمي',
+    'sent_educational_center': 'إرسال مركز التعليم',
+    'statistics': 'الإحصائيات',
+    'story_functions': 'وظائف القصة',
+    'subscriptions': 'الاشتراكات',
+    'teacher_accounts': 'حسابات المعلمين',
+    'terms_conditions': 'الشروط والأحكام',
+    'theft': 'سرقة',
+    'update_story_status': 'تحديث حالة القصة',
+    'war': 'حرب',
+    'website': 'الموقع',
+    'writer_profile': 'ملف تعريف الكاتب',
+    'write_story': 'كتابة القصة'
+}
+
+# --- قاموس انواع الحسابات المركزي ---
+ACCOUNT_TYPES = {
+    'reader': 'قارئ',
+    'admin_author': 'كاتب',
+    'admin_reader': 'قارئ',
+    'admin_author': 'كاتب',
+    'super_admin_reader': 'قارئ',
+    'super_admin_author': 'كاتب',
+    'educational_center': 'مركز تعليمي',
+    'educational_center_teacher': 'معلم',
+    'educational_center_student': 'طالب',
+    "owner": "مالك الموقع",
+}
+
+# --- إعدادات ومُعالِجات عامة ---
+@login_manager.user_loader
+def load_user(user_id): # pyright: ignore[reportUnknownParameterType, reportMissingParameterType]
+    return None
+
+@Awallimna.context_processor # pyright: ignore[reportUntypedFunctionDecorator]
+def inject_categories_and_user():
+    user_info = session.get('user', None)
+    return dict(categories=CATEGORIES, user=user_info)
+
+@Awallimna.errorhandler(404)
+def not_found_error(error): # pyright: ignore[reportMissingParameterType, reportUnknownParameterType]
+    return render_template('error.html', error_code=404, error_message="الصفحة غير موجودة"), 404
+
+# =====================================================================
+# ---  عرض جميع روابط الصفحات  ---
+# =====================================================================
+
+@Awallimna.route("/apis", methods=["GET", "POST"])
+def paths():
+    templates_dir = os.path.join(os.path.dirname(__file__), "templates")
+    pages = [f for f in os.listdir(templates_dir) if f.endswith(".html")]
+    # توليد قائمة بالروابط لكل صفحة
+    links: list[str] = []
+    for page in pages:
+        # إزالة .html للحصول على اسم المسار
+        route = page.replace('.html', '')
+        # بعض الصفحات مثل index قد تكون مختلفة، هنا نفترض أن اسم المسار هو اسم الملف بدون .html
+        links.append(f'<li><a href="/{route}">{page}</a></li>')
+    # بناء HTML بسيط
+    html = f"""
+    <html>
+    <head><title>جميع صفحات الموقع</title></head>
+    <body>
+        <h1>جميع صفحات الموقع وروابطها</h1>
+        <ul>
+            {''.join(links)}
+        </ul>
+    </body>
+    </html>
+    """
+    return html
+
+# =====================================================================
+# --- المسارات الرئيسية والتفاعلية ---
+# =====================================================================
+
+@Awallimna.route("/")
+def index():
+    return render_template('website.html')
+
+@Awallimna.route("/category/<string:category_slug>")
+def show_category(category_slug): # pyright: ignore[reportMissingParameterType, reportUnknownParameterType]
+    arabic_name = CATEGORIES.get(category_slug) # pyright: ignore[reportUnknownArgumentType]
+    if not arabic_name:
+        abort(404)
+    
+    stories_in_category = Story.query.filter_by(category=arabic_name).all() # type: ignore
+    
+    return render_template(
+        'category_page.html', 
+        category_name_arabic=arabic_name, 
+        stories=stories_in_category
+    )
+
+# =====================================================================
+# --- مسارات المصادقة والملفات الشخصية ---
+# =====================================================================
+@Awallimna.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        username_or_email = request.form.get("username_or_email")
-        password = request.form.get("password")
-        
-        error = None
-        if not username_or_email or not password:
-            error = "يرجى إدخال اسم المستخدم/الإيميل وكلمة المرور"
-        
-        if error:
-            return render_template("login.html", countries=countries, languages=languages, error=error)
-        
-        success = "تم تسجيل الدخول بنجاح!"
-        return render_template("login.html", countries=countries, languages=languages, success=success)
-    
-    return render_template("login.html", countries=countries, languages=languages)
+        # ... منطق تسجيل الدخول
+        pass
+    return render_template("login.html")
 
-@app.route("/register", methods=["GET", "POST"])
+@Awallimna.route("/logout")
+def logout():
+    session.pop('user', None)
+    flash("تم تسجيل الخروج بنجاح", "info")
+    return redirect(url_for('login'))
+
+@Awallimna.route("/register")
 def register():
-    if request.method == "POST":
-        username = request.form.get("username")
-        full_name = request.form.get("full_name") # type: ignore
-        email = request.form.get("email")
-        password = request.form.get("password")
-        confirm_password = request.form.get("confirm_password")
-        user_type = request.form.get("user_type") # type: ignore
-        gender = request.form.get("gender") # type: ignore
-        birth_date = request.form.get("birth_date") # type: ignore
-        country = request.form.get("country") # type: ignore
-        language = request.form.get("language") # type: ignore
-        terms = request.form.get("terms")
+    return render_template("register.html")
+    
+@Awallimna.route("/reader_profile")
+def reader_profile():
+    if 'user' not in session: return redirect(url_for('login'))
+    return render_template("reader_profile.html")
 
-        error = None
-        if not terms:
-            error = "يجب الموافقة على الشروط والأحكام"
-        elif not username or not email or not password:
-            error = "يرجى تعبئة الحقول الأساسية"
-        elif password != confirm_password:
-            error = "كلمتا المرور غير متطابقتين"
+@Awallimna.route("/author_profile")
+def author_profile():
+    if 'user' not in session: return redirect(url_for('login'))
+    return render_template("author_profile.html")
 
-        if error:
-            return render_template("register.html", countries=countries, languages=languages, error=error)
-        
-        success = "تم التسجيل بنجاح!"
-        return render_template("register.html", countries=countries, languages=languages, success=success)
+@Awallimna.route("/forgot_password")
+def forgot_password():
+    return render_template("forgot_password.html")
 
-    return render_template("register.html", countries=countries, languages=languages)
+@Awallimna.route("/reset_password")
+def reset_password():
+    return render_template("reset_password.html")
 
-# Generic route for other pages - fixed the condition
-@app.route("/<page_name>")
-def render_page(page_name): # type: ignore
-    if page_name in page_list:
-        return render_template(f"{page_name}.html", countries=countries, languages=languages)
-    else:
-        return render_template("404.html", countries=countries, languages=languages), 404
+@Awallimna.route("/delete_account")
+def delete_account():
+    return render_template("delete_account.html")
 
-# Error handlers
-@app.errorhandler(404)
-def page_not_found(e): # type: ignore
-    return render_template("404.html", countries=countries, languages=languages), 404
+# =====================================================================
+# --- مسارات القصص والمحتوى ---
+# =====================================================================
+@Awallimna.route("/write_story")
+def write_story():
+    if 'user' not in session: return redirect(url_for('login'))
+    return render_template("write_story.html")
 
-@app.errorhandler(500)
-def internal_server_error(e): # type: ignore
-    return render_template("500.html", countries=countries, languages=languages), 500
+@Awallimna.route("/read_story/<int:story_id>")
+def read_story(story_id): # type: ignore
+    story = Story.query.get_or_404(story_id)
+    return render_template("read_story.html", story=story)
 
+@Awallimna.route("/review_story")
+def review_story():
+    if 'user' not in session: return redirect(url_for('login'))
+    return render_template("review_story.html")
+
+@Awallimna.route("/story_functions")
+def story_functions():
+    return render_template("story_functions.html")
+
+# =====================================================================
+# --- مسارات المراكز التعليمية والإدارة ---
+# =====================================================================
+@Awallimna.route("/accept_educational_center")
+def accept_educational_center():
+    return render_template("accept_educational_center.html")
+
+@Awallimna.route("/center_profile")
+def center_profile():
+    return render_template("center_profile.html")
+
+@Awallimna.route("/create_center_account")
+def create_center_account():
+    return render_template("create_center_account.html")
+    
+@Awallimna.route("/register_center")
+def register_center():
+    return render_template("register_center.html")
+
+@Awallimna.route("/sent_educational_center")
+def sent_educational_center():
+    return render_template("sent_educational_center.html")
+    
+@Awallimna.route("/teacher_accounts")
+def teacher_accounts():
+    return render_template("teacher_accounts.html")
+
+@Awallimna.route("/admin_page")
+def admin_page():
+    return render_template("admin_page.html")
+
+@Awallimna.route("/update_story_status")
+def update_story_status():
+    return render_template("update_story_status.html")
+    
+@Awallimna.route("/statistics")
+def statistics():
+    return render_template("statistics.html")
+
+# =====================================================================
+# --- مسارات الصفحات المتنوعة والإعلامية ---
+# =====================================================================
+@Awallimna.route("/terms_conditions")
+def terms_conditions():
+    return render_template("terms_conditions.html")
+
+@Awallimna.route("/subscriptions")
+def subscriptions():
+    return render_template("subscriptions.html")
+    
+@Awallimna.route("/confirmation_sent_email")
+def confirmation_sent_email():
+    return render_template("confirmation_sent_email.html")
+    
+@Awallimna.route("/deleted_confirmation")
+def deleted_confirmation():
+    return render_template("deleted_confirmation.html")
+
+# =====================================================================
+# --- تشغيل التطبيق ---
+# =====================================================================
 if __name__ == "__main__":
     host = "127.0.0.1"
     port = 8080
-    app.run(host=host, port=port, debug=True)
+    ssl_context = ("cert.pem", "key.pem")  # تأكد من وجود الملفين في نفس مجلد السكربت أو ضع المسار الصحيح
+    Awallimna.run(host=host, port=port, debug=True, ssl_context=ssl_context)

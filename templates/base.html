@@ -87,19 +87,19 @@
         <div id="category-box" class="category-box">
             <h2 style="text-align: center; margin-bottom: 20px; color: #333;">التصنيفات</h2>
             <ul class="category-grid">
-                <li><a href="comedy.html" class="category-item">كوميديا</a></li>
-                <li><a href="science_fiction.html" class="category-item">خيال علمي</a></li>
-                <li><a href="fiction.html" class="category-item">خيال</a></li>
-                <li><a href="romance.html" class="category-item">الرومانسي</a></li>
-                <li><a href="crime_investigation.html" class="category-item">جريمة وتحقيق</a></li>
-                <li><a href="horror.html" class="category-item">الرعب</a></li>
-                <li><a href="adventure.html" class="category-item">مغامرة</a></li>
-                <li><a href="drama.html" class="category-item">دراما</a></li>
-                <li><a href="historical.html" class="category-item">تاريخي</a></li>
-                <li><a href="theft.html" class="category-item">سرقة</a></li>
-                <li><a href="war.html" class="category-item">حرب</a></li>
-                <li><a href="fantasy.html" class="category-item">فانتازي</a></li>
-                <li><a href="children.html" class="category-item">أطفال</a></li>
+                <li><a href="{{ url_for('show_category', category_slug='comedy') }}" class="category-item">كوميديا</a></li>
+                <li><a href="{{ url_for('show_category', category_slug='science_fiction') }}" class="category-item">خيال علمي</a></li>
+                <li><a href="{{ url_for('show_category', category_slug='fiction') }}" class="category-item">خيال</a></li>
+                <li><a href="{{ url_for('show_category', category_slug='romance') }}" class="category-item">الرومانسي</a></li>
+                <li><a href="{{ url_for('show_category', category_slug='crime_investigation') }}" class="category-item">جريمة وتحقيق</a></li>
+                <li><a href="{{ url_for('show_category', category_slug='horror') }}" class="category-item">الرعب</a></li>
+                <li><a href="{{ url_for('show_category', category_slug='adventure') }}" class="category-item">مغامرة</a></li>
+                <li><a href="{{ url_for('show_category', category_slug='drama') }}" class="category-item">دراما</a></li>
+                <li><a href="{{ url_for('show_category', category_slug='historical') }}" class="category-item">تاريخي</a></li>
+                <li><a href="{{ url_for('show_category', category_slug='theft') }}" class="category-item">سرقة</a></li>
+                <li><a href="{{ url_for('show_category', category_slug='war') }}" class="category-item">حرب</a></li>
+                <li><a href="{{ url_for('show_category', category_slug='fantasy') }}" class="category-item">فانتازي</a></li>
+                <li><a href="{{ url_for('show_category', category_slug='children') }}" class="category-item">أطفال</a></li>
             </ul>
         </div>
 
