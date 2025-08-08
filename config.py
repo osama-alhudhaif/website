@@ -5,7 +5,12 @@ from typing import Type, Dict
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'your_secret_key_here'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///awallimna.db'
+    # قاعدة البيانات MySQL
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'mysql+pymysql://osamh64:password@localhost/data_awalimna'
+    # إذا كنت تستخدم SQLite، يمكنك استخدام السطر التالي بدلاً من ذلك
+    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///awalimna.db'
+
+    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///awallimna.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     CACHE_TYPE = 'simple'
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY') or 'jwt-secret-key'
