@@ -26,7 +26,7 @@ if not secret_key or not jwt_secret_key:
 Awallimna = Flask(__name__, template_folder="templates", static_folder="static")
 Awallimna.config['SECRET_KEY'] = secret_key
 Awallimna.config['JWT_SECRET_KEY'] = jwt_secret_key
-Awallimna.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/data_awallimna'
+Awallimna.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/data_awalimna'
 Awallimna.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # --- تهيئة إضافات Flask ---
@@ -47,28 +47,42 @@ migrate = Migrate(Awallimna, db)
 # =====================================================================
 
 class Story(db.Model):
-    __tablename__ = 'stories'
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column('name', db.String(100), nullable=False)
-    category = db.Column('category', db.String(50), nullable=False)
-    description = db.Column(db.Text, nullable=True)
-    author = db.Column(db.String(100), nullable=True)
-    rating = db.Column(db.Float, default=0.0)
+    __tablename__ = 'story'
+    id = db.Column(db.String(255), primary_key=True)
+    title = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=True)
-    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
-    updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
-    
+    author_id = db.Column(db.String(255), nullable=True)
+    creation_date = db.Column(db.DateTime, default=db.func.current_timestamp())
+    last_updated = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
+    status = db.Column(db.String(100), nullable=True)
+    approved_by_admin_id = db.Column(db.String(255), nullable=True)
+    genre = db.Column(db.String(255), nullable=True)  # النوع باللغة الإنجليزية
+    category = db.Column(db.String(100), nullable=True)  # الفئة باللغة العربية
+    views_count = db.Column(db.Integer, default=0)
+    likes_count = db.Column(db.Integer, default=0)
+
+    def __init__(self, title, content=None, author_id=None, genre=None, category=None): # type: ignore
+        self.title = title
+        self.content = content
+        self.author_id = author_id
+        self.genre = genre
+        self.category = category
+
     def __repr__(self):
         return f'<Story {self.title}>'
+
+# مثال للاستعلام الصحيح حسب genre أو category
+# story_in_category = Story.query.filter_by(genre=arabic_name).all() # type: ignore
+
 
 class Teacher(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
 
-class Student(db.Model):
+
+class Student(db.Model): # type: ignore
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-
 
 # --- قاموس الفئات المركزي ---
 CATEGORIES = {
@@ -202,18 +216,19 @@ def paths():
 def index():
     return render_template('website.html')
 
-@Awallimna.route("/category/<string:category_slug>")
-def show_category(category_slug): # pyright: ignore[reportMissingParameterType, reportUnknownParameterType]
-    arabic_name = CATEGORIES.get(category_slug) # pyright: ignore[reportUnknownArgumentType]
+# story_in_category = Story.query.filter_by(genre=arabic_name).all()  # type: ignore
+
+def show_category(category_slug): # type: ignore
+    arabic_name = CATEGORIES.get(category_slug) # type: ignore
     if not arabic_name:
         abort(404)
     
-    stories_in_category = Story.query.filter_by(category=arabic_name).all() # type: ignore
+    story_in_category = Story.query.filter_by(category=arabic_name).all() # type: ignore
     
     return render_template(
         'category_page.html', 
         category_name_arabic=arabic_name, 
-        stories=stories_in_category
+        story=story_in_category
     )
 
 # =====================================================================
@@ -268,7 +283,7 @@ def write_story():
 
 @Awallimna.route("/read_story/<int:story_id>")
 def read_story(story_id): # type: ignore
-    story = Story.query.get_or_404(story_id)
+    story = story.query.get_or_404(story_id) # type: ignore
     return render_template("read_story.html", story=story)
 
 @Awallimna.route("/review_story")

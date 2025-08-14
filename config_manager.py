@@ -117,13 +117,13 @@ config_data = { # pyright: ignore[reportUnknownVariableType]
                 },
                 "relationship_notes": [
                     "story_list: علاقة One-to-Many. لا تخزن كقائمة في هذا الجدول.",
-                    "يتم تحقيقها عبر جدول 'stories' الذي يحتوي على حقل 'author_id' (INT, NOT NULL, FOREIGN KEY REFERENCES authors(id)).",
+                    "يتم تحقيقها عبر جدول 'story' الذي يحتوي على حقل 'author_id' (INT, NOT NULL, FOREIGN KEY REFERENCES authors(id)).",
                     "معرف القصة الفريد (مثل W-IDnum-S-IDnum) يتم إنشاؤه برمجياً عند الحاجة."
                 ]
             },
-            "stories": {
+            "story": {
                 "description": "3. بيانات القصة (story)",
-                "table_name_comment": "# جدول: stories",
+                "table_name_comment": "# جدول: story",
                 "columns": {
                     "id": {"type": "INT", "constraints": "PRIMARY KEY AUTO_INCREMENT UNIQUE", "comment": "S-IDnum"},
                     "title": {"type": "VARCHAR(255)", "constraints": "NOT NULL"},
@@ -210,19 +210,19 @@ config_data = { # pyright: ignore[reportUnknownVariableType]
             "edit_profile": "awallimna/settings/profile",          # صفحة تعديل الملف الشخصي
             "change_password": "awallimna/settings/password",      # صفحة تغيير كلمة المرور
             "delete_account": "awallimna/settings/delete-account", # صفحة حذف الحساب
-            # --- Story ---
-            "write_story": "awallimna/author/stories/new",        # صفحة كتابة قصة جديدة
-            "edit_story": "awallimna/author/stories/edit/<story_id>", # صفحة تعديل قصة موجودة
-            "my_stories": "awallimna/author/stories",             # قائمة قصص الكاتب
+            # --- story ---
+            "write_story": "awallimna/author/story/new",        # صفحة كتابة قصة جديدة
+            "edit_story": "awallimna/author/story/edit/<story_id>", # صفحة تعديل قصة موجودة
+            "my_story": "awallimna/author/story",             # قائمة قصص الكاتب
             "read_story": "awallimna/story/<story_slug_or_id>",   # صفحة قراءة قصة (استخدام slug أفضل لـ SEO)
-            "stories_by_genre": "awallimna/stories/genre/<genre_slug>", # عرض القصص حسب النوع
-            "all_stories": "awallimna/stories",                   # استعراض كل القصص (مع ترقيم صفحات)
+            "story_by_genre": "awallimna/story/genre/<genre_slug>", # عرض القصص حسب النوع
+            "all_story": "awallimna/story",                   # استعراض كل القصص (مع ترقيم صفحات)
             # --- Search ---
             "search_results": "awallimna/search",                 # صفحة نتائج البحث (المعاملات في query string ?q=...)
             # --- Admin ---
             "admin_dashboard": "awallimna/admin",                 # لوحة تحكم الأدمن
             "admin_users": "awallimna/admin/users",               # إدارة المستخدمين (للأدمن)
-            "admin_stories": "awallimna/admin/stories",           # إدارة القصص (للأدمن)
+            "admin_story": "awallimna/admin/story",           # إدارة القصص (للأدمن)
             "admin_centers": "awallimna/admin/centers",           # إدارة المراكز (للأدمن)
             "admin_settings": "awallimna/admin/settings",         # إعدادات إدارية أخرى
             # --- Static Pages ---

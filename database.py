@@ -136,7 +136,7 @@ MYSQL_PASSWORD = "" # كلمة المرور لقاعدة البيانات MySQL
     "level": "str, nullable",
     "country": "str, nullable",
     # "story_list": علاقة One-to-Many. لا تخزن كقائمة.
-    #            يتم تحقيقها عبر جدول 'stories' الذي يحتوي على حقل 'author_id' (int, not null, foreign key references authors(id)).
+    #            يتم تحقيقها عبر جدول 'story' الذي يحتوي على حقل 'author_id' (int, not null, foreign key references authors(id)).
     #            معرف القصة الفريد (مثل W-IDnum-S-IDnum) يتم إنشاؤه برمجياً.
     "role_user": "str, not null, default='author'", # القيم: {'author', 'admin-author', 'sober-admin-author'}
     "registration_date": "datetime, not null, default=current_timestamp",
@@ -145,7 +145,7 @@ MYSQL_PASSWORD = "" # كلمة المرور لقاعدة البيانات MySQL
 }
 
 # 3. بيانات القصة (story):
-# جدول: stories (مثال مقترح بناءً على المتطلبات)
+# جدول: story (مثال مقترح بناءً على المتطلبات)
 {
     "id": "int, primary key, auto-increment, unique", # S-IDnum
     "title": "str, not null",

@@ -1,7 +1,7 @@
 تمام، هذا هو ملف `README.md` كامل ومنسق، يشمل جميع الأقسام المهمة لمشروعك "عوالمنا" مع تشغيل Flask + API، ومكتوب بأسلوب احترافي وواضح:
 
 ````markdown
-# 🌟 Awallimna - The Arabic Stories Platform
+# 🌟 Awallimna - The Arabic story Platform
 
 منصة إلكترونية للقصص والروايات تهدف لتقديم تجربة قراءة وكتابة سلسة للمستخدم العربي، مع دعم الذكاء الاصطناعي والترجمة التلقائية، ضمن واجهة تفاعلية تعتمد على Flask وFastAPI وتقنيات حديثة في الواجهة الأمامية.
 
@@ -9,7 +9,7 @@
 
 ## 📋 Overview
 
-Awallimna is a storytelling platform that empowers users to read, write, and share Arabic stories across multiple genres. The system includes a main user interface (Flask) and a separate API (FastAPI), designed to be scalable, multilingual, and AI-assisted.
+Awallimna is a storytelling platform that empowers users to read, write, and share Arabic story across multiple genres. The system includes a main user interface (Flask) and a separate API (FastAPI), designed to be scalable, multilingual, and AI-assisted.
 
 ---
 
