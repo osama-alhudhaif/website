@@ -24,11 +24,10 @@ if not secret_key or not jwt_secret_key:
 
 # --- إعدادات التطبيق ---
 Awallimna = Flask(__name__, template_folder="templates", static_folder="static")
-Awallimna.config['SECRET_KEY'] = secret_key
-Awallimna.config['JWT_SECRET_KEY'] = jwt_secret_key
-Awallimna.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/data_awalimna'
+Awallimna.config['SECRET_KEY'] = os.getenv("AWALLIMNA_SECRET_KEY")
+Awallimna.config['JWT_SECRET_KEY'] = os.getenv("AWALLIMNA_JWT_SECRET_KEY")
+Awallimna.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 Awallimna.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 # --- تهيئة إضافات Flask ---
 db = SQLAlchemy(Awallimna)
 migrate = Migrate(Awallimna, db)
@@ -352,6 +351,75 @@ def confirmation_sent_email():
 @Awallimna.route("/deleted_confirmation")
 def deleted_confirmation():
     return render_template("deleted_confirmation.html")
+
+@Awallimna.route("/comedy")
+def comedy():
+    return render_template("comedy.html")
+
+@Awallimna.route("/science_fiction")
+def science_fiction():
+    return render_template("science_fiction.html")
+
+@Awallimna.route("/fiction")
+def fiction():
+    return render_template("fiction.html")
+
+@Awallimna.route("/romance")
+def romance():
+    return render_template("romance.html")
+
+@Awallimna.route("/crime_investigation")
+def crime_investigation():
+    return render_template("crime_investigation.html")
+
+@Awallimna.route("/horror")
+def horror():
+    return render_template("horror.html")
+
+@Awallimna.route("/adventure")
+def adventure():
+    return render_template("adventure.html")
+
+@Awallimna.route("/drama")
+def drama():
+    return render_template("drama.html")
+
+@Awallimna.route("/historical")
+def historical():
+    return render_template("historical.html")
+
+@Awallimna.route("/theft")
+def theft():
+    return render_template("theft.html")
+
+@Awallimna.route("/war")
+def war():
+    return render_template("war.html")
+
+@Awallimna.route("/fantasy")
+def fantasy():
+    return render_template("fantasy.html")
+
+@Awallimna.route("/children")
+def children():
+    return render_template("children.html")
+
+
+# =====================================================================
+# --- مسارات الصفحات التعريفية ---
+# =====================================================================
+@Awallimna.route("/about")
+def about():
+    return render_template("about.html")
+
+@Awallimna.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+@Awallimna.route("/privacy")
+def privacy():
+    return render_template("privacy.html")
+
 
 # =====================================================================
 # --- تشغيل التطبيق ---
