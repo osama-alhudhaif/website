@@ -14,6 +14,8 @@ from wtforms.validators import InputRequired, Length, ValidationError # pyright:
 from flask_wtf import FlaskForm # type: ignore
 from flask_migrate import Migrate
 from flask_cors import CORS # type: ignore
+from center_country import countries
+from language import languages
 
 # --- تحميل متغيرات البيئة ---
 load_dotenv()
@@ -246,10 +248,36 @@ def logout():
     flash("تم تسجيل الخروج بنجاح", "info")
     return redirect(url_for('login'))
 
-@Awallimna.route("/register")
+@Awallimna.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("register.html")
-    
+    if request.method == "POST":
+        username = request.form.get("username")
+        full_name = request.form.get("full_name") # type: ignore
+        email = request.form.get("email")
+        password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
+        user_type = request.form.get("user_type") # type: ignore
+        gender = request.form.get("gender") # type: ignore
+        birth_date = request.form.get("birth_date") # type: ignore
+        country = request.form.get("country")
+        language = request.form.get("language")
+
+        # التحقق الأساسي
+        if not username or not email or not password:
+            error = "الرجاء إدخال جميع الحقول المطلوبة"
+            return render_template("register.html", countries=countries, languages=languages, error=error) # type: ignore
+
+        if password != confirm_password:
+            error = "كلمة المرور غير متطابقة"
+            return render_template("register.html", countries=countries, languages=languages, error=error) # type: ignore
+
+        # إذا كله تمام → ترجع رسالة نجاح (أو تخزن بالـ DB)
+        success = f"تم التسجيل بنجاح 🎉 (الدولة: {country}, اللغة: {language})"
+        return render_template("register.html", countries=countries, languages=languages, success=success) # type: ignore
+
+    return render_template("register.html", countries=countries, languages=languages) # type: ignore
+
+
 @Awallimna.route("/reader_profile")
 def reader_profile():
     if 'user' not in session: return redirect(url_for('login'))

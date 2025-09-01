@@ -6,21 +6,17 @@ from typing import Type, Dict
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'your_secret_key_here'
     # قاعدة البيانات MySQL
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'mysql+pymysql://osamh64:password@localhost/data_awalimna'
-    # إذا كنت تستخدم SQLite، يمكنك استخدام السطر التالي بدلاً من ذلك
-    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///awalimna.db'
-
-    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///awallimna.db'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'mysql+pymysql://osamh64:OSamhmhmd2@@localhost/data_awalimna'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     CACHE_TYPE = 'simple'
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY') or 'jwt-secret-key'
     
     # إعدادات البريد الإلكتروني
-    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_SERVER = 'Awallimna@Awallimna.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'your-email@gmail.com'
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'your-password'
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'Awallimna@Awallimna.'
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'OSamhmhmd2@'
     
     # تعطيل CSRF مؤقتاً
     WTF_CSRF_ENABLED = False
