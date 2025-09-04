@@ -12,18 +12,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <title>عوالمنا</title>
+    <!-- الأنماط -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/create_center_account.css') }}">
-</head>
-
+    <!-- الجافاسكربت -->
+    <script src="{{ url_for('static', filename='admin_script.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='country.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='create_center_account.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='language.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <!-- json -->
+    <script src="{{ url_for('static', filename='json/stories') }}"></script></head>
 <body>
     <div class="page-wrapper">
         <!-- الهيدر -->
         <header>
             <div class="header-content">
                 <!-- الشعار واسم الموقع -->
-                <a href="/website" class="logo-section">
+                <a href="/" class="logo-section">
                     <img src="{{ url_for('static', filename='Website.jpg') }}" alt="صورة الموقع" height="50" width="50">
                     <h1 id="website-name">عوالمنا</h1>
                 </a>
@@ -34,7 +41,7 @@
                     {% if current_user.is_authenticated %}
                     <div class="notifications-container">
                         <button id="notifications-btn" class="notification-btn" type="button">
-                            🔔
+                            &#x1F514;
                             <span id="notification-badge" class="notification-badge">3</span>
                         </button>
                         
@@ -42,22 +49,22 @@
                         <div id="notification-dropdown" class="notification-dropdown">
                             <ul class="notification-list">
                                 <li class="notification-item notification-delete">
-                                    🚫 تم حذف تعليق بسبب مخالفة
+                                    &#x1F5D1; تم حذف تعليق بسبب مخالفة
                                 </li>
                                 <li class="notification-item notification-publish">
-                                    ✍️ تم نشر قصتك الجديدة
+                                    &#x270D; تم نشر قصتك الجديدة
                                 </li>
                                 <li class="notification-item notification-comment">
-                                    💬 تعليق جديد على قصتك
+                                    &#x1F4AC; تعليق جديد على قصتك
                                 </li>
                                 <li class="notification-item notification-follow">
-                                    👤 قام شخص بمتابعتك
+                                    &#x1F64B; قام شخص بمتابعتك
                                 </li>
                                 <li class="notification-item notification-approve">
-                                    ✅ تم قبول القصة بنجاح
+                                    &#x2714; تم قبول القصة بنجاح
                                 </li>
                                 <li class="notification-item notification-general">
-                                    🔔 إشعار عام أو ملاحظة إدارية
+                                    &#x1F514; إشعار عام أو ملاحظة إدارية
                                 </li>
                             </ul>
                         </div>
@@ -66,7 +73,7 @@
                     
                     <!-- ترحيب بالمستخدم -->
                     {% if current_user.is_authenticated %}
-                        <span>مرحباً، {{ current_user.username }}! 👋</span>
+                        <span>مرحباً، {{ current_user.username }}! &#x1F44B;</span>
                         <a href="/logout" class="nav-link">تسجيل الخروج</a>
                     {% else %}
                         <a href="/login" class="nav-link">تسجيل الدخول</a>
@@ -129,57 +136,11 @@
         </footer>
     </div>
 
-    <!-- الجافا سكريبت -->
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/admin_script.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/create_center_account.js') }}"></script>
-    
-    <script>
-        // تحديث السنة تلقائياً
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // إظهار وإخفاء التصنيفات
-        document.getElementById('show-categories').addEventListener('click', function() {
-            const categoryBox = document.getElementById('category-box');
-            const isVisible = categoryBox.style.display === 'block';
-            categoryBox.style.display = isVisible ? 'none' : 'block';
-        });
-
-        // وظيفة زر الإشعارات - فقط إذا كان المستخدم مسجل دخول
-        {% if current_user.is_authenticated %}
-        document.getElementById('notifications-btn').addEventListener('click', function(e) {
-            e.stopPropagation();
-            const dropdown = document.getElementById('notification-dropdown');
-            const isVisible = dropdown.style.display === 'block';
-            dropdown.style.display = isVisible ? 'none' : 'block';
-        });
-
-        // إغلاق قائمة الإشعارات عند الضغط خارجها
-        document.addEventListener('click', function(event) {
-            const dropdown = document.getElementById('notification-dropdown');
-            const button = document.getElementById('notifications-btn');
-            
-            if (!button.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.style.display = 'none';
-            }
-        });
-
-        // منع إغلاق القائمة عند الضغط عليها
-        document.getElementById('notification-dropdown').addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-        {% endif %}
-
-        // تأثيرات التحميل
-        document.addEventListener('DOMContentLoaded', function() {
-            // إضافة تأثيرات تحميل سلسة
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.3s ease-in-out';
-            
-            setTimeout(function() {
-                document.body.style.opacity = '1';
-            }, 100);
-        });
-    </script>
-</body>
-</html>
+    <!-- الجافاسكربت -->
+    <script src="{{ url_for('static', filename='admin_script.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='country.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='create_center_account.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='language.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <!-- json -->
+    <script src="{{ url_for('static', filename='json/stories') }}"></script>

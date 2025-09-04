@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, abort # pyright: ignore[reportUnusedImport, reportUnknownVariableType]
+from flask import Flask, json, render_template, request, redirect, url_for, session, flash, jsonify, abort # pyright: ignore[reportUnusedImport, reportUnknownVariableType]
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
@@ -14,8 +14,9 @@ from wtforms.validators import InputRequired, Length, ValidationError # pyright:
 from flask_wtf import FlaskForm # type: ignore
 from flask_migrate import Migrate
 from flask_cors import CORS # type: ignore
-from center_country import countries
-from language import languages
+from flask_json import FlaskJSON, json_response # type: ignore
+import json
+
 
 # --- تحميل متغيرات البيئة ---
 load_dotenv()
@@ -42,6 +43,8 @@ login_manager = LoginManager()
 login_manager.init_app(Awallimna)
 login_manager.login_view = 'login'
 migrate = Migrate(Awallimna, db)
+FlaskJSON(Awallimna)
+
 
 # =====================================================================
 # --- موديلات قاعدة البيانات (Database Models) ---
@@ -71,10 +74,6 @@ class Story(db.Model):
 
     def __repr__(self):
         return f'<Story {self.title}>'
-
-# مثال للاستعلام الصحيح حسب genre أو category
-# story_in_category = Story.query.filter_by(genre=arabic_name).all() # type: ignore
-
 
 class Teacher(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -166,6 +165,17 @@ ACCOUNT_TYPES = {
     "owner": "مالك الموقع",
 }
 
+json_path = os.path.join(Awallimna.root_path, 'static', 'json', 'countries_and_languages.json')
+
+# قراءة ملف JSON
+with open(os.path.join(Awallimna.root_path, "static", "json", "countrie_and_language.json"), "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+countries = data["countries"]
+languages = data["languages"]
+
+# =====================================================================
+
 # --- إعدادات ومُعالِجات عامة ---
 @login_manager.user_loader
 def load_user(user_id): # pyright: ignore[reportUnknownParameterType, reportMissingParameterType]
@@ -232,6 +242,10 @@ def show_category(category_slug): # type: ignore
         story=story_in_category
     )
 
+@Awallimna.route("/website")
+def website():
+    return render_template("website.html")
+
 # =====================================================================
 # --- مسارات المصادقة والملفات الشخصية ---
 # =====================================================================
@@ -265,17 +279,17 @@ def register():
         # التحقق الأساسي
         if not username or not email or not password:
             error = "الرجاء إدخال جميع الحقول المطلوبة"
-            return render_template("register.html", countries=countries, languages=languages, error=error) # type: ignore
+            return render_template("register.html", error=error) # type: ignore
 
         if password != confirm_password:
             error = "كلمة المرور غير متطابقة"
-            return render_template("register.html", countries=countries, languages=languages, error=error) # type: ignore
+            return render_template("register.html", error=error) # type: ignore
 
         # إذا كله تمام → ترجع رسالة نجاح (أو تخزن بالـ DB)
         success = f"تم التسجيل بنجاح 🎉 (الدولة: {country}, اللغة: {language})"
-        return render_template("register.html", countries=countries, languages=languages, success=success) # type: ignore
+        return render_template("register.html", success=success) # type: ignore
 
-    return render_template("register.html", countries=countries, languages=languages) # type: ignore
+    return render_template("register.html") # type: ignore
 
 
 @Awallimna.route("/reader_profile")
