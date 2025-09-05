@@ -778,3 +778,19 @@ main {
     font-size: 16px !important;
     font-family: inherit !important;
 }
+
+
+label {
+    display: block;
+    margin: 8px 0 4px;
+    font-weight: bold;
+    color: #222; /* يخلي النص أسود واضح */
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff; /* خلفية بيضاء */
+}

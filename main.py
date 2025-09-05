@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, abort # pyright: ignore[reportUnusedImport, reportUnknownVariableType]
+from flask import Flask, json, render_template, request, redirect, url_for, session, flash, jsonify, abort # pyright: ignore[reportUnusedImport, reportUnknownVariableType]
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
@@ -14,6 +14,9 @@ from wtforms.validators import InputRequired, Length, ValidationError # pyright:
 from flask_wtf import FlaskForm # type: ignore
 from flask_migrate import Migrate
 from flask_cors import CORS # type: ignore
+from flask_json import FlaskJSON, json_response # type: ignore
+import json
+
 
 # --- تحميل متغيرات البيئة ---
 load_dotenv()
@@ -24,11 +27,10 @@ if not secret_key or not jwt_secret_key:
 
 # --- إعدادات التطبيق ---
 Awallimna = Flask(__name__, template_folder="templates", static_folder="static")
-Awallimna.config['SECRET_KEY'] = secret_key
-Awallimna.config['JWT_SECRET_KEY'] = jwt_secret_key
-Awallimna.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/data_awalimna'
+Awallimna.config['SECRET_KEY'] = os.getenv("AWALLIMNA_SECRET_KEY")
+Awallimna.config['JWT_SECRET_KEY'] = os.getenv("AWALLIMNA_JWT_SECRET_KEY")
+Awallimna.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 Awallimna.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 # --- تهيئة إضافات Flask ---
 db = SQLAlchemy(Awallimna)
 migrate = Migrate(Awallimna, db)
@@ -41,6 +43,8 @@ login_manager = LoginManager()
 login_manager.init_app(Awallimna)
 login_manager.login_view = 'login'
 migrate = Migrate(Awallimna, db)
+FlaskJSON(Awallimna)
+
 
 # =====================================================================
 # --- موديلات قاعدة البيانات (Database Models) ---
@@ -48,16 +52,26 @@ migrate = Migrate(Awallimna, db)
 
 class Story(db.Model):
     __tablename__ = 'story'
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column('name', db.String(100), nullable=False)
-    category = db.Column('category', db.String(50), nullable=False)
-    description = db.Column(db.Text, nullable=True)
-    author = db.Column(db.String(100), nullable=True)
-    rating = db.Column(db.Float, default=0.0)
+    id = db.Column(db.String(255), primary_key=True)
+    title = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=True)
-    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
-    updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
-    
+    author_id = db.Column(db.String(255), nullable=True)
+    creation_date = db.Column(db.DateTime, default=db.func.current_timestamp())
+    last_updated = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
+    status = db.Column(db.String(100), nullable=True)
+    approved_by_admin_id = db.Column(db.String(255), nullable=True)
+    genre = db.Column(db.String(255), nullable=True)  # النوع باللغة الإنجليزية
+    category = db.Column(db.String(100), nullable=True)  # الفئة باللغة العربية
+    views_count = db.Column(db.Integer, default=0)
+    likes_count = db.Column(db.Integer, default=0)
+
+    def __init__(self, title, content=None, author_id=None, genre=None, category=None): # type: ignore
+        self.title = title
+        self.content = content
+        self.author_id = author_id
+        self.genre = genre
+        self.category = category
+
     def __repr__(self):
         return f'<Story {self.title}>'
 
@@ -65,10 +79,10 @@ class Teacher(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
 
-class Student(db.Model):
+
+class Student(db.Model): # type: ignore
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-
 
 # --- قاموس الفئات المركزي ---
 CATEGORIES = {
@@ -151,6 +165,17 @@ ACCOUNT_TYPES = {
     "owner": "مالك الموقع",
 }
 
+json_path = os.path.join(Awallimna.root_path, 'static', 'json', 'countries_and_languages.json')
+
+# قراءة ملف JSON
+with open(os.path.join(Awallimna.root_path, "static", "json", "countrie_and_language.json"), "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+countries = data["countries"]
+languages = data["languages"]
+
+# =====================================================================
+
 # --- إعدادات ومُعالِجات عامة ---
 @login_manager.user_loader
 def load_user(user_id): # pyright: ignore[reportUnknownParameterType, reportMissingParameterType]
@@ -202,9 +227,10 @@ def paths():
 def index():
     return render_template('website.html')
 
-@Awallimna.route("/category/<string:category_slug>")
-def show_category(category_slug): # pyright: ignore[reportMissingParameterType, reportUnknownParameterType]
-    arabic_name = CATEGORIES.get(category_slug) # pyright: ignore[reportUnknownArgumentType]
+# story_in_category = Story.query.filter_by(genre=arabic_name).all()  # type: ignore
+
+def show_category(category_slug): # type: ignore
+    arabic_name = CATEGORIES.get(category_slug) # type: ignore
     if not arabic_name:
         abort(404)
     
@@ -215,6 +241,10 @@ def show_category(category_slug): # pyright: ignore[reportMissingParameterType, 
         category_name_arabic=arabic_name, 
         story=story_in_category
     )
+
+@Awallimna.route("/website")
+def website():
+    return render_template("website.html")
 
 # =====================================================================
 # --- مسارات المصادقة والملفات الشخصية ---
@@ -232,10 +262,36 @@ def logout():
     flash("تم تسجيل الخروج بنجاح", "info")
     return redirect(url_for('login'))
 
-@Awallimna.route("/register")
+@Awallimna.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("register.html")
-    
+    if request.method == "POST":
+        username = request.form.get("username")
+        full_name = request.form.get("full_name") # type: ignore
+        email = request.form.get("email")
+        password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
+        user_type = request.form.get("user_type") # type: ignore
+        gender = request.form.get("gender") # type: ignore
+        birth_date = request.form.get("birth_date") # type: ignore
+        country = request.form.get("country")
+        language = request.form.get("language")
+
+        # التحقق الأساسي
+        if not username or not email or not password:
+            error = "الرجاء إدخال جميع الحقول المطلوبة"
+            return render_template("register.html", error=error) # type: ignore
+
+        if password != confirm_password:
+            error = "كلمة المرور غير متطابقة"
+            return render_template("register.html", error=error) # type: ignore
+
+        # إذا كله تمام → ترجع رسالة نجاح (أو تخزن بالـ DB)
+        success = f"تم التسجيل بنجاح 🎉 (الدولة: {country}, اللغة: {language})"
+        return render_template("register.html", success=success) # type: ignore
+
+    return render_template("register.html") # type: ignore
+
+
 @Awallimna.route("/reader_profile")
 def reader_profile():
     if 'user' not in session: return redirect(url_for('login'))
@@ -268,7 +324,7 @@ def write_story():
 
 @Awallimna.route("/read_story/<int:story_id>")
 def read_story(story_id): # type: ignore
-    story = Story.query.get_or_404(story_id)
+    story = story.query.get_or_404(story_id) # type: ignore
     return render_template("read_story.html", story=story)
 
 @Awallimna.route("/review_story")
@@ -337,6 +393,75 @@ def confirmation_sent_email():
 @Awallimna.route("/deleted_confirmation")
 def deleted_confirmation():
     return render_template("deleted_confirmation.html")
+
+@Awallimna.route("/comedy")
+def comedy():
+    return render_template("comedy.html")
+
+@Awallimna.route("/science_fiction")
+def science_fiction():
+    return render_template("science_fiction.html")
+
+@Awallimna.route("/fiction")
+def fiction():
+    return render_template("fiction.html")
+
+@Awallimna.route("/romance")
+def romance():
+    return render_template("romance.html")
+
+@Awallimna.route("/crime_investigation")
+def crime_investigation():
+    return render_template("crime_investigation.html")
+
+@Awallimna.route("/horror")
+def horror():
+    return render_template("horror.html")
+
+@Awallimna.route("/adventure")
+def adventure():
+    return render_template("adventure.html")
+
+@Awallimna.route("/drama")
+def drama():
+    return render_template("drama.html")
+
+@Awallimna.route("/historical")
+def historical():
+    return render_template("historical.html")
+
+@Awallimna.route("/theft")
+def theft():
+    return render_template("theft.html")
+
+@Awallimna.route("/war")
+def war():
+    return render_template("war.html")
+
+@Awallimna.route("/fantasy")
+def fantasy():
+    return render_template("fantasy.html")
+
+@Awallimna.route("/children")
+def children():
+    return render_template("children.html")
+
+
+# =====================================================================
+# --- مسارات الصفحات التعريفية ---
+# =====================================================================
+@Awallimna.route("/about")
+def about():
+    return render_template("about.html")
+
+@Awallimna.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+@Awallimna.route("/privacy")
+def privacy():
+    return render_template("privacy.html")
+
 
 # =====================================================================
 # --- تشغيل التطبيق ---

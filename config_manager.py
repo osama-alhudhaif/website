@@ -66,6 +66,104 @@ config_data = { # pyright: ignore[reportUnknownVariableType]
         }
     },
 
+    "data_models": {
+        "notes": [
+            "ملاحظة هامة: هياكل البيانات أدناه هي للتوثيق والتصميم فقط.",
+            "لا تقوم بإنشاء جداول قاعدة البيانات تلقائياً من هذا القاموس.",
+            "لإنشاء الجداول، يجب استخدام أوامر SQL CREATE TABLE بشكل منفصل أو استخدام ORM (Object-Relational Mapper).",
+            "---",
+            "بناءً على طلبك بجعل كل شيء (not null)، تم تحديث الحقول الأساسية.",
+            "لكن، إجبار المستخدم على إدخال *كل* معلومة (مثل الهاتف والعنوان وتاريخ الميلاد والجنس) قد يكون غير عملي ويقلل من تجربة المستخدم.",
+            "يوصى بجعل الحقول التعريفية والأساسية فقط (not null) وترك الحقول الثانوية اختيارية (nullable).",
+            "الحقول أدناه تعكس مزيجاً من الضروري (not null) والموصى به كـ (nullable) للتوازن.",
+            "---",
+            "تلميح تصميمي: قد يكون من الأفضل دمج جدولي `readers` و `authors` في جدول واحد `users` مع نظام أدوار مرن (ربما جدول `user_roles` منفصل) لتبسيط الإدارة والسماح للمستخدمين بأدوار متعددة مستقبلاً إذا لزم الأمر."
+        ],
+        "tables": {
+            "readers": {
+                "description": "1. بيانات القارئ (reader)",
+                "table_name_comment": "# جدول: readers (أو يمكن دمجه مع جدول users)",
+                "columns": {
+                    "id": {"type": "INT", "constraints": "PRIMARY KEY AUTO_INCREMENT UNIQUE", "comment": "R-IDnum"},
+                    "username": {"type": "VARCHAR(255)", "constraints": "UNIQUE NOT NULL"},
+                    "password": {"type": "VARCHAR(255)", "constraints": "NOT NULL", "comment": "يجب تخزينها مشفرة (hashed)"},
+                    "email": {"type": "VARCHAR(255)", "constraints": "UNIQUE NOT NULL"},
+                    "address": {"type": "TEXT", "constraints": "NULL", "comment": "(اختياري)"},
+                    "date_of_birth": {"type": "DATE", "constraints": "NULL", "comment": "(اختياري)"},
+                    "gender": {"type": "VARCHAR(10)", "constraints": "NULL", "comment": "('male', 'female', 'other') (اختياري)"},
+                    "level": {"type": "VARCHAR(50)", "constraints": "NULL", "comment": "(اختياري)"},
+                    "country": {"type": "VARCHAR(100)", "constraints": "NULL", "comment": "(اختياري)"},
+                    "role_user": {"type": "VARCHAR(50)", "constraints": "NOT NULL DEFAULT 'reader'", "comment": "Values: {'reader', 'admin_reader', 'super-admin-reader'}"},
+                    "registration_date": {"type": "DATETIME", "constraints": "NOT NULL DEFAULT CURRENT_TIMESTAMP"},
+                    "appointed_by_super_admin_id": {"type": "INT", "constraints": "NULL", "comment": "FOREIGN KEY REFERENCES (ID in a relevant admin/user table)"} # توضيح المرجع
+                }
+            },
+            "authors": {
+                "description": "2. بيانات الكاتب (author)",
+                "table_name_comment": "# جدول: authors (أو يمكن دمجه مع جدول users)",
+                "columns": {
+                    "id": {"type": "INT", "constraints": "PRIMARY KEY AUTO_INCREMENT UNIQUE", "comment": "W-IDnum"},
+                    "username": {"type": "VARCHAR(255)", "constraints": "UNIQUE NOT NULL"},
+                    "password": {"type": "VARCHAR(255)", "constraints": "NOT NULL", "comment": "مشفرة"},
+                    "email": {"type": "VARCHAR(255)", "constraints": "UNIQUE NOT NULL"},
+                    "address": {"type": "TEXT", "constraints": "NULL", "comment": "(اختياري)"},
+                    "date_of_birth": {"type": "DATE", "constraints": "NULL", "comment": "(اختياري)"},
+                    "gender": {"type": "VARCHAR(10)", "constraints": "NULL", "comment": "(اختياري)"},
+                    "level": {"type": "VARCHAR(50)", "constraints": "NULL", "comment": "(اختياري)"},
+                    "country": {"type": "VARCHAR(100)", "constraints": "NULL", "comment": "(اختياري)"},
+                    "role_user": {"type": "VARCHAR(50)", "constraints": "NOT NULL DEFAULT 'author'", "comment": "Values: {'author', 'admin-author', 'super-admin-author'}"},
+                    "registration_date": {"type": "DATETIME", "constraints": "NOT NULL DEFAULT CURRENT_TIMESTAMP"},
+                    "appointed_by_super_admin_id": {"type": "INT", "constraints": "NULL", "comment": "FOREIGN KEY REFERENCES (ID in a relevant admin/user table)"} # توضيح المرجع
+                },
+                "relationship_notes": [
+                    "story_list: علاقة One-to-Many. لا تخزن كقائمة في هذا الجدول.",
+                    "يتم تحقيقها عبر جدول 'story' الذي يحتوي على حقل 'author_id' (INT, NOT NULL, FOREIGN KEY REFERENCES authors(id)).",
+                    "معرف القصة الفريد (مثل W-IDnum-S-IDnum) يتم إنشاؤه برمجياً عند الحاجة."
+                ]
+            },
+            "story": {
+                "description": "3. بيانات القصة (story)",
+                "table_name_comment": "# جدول: story",
+                "columns": {
+                    "id": {"type": "INT", "constraints": "PRIMARY KEY AUTO_INCREMENT UNIQUE", "comment": "S-IDnum"},
+                    "title": {"type": "VARCHAR(255)", "constraints": "NOT NULL"},
+                    "content": {"type": "LONGTEXT", "constraints": "NOT NULL", "comment": "مناسب للنصوص الطويلة"}, # LONGTEXT أفضل للقصص الطويلة
+                    "author_id": {"type": "INT", "constraints": "NOT NULL", "comment": "FOREIGN KEY REFERENCES authors(id)"}, # الربط بالكاتب
+                    "creation_date": {"type": "DATETIME", "constraints": "NOT NULL DEFAULT CURRENT_TIMESTAMP"},
+                    "last_updated": {"type": "DATETIME", "constraints": "NULL", "comment": "يُحدّث عند التعديل"},
+                    "status": {"type": "VARCHAR(20)", "constraints": "NOT NULL DEFAULT 'pending'", "comment": "Possible values: 'pending', 'approved', 'rejected', 'suspended'"}, # تم إضافة suspended وتوضيح القيم
+                    "approved_by_admin_id": {"type": "INT", "constraints": "NULL", "comment": "FOREIGN KEY REFERENCES (ID in a relevant admin/user table)"}, # يجب أن يكون لديه دور أدمن
+                    "genre": {"type": "VARCHAR(100)", "constraints": "NULL"}, # حقل لنوع القصة (مغامرة، دراما، إلخ) (اختياري)
+                    "slug": {"type": "VARCHAR(255)", "constraints": "UNIQUE NULL", "comment": "For SEO friendly URLs (اختياري, فريد إذا وُجد)"} # حقل اختياري لـ URL
+                },
+                "generation_note": "معرّف القصة الكامل (مثل W-IDnum-S-IDnum) يُنشأ برمجياً عند الحاجة للعرض أو في الـ URLs."
+            },
+            "education_centers": {
+                "description": "4. بيانات المراكز التعليمية (Education Centers)",
+                "table_name_comment": "# جدول: education_centers",
+                "columns": {
+                    "id": {"type": "INT", "constraints": "PRIMARY KEY AUTO_INCREMENT UNIQUE", "comment": "EC-IDnum"},
+                    "name": {"type": "VARCHAR(255)", "constraints": "NOT NULL"},
+                    "email": {"type": "VARCHAR(255)", "constraints": "UNIQUE NOT NULL"},
+                    "password": {"type": "VARCHAR(255)", "constraints": "NOT NULL", "comment": "مشفرة"},
+                    "address": {"type": "TEXT", "constraints": "NOT NULL"},
+                    "phone": {"type": "VARCHAR(20)", "constraints": "NOT NULL"},
+                    "license_number": {"type": "VARCHAR(100)", "constraints": "UNIQUE NOT NULL", "comment": "رقم الترخيص"},
+                    "status": {"type": "VARCHAR(20)", "constraints": "NOT NULL DEFAULT 'pending'", "comment": "pending, approved, rejected"},
+                    "role_user": {"type": "VARCHAR(50)", "constraints": "NOT NULL DEFAULT 'Education-Center'"},
+                    "registration_date": {"type": "DATETIME", "constraints": "NOT NULL DEFAULT CURRENT_TIMESTAMP"},
+                    "approved_by_admin_id": {"type": "INT", "constraints": "NULL", "comment": "FOREIGN KEY REFERENCES (ID in a relevant admin/user table)"}
+                }
+            }
+        },
+        "suggested_additional_tables": {
+            "teachers": "جدول للمعلمين: id, user_id (FK to users), center_id (FK to education_centers), etc.",
+            "students": "جدول للطلاب: id, user_id (FK to users), center_id (FK to education_centers), etc.",
+            "users": "جدول موحد للمستخدمين: id, username, password, email, role, etc.",
+            "user_roles": "جدول ربط للأدوار المتعددة: user_id, role_name"
+        }
+    },
+
     "project_pages": {
         "description": "صفحات المشروع و البيانات المستخدمة والبيانات المطلوبة (للتوثيق):",
         "pages": {
@@ -113,9 +211,9 @@ config_data = { # pyright: ignore[reportUnknownVariableType]
             "change_password": "awallimna/settings/password",      # صفحة تغيير كلمة المرور
             "delete_account": "awallimna/settings/delete-account", # صفحة حذف الحساب
             # --- Story ---
-            "write_story": "awallimna/author/story/new",        # صفحة كتابة قصة جديدة
-            "edit_story": "awallimna/author/story/edit/<story_id>", # صفحة تعديل قصة موجودة
-            "my_story": "awallimna/author/story",             # قائمة قصص الكاتب
+            "write_story": "awallimna/author/stories/new",        # صفحة كتابة قصة جديدة
+            "edit_story": "awallimna/author/stories/edit/<story_id>", # صفحة تعديل قصة موجودة
+            "my_stories": "awallimna/author/stories",             # قائمة قصص الكاتب
             "read_story": "awallimna/story/<story_slug_or_id>",   # صفحة قراءة قصة (استخدام slug أفضل لـ SEO)
             "story_by_genre": "awallimna/story/genre/<genre_slug>", # عرض القصص حسب النوع
             "all_story": "awallimna/story",                   # استعراض كل القصص (مع ترقيم صفحات)
