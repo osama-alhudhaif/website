@@ -26,7 +26,7 @@ if not secret_key or not jwt_secret_key:
 Awallimna = Flask(__name__, template_folder="templates", static_folder="static")
 Awallimna.config['SECRET_KEY'] = secret_key
 Awallimna.config['JWT_SECRET_KEY'] = jwt_secret_key
-Awallimna.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/data_awallimna'
+Awallimna.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/data_awalimna'
 Awallimna.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # --- تهيئة إضافات Flask ---
@@ -47,7 +47,7 @@ migrate = Migrate(Awallimna, db)
 # =====================================================================
 
 class Story(db.Model):
-    __tablename__ = 'stories'
+    __tablename__ = 'story'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column('name', db.String(100), nullable=False)
     category = db.Column('category', db.String(50), nullable=False)
@@ -208,12 +208,12 @@ def show_category(category_slug): # pyright: ignore[reportMissingParameterType, 
     if not arabic_name:
         abort(404)
     
-    stories_in_category = Story.query.filter_by(category=arabic_name).all() # type: ignore
+    story_in_category = Story.query.filter_by(category=arabic_name).all() # type: ignore
     
     return render_template(
         'category_page.html', 
         category_name_arabic=arabic_name, 
-        stories=stories_in_category
+        story=story_in_category
     )
 
 # =====================================================================

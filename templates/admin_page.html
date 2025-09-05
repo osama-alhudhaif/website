@@ -30,9 +30,9 @@
     </header>
 
     <!-- بيانات الحساب للاختبار -->
-    {% set admin_info = { 'name': 'osamh64', 'email': 'osamh123451191@gmail.com', 'type': ' مؤسس ', 'completed_stories': 10, 'pending_stories': 5, 'accepted_stories': 7 } %}
+    {% set admin_info = { 'name': 'osamh64', 'email': 'osamh123451191@gmail.com', 'type': ' مؤسس ', 'completed_story': 10, 'pending_story': 5, 'accepted_story': 7 } %}
 
-    {% set pending_stories = [
+    {% set pending_story = [
         {'id': 1, 'title': 'رحلة إلى القمر', 'author': 'سارة أحمد', 'category': 'خيال علمي', 'language': 'العربية', 'description': 'بعد لقاء غير متوقع في متجر للآلات الموسيقية، تجد عازفة الكمان الموهوبة رسامًا وحيدًا، وتتعقد حياتهما معًا بينما يحاولان العثور على الوتر المفقود في لحن حب بدأ للتو.'},
         {'id': 2, 'title': 'مغامرة في الغابة', 'author': 'محمد علي', 'category': 'مغامرة', 'language': 'العربية', 'description': 'تدور أحداث القصة في بغداد خلال العصر الذهبي للإسلام، وتتبع فارسًا نبيلًا يواجه مؤامرات سياسية وصراعات شخصية لحماية مدينته وتراثها من الغزاة.'},
         {'id': 3, 'title': 'الكنز المفقود', 'author': 'ليلى حسن', 'category': 'دراما', 'language': 'العربية', 'description': 'تركز القصة على مجموعة من الجنود في خضم حرب طاحنة في الصحراء، حيث يواجهون ليس فقط الأعداء ولكن أيضًا قسوة الطبيعة والصراعات الداخلية، بحثًا عن بصيص أمل.'}
@@ -56,9 +56,9 @@
                         </tr>
                     </table>
                 </li>
-                <li><strong>القصص المكتملة:</strong> {{ admin_info.completed_stories }}</li>
-                <li><strong>القصص المعلقة:</strong> {{ admin_info.pending_stories }}</li>
-                <li><strong>القصص المقبولة:</strong> {{ admin_info.accepted_stories }}</li>
+                <li><strong>القصص المكتملة:</strong> {{ admin_info.completed_story }}</li>
+                <li><strong>القصص المعلقة:</strong> {{ admin_info.pending_story }}</li>
+                <li><strong>القصص المقبولة:</strong> {{ admin_info.accepted_story }}</li>
             </ul>
         </section>
 
@@ -70,10 +70,10 @@
         {% endif %}
 
         <!-- قسم مراجعة القصص -->
-        <section class="review-stories">
+        <section class="review-story">
             <h2>القصص المطلوب مراجعتها</h2>
 
-            <table class="stories-table">
+            <table class="story-table">
                 <thead>
                     <tr>
                         <th>الترتيب</th>
@@ -86,7 +86,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% if pending_stories %} {% for story in pending_stories %}
+                    {% if pending_story %} {% for story in pending_story %}
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>{{ story.title }}</td>  {#} ابي اخلي العنوان رابط لكل صفحة عشان يقراه {#}

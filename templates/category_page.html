@@ -8,8 +8,8 @@
         <p>استمتع بأروع قصص {{ category_name_arabic }}</p>
     </div>
     <hr>
-    <div class="stories-list">
-        {% for story in stories %}
+    <div class="story-list">
+        {% for story in story %}
             <div class="story-card">
                 <a href="{{ url_for('read_story', story_id=story.id) }}" class="story-title-link">
                     <h2 class="story-title">{{ story.title }}</h2>
@@ -37,7 +37,7 @@
                 <a class="read-more-btn" href="{{ url_for('read_story', story_id=story.id) }}">اقرأ المزيد...</a>
             </div>
         {% else %}
-            <div class="no-stories-message">
+            <div class="no-story-message">
                 <p>لا توجد قصص في هذه الفئة حتى الآن.</p>
                 <a href="{{ url_for('write_story') }}" class="write-story-btn">اكتب أول قصة في هذه الفئة</a>
             </div>
