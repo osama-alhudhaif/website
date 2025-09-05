@@ -52,7 +52,7 @@
 
 /* تحسين إضافي للخلية التي تحتوي على الأزرار */
 
-.admin-page .stories-table .table-actions {
+.admin-page .story-table .table-actions {
     padding: var(--spacing-sm);
 }
 
