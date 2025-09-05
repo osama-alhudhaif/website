@@ -50,7 +50,6 @@
         <option value="female">أنثى</option>
         <option value="prefer_not_to_say">أفضل عدم القول</option>
     </select>
-    </script>
     </div>
     <div>
     <!-- تاريخ الميلاد -->
@@ -58,34 +57,31 @@
     <input type="date" id="birth_date" name="birth_date">
     </div>
     <div>
-    <script src="{{ url_for('static', filename='language.js') }}" defer></script>
+    <!-- اختيار الدولة -->
+    <select name="country">
+        <option value="" disabled selected>اختر الدولة</option>
+        {% for country in countries %}
+            <option value="{{ country.code }}">{{ country.name_ar }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- اختيار اللغة -->
+    <select name="language">
+        <option value="" disabled selected>اختر اللغة</option>
+        {% for lang in languages %}
+            <option value="{{ lang.code }}">{{ lang.name_ar }}</option>
+        {% endfor %}
+    </select>
+
     </div>
-    <div>
-<!-- اختيار الدولة -->
-<select name="country">
-    <option value="" disabled selected>اختر الدولة</option>
-    {% for country in countries %}
-        <option value="{{ country.code }}">{{ country.name_ar }}</option>
-    {% endfor %}
-</select>
-
-<!-- اختيار اللغة -->
-<select name="language">
-    <option value="" disabled selected>اختر اللغة</option>
-    {% for lang in languages %}
-        <option value="{{ lang.code }}">{{ lang.name_ar }}</option>
-    {% endfor %}
-</select>
-
-</div>
     <!-- الشروط والأحكام -->
-<label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-  <input type="checkbox" id="terms" name="terms" style="margin: 0;">
-  <span>أوافق على <a href="/terms_conditions" target="_blank">الشروط والأحكام</a></span>
-</label>
+    <label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+        <input type="checkbox" id="terms" name="terms" style="margin: 0;">
+        <span>أوافق على <a href="/terms_conditions" target="_blank">الشروط والأحكام</a></span>
+    </label>
 
     <!-- زر التسجيل -->
-    <input  type="submit" value="تسجيل">
+    <input type="submit" value="تسجيل">
     
     <!-- رسالة خطأ -->
     {% if error %}
@@ -103,9 +99,3 @@
 </form>
 {% endblock %}
 
-<script src="{{ url_for('static', filename='admin_script.js') }}"></script>
-<script src="{{ url_for('static', filename='country.js') }}"></script>
-<script src="{{ url_for('static', filename='create_center_account.js') }}"></script>
-<script src="{{ url_for('static', filename='language.js') }}"></script>
-<script src="{{ url_for('static', filename='script.js') }}"></script>
-<script src="{{ url_for('static', filename='json/stories.js') }}"></script>
