@@ -176,6 +176,7 @@ main {
 /* ========== مربعات الفئات ========== */
 
 .category-box {
+    display: none; /* <<-- هذا هو السطر المهم للإخفاء المبدئي */
     background: var(--bg-primary);
     border-radius: var(--radius-xl);
     padding: var(--spacing-xl);
@@ -185,7 +186,7 @@ main {
     border: 1px solid rgba(139, 115, 85, 0.1);
     position: relative;
     overflow: hidden;
-    animation: slideDown 0.4s ease-out;
+    animation: slideDown 0.4s ease-out; /* سيتم تشغيل هذه الحركة عند الإظهار */
 }
 
 @keyframes slideDown {
@@ -291,6 +292,9 @@ main {
     border-color: var(--primary-color);
 }
 
+.category-box.show {
+    display: block; /* هذا الكلاس سيقوم بإظهار الصندوق */
+}
 
 /* للشاشات الصغيرة */
 

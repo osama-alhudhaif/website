@@ -16,6 +16,82 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/create_center_account.css') }}">
+    
+    <style>
+        /* أنماط CSS للتصنيفات */
+        .category-box {
+            display: none; /* مخفية بشكل افتراضي */
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 1200px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        .category-box.show {
+            display: block;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .category-grid {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .category-item {
+            display: block;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .category-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .btn-categories {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-categories:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-categories.active {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+        }
+    </style>
+    
     <!-- الجافاسكربت -->
     <script src="{{ url_for('static', filename='admin_script.js') }}" defer></script>
     <script src="{{ url_for('static', filename='country.js') }}" defer></script>
@@ -23,7 +99,8 @@
     <script src="{{ url_for('static', filename='language.js') }}" defer></script>
     <script src="{{ url_for('static', filename='script.js') }}" defer></script>
     <!-- json -->
-    <script src="{{ url_for('static', filename='json/stories') }}"></script></head>
+    <script src="{{ url_for('static', filename='json/stories') }}"></script>
+</head>
 <body>
     <div class="page-wrapper">
         <!-- الهيدر -->
@@ -94,19 +171,19 @@
         <div id="category-box" class="category-box">
             <h2 style="text-align: center; margin-bottom: 20px; color: #333;">التصنيفات</h2>
             <ul class="category-grid">
-                <li><a href="comedy" class="category-item">كوميديا</a></li>
-                <li><a href="science_fiction" class="category-item">خيال علمي</a></li>
-                <li><a href="fiction" class="category-item">خيال</a></li>
-                <li><a href="romance" class="category-item">الرومانسي</a></li>
-                <li><a href="crime_investigation" class="category-item">جريمة وتحقيق</a></li>
-                <li><a href="horror" class="category-item">الرعب</a></li>
-                <li><a href="adventure" class="category-item">مغامرة</a></li>
-                <li><a href="drama" class="category-item">دراما</a></li>
-                <li><a href="historical" class="category-item">تاريخي</a></li>
-                <li><a href="theft" class="category-item">سرقة</a></li>
-                <li><a href="war" class="category-item">حرب</a></li>
-                <li><a href="fantasy" class="category-item">فانتازي</a></li>
-                <li><a href="children" class="category-item">أطفال</a></li>
+                <li><a href="/comedy" class="category-item">كوميديا</a></li>
+                <li><a href="/science_fiction" class="category-item">خيال علمي</a></li>
+                <li><a href="/fiction" class="category-item">خيال</a></li>
+                <li><a href="/romance" class="category-item">الرومانسي</a></li>
+                <li><a href="/crime_investigation" class="category-item">جريمة وتحقيق</a></li>
+                <li><a href="/horror" class="category-item">الرعب</a></li>
+                <li><a href="/adventure" class="category-item">مغامرة</a></li>
+                <li><a href="/drama" class="category-item">دراما</a></li>
+                <li><a href="/historical" class="category-item">تاريخي</a></li>
+                <li><a href="/theft" class="category-item">سرقة</a></li>
+                <li><a href="/war" class="category-item">حرب</a></li>
+                <li><a href="/fantasy" class="category-item">فانتازي</a></li>
+                <li><a href="/children" class="category-item">أطفال</a></li>
             </ul>
         </div>
 
@@ -120,7 +197,7 @@
         <!-- الفوتر -->
         <footer>
             <div class="footer-content">
-                <a href="/website" class="logo-section">
+                <a href="/" class="logo-section">
                     <img src="{{ url_for('static', filename='Website.jpg') }}" alt="صورة الموقع" height="40" width="40">
                     <p id="copyright" style="margin: 0;">
                         عوالمنا &copy; <span id="year"></span>
@@ -136,11 +213,64 @@
         </footer>
     </div>
 
-    <!-- الجافاسكربت -->
-    <script src="{{ url_for('static', filename='admin_script.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='country.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='create_center_account.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='language.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <!-- الجافاسكربت الإضافي للتصنيفات -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // الحصول على العناصر
+            const showCategoriesBtn = document.getElementById('show-categories');
+            const categoryBox = document.getElementById('category-box');
+            
+            // التأكد من وجود العناصر
+            if (showCategoriesBtn && categoryBox) {
+                // إضافة مستمع الحدث للزر
+                showCategoriesBtn.addEventListener('click', function() {
+                    // تبديل إظهار/إخفاء القائمة
+                    categoryBox.classList.toggle('show');
+                    
+                    // تغيير شكل الزر
+                    if (categoryBox.classList.contains('show')) {
+                        this.textContent = 'إخفاء التصنيفات';
+                        this.classList.add('active');
+                    } else {
+                        this.textContent = 'التصنيفات';
+                        this.classList.remove('active');
+                    }
+                });
+                
+                // إخفاء القائمة عند النقر خارجها
+                document.addEventListener('click', function(event) {
+                    // التأكد أن النقر ليس على الزر أو القائمة
+                    if (!showCategoriesBtn.contains(event.target) && 
+                        !categoryBox.contains(event.target)) {
+                        categoryBox.classList.remove('show');
+                        showCategoriesBtn.textContent = 'التصنيفات';
+                        showCategoriesBtn.classList.remove('active');
+                    }
+                });
+                
+                // منع إخفاء القائمة عند النقر عليها
+                categoryBox.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
+            }
+        });
+        
+        // إضافة سنة الحقوق للفوتر
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearElement = document.getElementById('year');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+
+    <!-- باقي الجافاسكربت -->
+    <script src="{{ url_for('static', filename='admin_script.js') }}"></script>
+    <script src="{{ url_for('static', filename='country.js') }}"></script>
+    <script src="{{ url_for('static', filename='create_center_account.js') }}"></script>
+    <script src="{{ url_for('static', filename='language.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
     <!-- json -->
     <script src="{{ url_for('static', filename='json/stories') }}"></script>
+</body>
+</html>

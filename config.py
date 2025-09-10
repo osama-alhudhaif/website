@@ -37,3 +37,15 @@ config: Dict[str, Type[Config]] = {
 env_config = os.getenv('FLASK_ENV', 'default')
 # Note: This line should be moved to your Flask application initialization file
 # app.config.from_object(config[env_config])
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Config:
+    SECRET_KEY = os.getenv("AWALLIMNA_SECRET_KEY")
+    JWT_SECRET_KEY = os.getenv("AWALLIMNA_JWT_SECRET_KEY")
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
