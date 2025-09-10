@@ -3,12 +3,14 @@
         {
             "code": "AF",
             "name_en": "Afghanistan",
-            "name_ar": "أفغانستان"
+            "name_ar": "أفغانستان",
+            "name_fr": "Afghanistan"
         },
         {
             "code": "AL",
             "name_en": "Albania",
-            "name_ar": "ألبانيا"
+            "name_ar": "ألبانيا",
+            "name_fr": "Albanie"
         },
         {
             "code": "DZ",

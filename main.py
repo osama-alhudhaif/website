@@ -12,13 +12,9 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from wtforms import StringField, PasswordField, SubmitField # type: ignore
 from wtforms.validators import InputRequired, Length, ValidationError # pyright: ignore[reportUnusedImport]
 from flask_wtf import FlaskForm # type: ignore
-from flask_migrate import Migrate
 from flask_cors import CORS # type: ignore
 from flask_json import FlaskJSON, json_response # type: ignore
 import json
-
-# 
-
 
 # --- تحميل متغيرات البيئة ---
 load_dotenv()
