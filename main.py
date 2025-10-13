@@ -125,7 +125,6 @@ pages = {
     'historical': 'تاريخي',
     'horror': 'رعب',
     'login': 'تسجيل الدخول',
-    'paths': 'المسارات',
     'privacy': 'سياسة الخصوصية',
     'reader_profile': 'ملف تعريف القارئ',
     'read_story': 'قراءة القصة',
@@ -187,35 +186,6 @@ def inject_categories_and_user():
 @Awallimna.errorhandler(404)
 def not_found_error(error): # pyright: ignore[reportMissingParameterType, reportUnknownParameterType]
     return render_template('error.html', error_code=404, error_message="الصفحة غير موجودة"), 404
-
-# =====================================================================
-# ---  عرض جميع روابط الصفحات  ---
-# =====================================================================
-
-@Awallimna.route("/apis", methods=["GET", "POST"])
-def paths():
-    templates_dir = os.path.join(os.path.dirname(__file__), "templates")
-    pages = [f for f in os.listdir(templates_dir) if f.endswith(".html")]
-    # توليد قائمة بالروابط لكل صفحة
-    links: list[str] = []
-    for page in pages:
-        # إزالة .html للحصول على اسم المسار
-        route = page.replace('.html', '')
-        # بعض الصفحات مثل index قد تكون مختلفة، هنا نفترض أن اسم المسار هو اسم الملف بدون .html
-        links.append(f'<li><a href="/{route}">{page}</a></li>')
-    # بناء HTML بسيط
-    html = f"""
-    <html>
-    <head><title>جميع صفحات الموقع</title></head>
-    <body>
-        <h1>جميع صفحات الموقع وروابطها</h1>
-        <ul>
-            {''.join(links)}
-        </ul>
-    </body>
-    </html>
-    """
-    return html
 
 # =====================================================================
 # --- المسارات الرئيسية والتفاعلية ---
