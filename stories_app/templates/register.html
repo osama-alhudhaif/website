@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div static>
+<h1 style="text-align: center">التسجيل</h1>
+<p style="text-align: center">نموذج تسجيل مستخدم جديد (قارئ أو كاتب).</p>
+</div>
+
+<form method="post" action="/register">
+  <div>
+    <!-- اسم المستخدم -->
+    <label for="username">اسم المستخدم:</label>
+    <input type="text" id="username" name="username">
+    </div>
+    <div>
+    <!-- الاسم الكامل -->
+    <label for="full_name">الاسم الكامل:</label>
+    <input type="text" id="full_name" name="full_name">
+    </div>
+    <div>
+    <!-- البريد الإلكتروني -->
+    <label for="email">البريد الإلكتروني:</label>
+    <input type="email" id="email" name="email">
+    </div>
+    <div>
+    <!-- كلمة المرور -->
+    <label for="reg_password">كلمة المرور:</label>
+    <input type="password" id="reg_password" name="password">
+    </div>
+    <div>
+    <!-- تأكيد كلمة المرور -->
+    <label for="confirm_password">تأكيد كلمة المرور:</label>
+    <input type="password" id="confirm_password" name="confirm_password">
+    </div>
+    <div>
+    <!-- نوع المستخدم -->
+    <label for="user_type">نوع المستخدم:</label>
+    <select id="user_type" name="user_type">
+        <option value="" selected disabled hidden>اختر نوع المستخدم</option>
+        <option value="reader">قارئ</option>
+        <option value="writer">كاتب</option>
+    </select>
+    </div>
+    <div>
+    <!-- الجنس -->
+    <label for="gender">الجنس:</label>
+    <select id="gender" name="gender">
+        <option value="" selected disabled hidden>اختر الجنس</option>
+        <option value="male">ذكر</option>
+        <option value="female">أنثى</option>
+        <option value="prefer_not_to_say">أفضل عدم القول</option>
+    </select>
+    </div>
+    <div>
+    <!-- تاريخ الميلاد -->
+    <label for="birth_date">تاريخ الميلاد:</label>
+    <input type="date" id="birth_date" name="birth_date">
+    </div>
+    <div>
+    <!-- اختيار الدولة -->
+    <select name="country">
+        <option value="" disabled selected>اختر الدولة</option>
+        {% for country in countries %}
+            <option value="{{ country.code }}">{{ country.name_ar }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- اختيار اللغة -->
+    <select name="language">
+        <option value="" disabled selected>اختر اللغة</option>
+        {% for lang in languages %}
+            <option value="{{ lang.code }}">{{ lang.name_ar }}</option>
+        {% endfor %}
+    </select>
+
+    </div>
+    <!-- الشروط والأحكام -->
+    <label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+        <input type="checkbox" id="terms" name="terms" style="margin: 0;">
+        <span>أوافق على <a href="/terms_conditions" target="_blank">الشروط والأحكام</a></span>
+    </label>
+
+    <!-- زر التسجيل -->
+    <input type="submit" value="تسجيل">
+    
+    <!-- رسالة خطأ -->
+    {% if error %}
+    <p style="color: red; text-align: center;">{{ error }}</p>
+    {% endif %}
+    <!-- رسالة نجاح -->
+    {% if success %}
+    <p style="color: green; text-align: center;">{{ success }}</p>
+    {% endif %}
+    <br>
+    <!-- رابط سياسة الخصوصية -->
+    <p style="text-align: center;">بالتسجيل، أنت توافق على <a href="/privacy" target="_blank">سياسة الخصوصية</a> الخاصة بنا.</p>
+
+    <p>لديك حساب بالفعل؟ <a href="/login">سجل الدخول</a></p>
+</form>
+{% endblock %}
+

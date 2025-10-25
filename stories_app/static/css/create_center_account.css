@@ -1,0 +1,83 @@
+/* استخدام أصناف موجودة في style.css إن أمكن، أو إنشاء أصناف جديدة متوافقة */
+
+.create-center-form {
+    /* يمكن استخدام <form> مباشرة إذا كان هو النموذج الوحيد في الصفحة */
+    background: var(--bg-primary);
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    max-width: 800px;
+    /* زيادة العرض قليلاً */
+    margin: var(--spacing-xl) auto;
+}
+
+.create-center-form .form-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    color: var(--primary-color);
+}
+
+
+/* تعديل الحقول لتستخدم المتغيرات */
+
+.create-center-form label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.create-center-form input,
+.create-center-form select {
+    width: 100%;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    border: 2px solid var(--bg-light);
+    border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.create-center-form input:focus,
+.create-center-form select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.1);
+    outline: none;
+}
+
+
+/* تعديل الأزرار */
+
+.create-center-form .location-picker-btn {
+    background: var(--accent-color);
+    /* استخدام لون مميز من هوية الموقع */
+    color: var(--text-white);
+    /* ... تبني بقية خصائص الأزرار من .btn في style.css */
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+}
+
+.create-center-form .location-picker-btn:hover {
+    background: var(--accent-hover);
+}
+
+
+/* زر الإرسال الرئيسي */
+
+.create-center-form input[type="submit"] {
+    background: var(--primary-color);
+    /* استخدام اللون الأساسي */
+    color: var(--text-white);
+    width: 100%;
+    /* ... تبني بقية خصائص الأزرار من .btn في style.css */
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.create-center-form input[type="submit"]:hover {
+    background: var(--primary-dark);
+}

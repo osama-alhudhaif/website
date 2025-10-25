@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='Website.jpg') }}" type="image/x-icon">
+    <meta name="description" content="عوالمنا - موقع قصص وروايات عربية متنوعة">
+    <meta name="keywords" content="قصص, روايات, عربية, عوالمنا, خيال, دراما, كوميديا, رعب, مغامرة, تاريخي, فانتازي">
+    <meta name="author" content="Osama Alhudhaif - عوالمنا">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <title>عوالمنا</title>
+    <!-- الأنماط -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_center_account.css') }}">
+    
+    <style>
+        /* أنماط CSS للتصنيفات */
+        .category-box {
+            display: none; /* مخفية بشكل افتراضي */
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 1200px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        .category-box.show {
+            display: block;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .category-grid {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .category-item {
+            display: block;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .category-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .btn-categories {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-categories:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-categories.active {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+        }
+    </style>
+    
+    <!-- الجافاسكربت -->
+    <script src="{{ url_for('static', filename='admin_script.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='country.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='create_center_account.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='language.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <!-- json -->
+    <script src="{{ url_for('static', filename='json/stories') }}"></script>
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- الهيدر -->
+        <header>
+            <div class="header-content">
+                <!-- الشعار واسم الموقع -->
+                <a href="/" class="logo-section">
+                    <img src="{{ url_for('static', filename='Website.jpg') }}" alt="صورة الموقع" height="50" width="50">
+                    <h1 id="website-name">عوالمنا</h1>
+                </a>
+                
+                <!-- شريط التنقل -->
+                <div class="nav-links">
+                    <!-- زر الإشعارات - يظهر فقط للمستخدمين المسجلين -->
+                    {% if current_user.is_authenticated %}
+                    <div class="notifications-container">
+                        <button id="notifications-btn" class="notification-btn" type="button">
+                            &#x1F514;
+                            <span id="notification-badge" class="notification-badge">3</span>
+                        </button>
+                        
+                        <!-- قائمة الإشعارات -->
+                        <div id="notification-dropdown" class="notification-dropdown">
+                            <ul class="notification-list">
+                                <li class="notification-item notification-delete">
+                                    &#x1F5D1; تم حذف تعليق بسبب مخالفة
+                                </li>
+                                <li class="notification-item notification-publish">
+                                    &#x270D; تم نشر قصتك الجديدة
+                                </li>
+                                <li class="notification-item notification-comment">
+                                    &#x1F4AC; تعليق جديد على قصتك
+                                </li>
+                                <li class="notification-item notification-follow">
+                                    &#x1F64B; قام شخص بمتابعتك
+                                </li>
+                                <li class="notification-item notification-approve">
+                                    &#x2714; تم قبول القصة بنجاح
+                                </li>
+                                <li class="notification-item notification-general">
+                                    &#x1F514; إشعار عام أو ملاحظة إدارية
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- ترحيب بالمستخدم -->
+                    {% if current_user.is_authenticated %}
+                        <span>مرحباً، {{ current_user.username }}! &#x1F44B;</span>
+                        <a href="/logout" class="nav-link">تسجيل الخروج</a>
+                    {% else %}
+                        <a href="/login" class="nav-link">تسجيل الدخول</a>
+                        <a href="/register" class="nav-link">إنشاء حساب</a>
+                    {% endif %}
+                    
+                    <!-- زر التصنيفات -->
+                    <button id="show-categories" class="btn-categories" type="button">
+                        التصنيفات
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <br><br><br>
+
+        <!-- التصنيفات -->
+        <div id="category-box" class="category-box">
+            <h2 style="text-align: center; margin-bottom: 20px; color: #333;">التصنيفات</h2>
+            <ul class="category-grid">
+                <li><a href="/comedy" class="category-item">كوميديا</a></li>
+                <li><a href="/science_fiction" class="category-item">خيال علمي</a></li>
+                <li><a href="/fiction" class="category-item">خيال</a></li>
+                <li><a href="/romance" class="category-item">الرومانسي</a></li>
+                <li><a href="/crime_investigation" class="category-item">جريمة وتحقيق</a></li>
+                <li><a href="/horror" class="category-item">الرعب</a></li>
+                <li><a href="/adventure" class="category-item">مغامرة</a></li>
+                <li><a href="/drama" class="category-item">دراما</a></li>
+                <li><a href="/historical" class="category-item">تاريخي</a></li>
+                <li><a href="/theft" class="category-item">سرقة</a></li>
+                <li><a href="/war" class="category-item">حرب</a></li>
+                <li><a href="/fantasy" class="category-item">فانتازي</a></li>
+                <li><a href="/children" class="category-item">أطفال</a></li>
+            </ul>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <main>
+            {% block content %}
+            <!-- محتوى الصفحة الفرعية -->
+            {% endblock %}
+        </main>
+
+        <!-- الفوتر -->
+        <footer>
+            <div class="footer-content">
+                <a href="/" class="logo-section">
+                    <img src="{{ url_for('static', filename='Website.jpg') }}" alt="صورة الموقع" height="40" width="40">
+                    <p id="copyright" style="margin: 0;">
+                        عوالمنا &copy; <span id="year"></span>
+                    </p>
+                </a>
+                
+                <div style="display: flex; gap: 20px;">
+                    <a href="/about" class="nav-link">من نحن</a>
+                    <a href="/contact" class="nav-link">تواصل معنا</a>
+                    <a href="/privacy" class="nav-link">سياسة الخصوصية</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- الجافاسكربت الإضافي للتصنيفات -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // الحصول على العناصر
+            const showCategoriesBtn = document.getElementById('show-categories');
+            const categoryBox = document.getElementById('category-box');
+            
+            // التأكد من وجود العناصر
+            if (showCategoriesBtn && categoryBox) {
+                // إضافة مستمع الحدث للزر
+                showCategoriesBtn.addEventListener('click', function() {
+                    // تبديل إظهار/إخفاء القائمة
+                    categoryBox.classList.toggle('show');
+                    
+                    // تغيير شكل الزر
+                    if (categoryBox.classList.contains('show')) {
+                        this.textContent = 'إخفاء التصنيفات';
+                        this.classList.add('active');
+                    } else {
+                        this.textContent = 'التصنيفات';
+                        this.classList.remove('active');
+                    }
+                });
+                
+                // إخفاء القائمة عند النقر خارجها
+                document.addEventListener('click', function(event) {
+                    // التأكد أن النقر ليس على الزر أو القائمة
+                    if (!showCategoriesBtn.contains(event.target) && 
+                        !categoryBox.contains(event.target)) {
+                        categoryBox.classList.remove('show');
+                        showCategoriesBtn.textContent = 'التصنيفات';
+                        showCategoriesBtn.classList.remove('active');
+                    }
+                });
+                
+                // منع إخفاء القائمة عند النقر عليها
+                categoryBox.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
+            }
+        });
+        
+        // إضافة سنة الحقوق للفوتر
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearElement = document.getElementById('year');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+
+    <!-- باقي الجافاسكربت -->
+    <script src="{{ url_for('static', filename='admin_script.js') }}"></script>
+    <script src="{{ url_for('static', filename='country.js') }}"></script>
+    <script src="{{ url_for('static', filename='create_center_account.js') }}"></script>
+    <script src="{{ url_for('static', filename='language.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <!-- json -->
+    <script src="{{ url_for('static', filename='json/stories') }}"></script>
+</body>
+</html>

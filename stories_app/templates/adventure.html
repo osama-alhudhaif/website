@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{# 1. نضع اسم الفئة في عنوان الصفحة في الأعلى (التاب) #}
+{% block title %}عوالمنا - {{ category_name_arabic }}{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h2>مرحبًا بك في قسم {{ category_name_arabic }}</h2>
+        <p>استمتع بأروع قصص {{ category_name_arabic }}</p>
+    </div>
+
+    <div class="method-title">الطريقة الأولى: CSS :dir() - الأفضل والأحدث</div>
+    <div class="story-list" style="margin-bottom:2rem;">
+        <div class="story-card">
+            <h3>قصة المغامرة الأولى</h3>
+            <p>هذه قصة معروضة بالطريقة الأولى (story-list + story-card). تستخدم CSS :dir() للتكيف التلقائي مع اتجاه النص.</p>
+        </div>
+        <div class="story-card">
+            <h3>قصة الخيال العلمي</h3>
+            <p>قصة أخرى تظهر كيف يعمل النظام مع عدة بطاقات في نفس الوقت.</p>
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="method-title">الطريقة الثانية: CSS Logical Properties</div>
+    <div class="story-list-modern" style="margin-bottom:2rem;">
+        <div class="story-card-modern">
+            <h3>قصة المغامرة الثانية</h3>
+            <p>هذه قصة معروضة بالطريقة الثانية (story-list-modern + story-card-modern). تستخدم CSS Logical Properties للتكيف التلقائي.</p>
+        </div>
+        <div class="story-card-modern">
+            <h3>قصة الغموض</h3>
+            <p>قصة أخرى مع تأثيرات بصرية جميلة وتدرجات لونية.</p>
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="method-title">الطريقة الثالثة: CSS Custom Properties</div>
+    <div style="margin-bottom:2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; padding: 1rem;">
+        <div class="story-card-advanced">
+            <h3>قصة المغامرة الثالثة</h3>
+            <p>هذه قصة معروضة بالطريقة الثالثة (story-card-advanced). تستخدم CSS Custom Properties للمرونة القصوى.</p>
+        </div>
+        <div class="story-card-advanced">
+            <h3>قصة الحب</h3>
+            <p>قصة رومانسية مع ألوان دافئة وتصميم جذاب.</p>
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="method-title">الطريقة الرابعة: الحل الشامل لجميع اللغات</div>
+    <div class="story-list-universal" style="margin-bottom:2rem;">
+        <div class="story-card-universal">
+            <h3>قصة المغامرة الرابعة</h3>
+            <p>هذه قصة معروضة بالطريقة الرابعة (story-list-universal + story-card-universal). تعمل مع أكثر من 60 لغة!</p>
+        </div>
+        <div class="story-card-universal">
+            <h3>قصة الأطفال</h3>
+            <p>قصة مناسبة للأطفال مع ألوان زاهية وتصميم مريح للعين.</p>
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="method-title">الطريقة الخامسة: اختبار الاتجاه المختلط</div>
+    <div class="story-list" dir="ltr" style="margin-bottom:2rem;">
+        <div class="story-card">
+            <h3>قصة المغامرة الخامسة</h3>
+            <p>هذه قصة معروضة بالطريقة الخامسة (story-card مع اتجاه ltr). تظهر كيف يمكن تغيير الاتجاه حسب الحاجة.</p>
+        </div>
+        <div class="story-card">
+            <h3>English story Example</h3>
+            <p>This is an English story to demonstrate how the system works with different text directions in the same page.</p>
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="method-title">مثال متقدم: محتوى مختلط</div>
+    <div class="story-list-modern" style="margin-bottom:2rem;">
+        <div class="story-card-modern">
+            <h3>قصة ثنائية اللغة</h3>
+            <p>هذه قصة تحتوي على نص عربي ونص إنجليزي:</p>
+            <p dir="ltr" style="margin-top: 1rem; font-style: italic;">This is an English paragraph within an Arabic story, demonstrating mixed content handling.</p>
+        </div>
+        <div class="story-card-modern">
+            <h3>قصة تفاعلية</h3>
+            <p>قصة مع عناصر تفاعلية وتأثيرات بصرية متقدمة. مرر الماوس لرؤية التأثير!</p>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: #f8fafc; border-radius: 12px; border: 2px dashed #667eea;">
+        <h3 style="color: #667eea; margin-bottom: 1rem;">🎉 تم عرض جميع الطرق بنجاح!</h3>
+        <p style="margin-bottom: 0; color: #6b7280;">جميع الطرق تعمل بشكل مثالي مع اللغة العربية واللغات الأخرى</p>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// إضافة تأثيرات JavaScript إضافية
+document.addEventListener('DOMContentLoaded', function() {
+    // تأثير على البطاقات عند التمرير
+    const cards = document.querySelectorAll('.story-card, .story-card-modern, .story-card-advanced, .story-card-universal');
+    
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    // تأثير تدرجي عند التحميل
+    setTimeout(() => {
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'all 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    }, 100);
+});
+</script>
+{% endblock %}

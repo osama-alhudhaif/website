@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<main class="container">
+    <section class="story-review-section">
+        <h2><a href="{{ url_for('review_story', story_id=story.id) }}">{{ story.title }}</a></h2>
+        <div class="review-actions">
+            <form action="{{ url_for('accept_story_for_test', story_id=story.id) }}" method="POST" class="accept-form">
+                <button type="submit" class="accept-button">قبول القصة</button>
+            </form>
+            <form action="{{ url_for('reject_story_for_test', story_id=story.id) }}" method="POST" class="reject-form">
+                <label for="rejection_reason">سبب الرفض:</label>
+                <textarea id="rejection_reason" name="rejection_reason" rows="10" required></textarea>
+                <button type="submit" class="reject-button">رفض القصة</button>
+            </form>
+        </div>
+        <div class="story-content">
+            <p>{{ story.content }}</p>
+        </div>
+        <a href="{{ url_for('admin_dashboard') }}" class="back-button">العودة إلى لوحة التحكم</a>
+    </section>
+</main>
+{% endblock %}
