@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>تحديث حالة القصة: [اسم القصة]</h1>
+<!-- محتوى الصفحة يوضع هنا -->
+<p>تغيير حالة القصة (مثل: مسودة، قيد المراجعة، منشورة، مكتملة).</p>
+<form>
+    <label for="status">الحالة الجديدة:</label>
+    <select id="status" name="status">
+        <option value="draft">مسودة</option>
+        <option value="review">قيد المراجعة</option>
+        <option value="published">منشورة</option>
+        <option value="completed">مكتملة</option>
+    </select>
+    <br><br>
+    <input type="submit" value="تحديث الحالة">
+</form>
+{% endblock %}

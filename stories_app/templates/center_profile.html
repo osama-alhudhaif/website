@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عوالمنا - ادارة المركز </title>
+    <link rel="icon" href="/static/Website.jpg">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/admin_style.css">
+</head>
+
+<body>
+    <main style="text-align: center; padding-bottom: 20px;">
+        <div class="center-profile">
+            <br><br><br>
+            <table>
+                <tr>
+                    <!-- اسم المركز -->
+                    <td>{{ labels.center_name }}</td>
+                    <td id="name" style="text-align: center;">{{ center.name }}</td>
+                </tr>
+                <tr>
+                    <!-- موقع المركز -->
+                    <td>{{ labels.center_location }}</td>
+                    <td id="location" style="text-align: center;">{{ center.location }}</td>
+                </tr>
+                <tr>
+                    <!-- البريد الإلكتروني -->
+                    <td>{{ labels.center_email }}</td>
+                    <td id="email" style="text-align: center;">{{ center.email }}</td>
+                </tr>
+                <tr>
+                    <!-- نوع البريد الإلكتروني -->
+                    <td>{{ labels.email_type }}</td>
+                    <td id="email_type" style="text-align: center;">{{ center.email_type }}</td>
+                    <!-- خاص او مخصص -->
+                </tr>
+                <tr>
+                    <!-- عدد المدرسين -->
+                    <!-- يتم عرضها بعد إضافة المدرسين -->
+                    <td>{{ labels.number_of_teachers }}</td>
+                    <td id="number_of_teachers" style="text-align: center;">{{ center.number_of_teachers }}</td>
+                </tr>
+                {# اصلاح الكود هنا #}
+                <tr>
+                    <!-- إضافة مدرس -->
+                    <td colspan="">
+                        <button id="add_teacher" onclick="addTeacher()" style="text-align: center;">{{ labels.add_teacher }}</button>
+                        <!-- إزالة مدرس -->
+                        <button id="remove_teacher" onclick="removeTeacher()" style="text-align: center;">{{ labels.remove_teacher }}</button>
+                    </td>
+                </tr>
+                <tr>
+                    <!-- عدد الطلاب -->
+                    <!-- يتم عرضها بعد إضافة الطلاب -->
+                    <td>{{ labels.number_of_students }}</td>
+                    <td id="number_of_students" style="text-align: center;">{{ center.number_of_students }}</td>
+                </tr>
+                <tr>
+                    <!-- إضافة طالب -->
+                    <td colspan="">
+                        <button id="add_student" onclick="addStudent()" style="text-align: center;">{{ labels.add_student }}</button>
+                        <!-- إزالة طالب -->
+                        <button id="remove_student" onclick="removeStudent()" style="text-align: center;">{{ labels.remove_student }}</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </main>
+
+    <script>
+
+    
+
+    </script>
+</body>
+
+</html>

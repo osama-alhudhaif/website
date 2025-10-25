@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-container">
+    <h1>كتابة قصة جديدة</h1>
+    <form method="POST" action="" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>عنوان القصة:</label>
+            <input type="text" name="title" value="عنوان القصة" required>
+        </div>
+        <div class="form-group">
+            <label>وصف موجز:</label>
+            <textarea name="short_description" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label>محتوى القصة:</label>
+            <textarea name="content" rows="10" required></textarea>
+        </div>
+        <div class="form-group categories">
+            <label><strong>التصنيفات:</strong></label>
+            <label>
+                <input type="الكوميديا" name="categories[الكوميديا]" value="1">
+                <input type="الخيال العلمي" name="categories[الخيال العلمي]" value="2">
+                <input type="الخيال" name="categories[الخيال]" value="3">
+                <input type="الرومانسية" name="categories[الرومانسية]" value="4">
+                <input type="الجريمة والتحقيق" name="categories[الجريمة والتحقيق]" value="5">
+                <input type="الرعب" name="categories[الرعب]" value="6">
+                <input type="المغامرة" name="categories[المغامرة]" value="7">
+                <input type="دراما" name="categories[دراما]" value="8">
+                <input type="التاريخية" name="categories[التاريخية]" value="9">
+                <input type="سرقة" name="categories[سرقة]" value="10">
+                <input type="حرب" name="categories[حرب]" value="11">
+                <input type="فانتازي" name="categories[فانتازي]" value="12">
+                <input type="اطفال" name="categories[اطفال]" value="13">
+            </label>
+        </div>
+        <div class="form-group">
+            <label>رفع ملف PDF:</label>
+            <input type="file" name="pdf_file" accept=".pdf" required>
+        </div>
+        <input type="submit" value="نشر القصة">
+    </form>
+</div>
+{% endblock %}

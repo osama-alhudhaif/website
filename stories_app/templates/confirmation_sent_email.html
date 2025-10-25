@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title | default('تحقق من البريد الإلكتروني') }}</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/script.js"></script>
+    <link rel="icon" href="../static/Website.jpg">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+        .success-box {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .email-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .email-link:hover {
+            background-color: #0056b3;
+        }
+        
+        .code-input {
+            width: calc(100% - 40px);
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body style="text-align: center;">
+    <h1>{{ main_title | default('عوالمنا - التحقق من البريد الإلكتروني') }}</h1>
+    <div class="success-box">
+        <h2>{{ success_message | default('تحقق من البريد الإلكتروني') }}</h2>
+        <p>{{ verification_message | default('تم إرسال رابط التحقق إلى بريدك الإلكتروني') }}</p>
+        <p>{{ check_mail_message | default('يرجى التحقق من صندوق البريد الإلكتروني الخاص بك للتحقق') }}</p>
+        <a href="{{ email_link | default('https://mail.google.com') }}" class="email-link">{{ email_link_text | default('الانتقال إلى البريد الإلكتروني') }}</a>
+        <p>{{ spam_message | default('إذا لم تستلم البريد الإلكتروني، يرجى التحقق من صندوق البريد الإلكتروني الغير مرغوب فيه') }}</p>
+        <input type="text" placeholder="ادخل الكود" class="code-input">
+        <a href="{{ back_btn_link | default('website.html') }}" class="btn">{{ back_btn_text | default('العودة إلى الصفحة الرئيسية') }}</a>
+    </div>
+</body>
+
+</html>
