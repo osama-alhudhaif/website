@@ -11,7 +11,7 @@
         <p>إذا كان لديك أي استفسارات، اقتراحات، أو تحتاج إلى مساعدة، لا تتردد في التواصل معنا.</p>
         <p>يمكنك ملء النموذج أدناه وسنكون سعداء بالرد عليك في أقرب وقت ممكن.</p>
     </div>
-    <form method="post" action="{{ url_for('contact') }}">
+    <form method="post" action="{% url 'contact' %}">
         <label for="name">الاسم:</label>
         <input type="text" id="name" name="name" required placeholder="أدخل اسمك الكامل">
 

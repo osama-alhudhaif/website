@@ -2,15 +2,13 @@
 {% block content %}
 <h1 style='text-align: center'>تسجيل الدخول</h1>
 <form method="POST" action="/login">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
+    {% if messages %}
         <ul>
-        {% for category, message in messages %}
-          <li style="color:red">{{ message }}</li>
+        {% for message in messages %}
+          <li style="color:red" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
         </ul>
-      {% endif %}
-    {% endwith %}
+{% endif %}
     <label for="username">اسم المستخدم أو البريد الإلكتروني:</label><br>
     <input type="text" id="username" name="username"><br>
     <label for="password">كلمة المرور:</label><br>
