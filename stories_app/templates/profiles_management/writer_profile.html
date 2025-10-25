@@ -8,14 +8,14 @@
         {{ user.name if user.name else 'غير معروف' }}
     </title>
     <link rel="icon" href="../static/Website.jpg">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'script.js' %}" defer></script>
 </head>
 
 <body>
     <div class="location">
-        <a href="{{ url_for('website') }}">
-            <img src="{{ url_for('static', filename='Website.jpg') }}" alt="شعار الموقع" height="50" width="50" loading="lazy">
+        <a href="{% url 'website' %}">
+            <img src="{% static 'Website.jpg' %}" alt="شعار الموقع" height="50" width="50" loading="lazy">
             <sup>عوالمنا</sup>
         </a>
     </div>
@@ -67,8 +67,8 @@
                     </td>
                     <td>{{ story.published_at.strftime('%Y-%m-%d') if story.published_at else '' }}</td>
                     <td>
-                        <a href="{{ url_for('view_story', id=story.id) }}" class="read-btn">قراءة</a>
-                        <a href="{{ url_for('edit_story', id=story.id) }}" class="edit-btn">تعديل</a>
+                        <a href="{% url 'view_story' story.id %}" class="read-btn">قراءة</a>
+                        <a href="{% url 'edit_story' story.id %}" class="edit-btn">تعديل</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -82,9 +82,9 @@
     </div>
 
     <div class="actions">
-        <a href="{{ url_for('subscriptions') }}" class="subscriptions-btn">إدارة الاشتراكات</a>
-        <a href="{{ url_for('write_story') }}" class="add-story-btn">إضافة قصة جديدة</a>
-        <a href="{{ url_for('delete_account') }}" class="delete-account-btn" onclick="return confirm('هل أنت متأكد؟')">حذف الحساب</a>
+        <a href="{% url 'subscriptions' %}" class="subscriptions-btn">إدارة الاشتراكات</a>
+        <a href="{% url 'write_story' %}" class="add-story-btn">إضافة قصة جديدة</a>
+        <a href="{% url 'delete_account' %}" class="delete-account-btn" onclick="return confirm('هل أنت متأكد؟')">حذف الحساب</a>
     </div>
 </body>
 

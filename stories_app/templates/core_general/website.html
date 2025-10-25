@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% if current_user.is_authenticated %}
+{% if user.is_authenticated %}
     <div>
         <h2 style="text-align: center;">مرحبًا بك في عوالمنا!</h2>
         <p style="text-align: center;">هذا هو محتوى الصفحة الرئيسية.</p>
@@ -10,13 +10,13 @@
     <h2 style="text-align: center;">مرحبًا بك في عوالمنا!</h2>
     <p style="text-align: center;">هذا هو محتوى الصفحة الرئيسية.</p>
     <p style="text-align: center;">
-        يرجى <a href="{{ url_for('login') }}">تسجيل الدخول</a> أو 
-        <a href="{{ url_for('register') }}">إنشاء حساب</a> للاستمتاع بالقصص.
+        يرجى <a href="{% url 'login' %}">تسجيل الدخول</a> أو 
+        <a href="{% url 'register' %}">إنشاء حساب</a> للاستمتاع بالقصص.
     </p>
 
     {% for stores in stores %}
         <h3>{{ stores.title }}</h3>
-        <p>{{ stores.CATEGORIES | join(", ") }}</p>
+        <p>{{ stores.CATEGORIES|join:", " }}</p>
         <h3>{{ stores.author }}</h3>
     {% endfor %}
 {% endif %}

@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='Website.jpg') }}" type="image/x-icon">
+    <link rel="icon" href="{% static 'Website.jpg' %}" type="image/x-icon">
     <meta name="description" content="عوالمنا - موقع قصص وروايات عربية متنوعة">
     <meta name="keywords" content="قصص, روايات, عربية, عوالمنا, خيال, دراما, كوميديا, رعب, مغامرة, تاريخي, فانتازي">
     <meta name="author" content="Osama Alhudhaif - عوالمنا">
@@ -13,9 +14,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <title>عوالمنا</title>
     <!-- الأنماط -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_center_account.css') }}">
+    <link rel="stylesheet" href="{% static 'static/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'static/css/admin_style.css' %}">
+    <link rel="stylesheet" href="{% static 'static/css/create_center_account.css' %}">
     
     <style>
         /* أنماط CSS للتصنيفات */
@@ -93,13 +94,13 @@
     </style>
     
     <!-- الجافاسكربت -->
-    <script src="{{ url_for('static', filename='admin_script.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='country.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='create_center_account.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='language.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <script src="{% static 'static/admin_script.js' %}" defer></script>
+    <script src="{% static 'static/country.js' %}" defer></script>
+    <script src="{% static 'static/create_center_account.js' %}" defer></script>
+    <script src="{% static 'static/language.js' %}" defer></script>
+    <script src="{% static 'static/script.js' %}" defer></script>
     <!-- json -->
-    <script src="{{ url_for('static', filename='json/stories') }}"></script>
+    <script src="{% static 'static/json/stories' %}"></script>
 </head>
 <body>
     <div class="page-wrapper">
@@ -108,14 +109,14 @@
             <div class="header-content">
                 <!-- الشعار واسم الموقع -->
                 <a href="/" class="logo-section">
-                    <img src="{{ url_for('static', filename='Website.jpg') }}" alt="صورة الموقع" height="50" width="50">
+                    <img src="{% static 'Website.jpg' %}" alt="صورة الموقع" height="50" width="50">
                     <h1 id="website-name">عوالمنا</h1>
                 </a>
                 
                 <!-- شريط التنقل -->
                 <div class="nav-links">
                     <!-- زر الإشعارات - يظهر فقط للمستخدمين المسجلين -->
-                    {% if current_user.is_authenticated %}
+                    {% if user.is_authenticated %}
                     <div class="notifications-container">
                         <button id="notifications-btn" class="notification-btn" type="button">
                             &#x1F514;
@@ -149,8 +150,8 @@
                     {% endif %}
                     
                     <!-- ترحيب بالمستخدم -->
-                    {% if current_user.is_authenticated %}
-                        <span>مرحباً، {{ current_user.username }}! &#x1F44B;</span>
+                    {% if user.is_authenticated %}
+                        <span>مرحباً، {{ user.username }}! &#x1F44B;</span>
                         <a href="/logout" class="nav-link">تسجيل الخروج</a>
                     {% else %}
                         <a href="/login" class="nav-link">تسجيل الدخول</a>
@@ -198,7 +199,7 @@
         <footer>
             <div class="footer-content">
                 <a href="/" class="logo-section">
-                    <img src="{{ url_for('static', filename='Website.jpg') }}" alt="صورة الموقع" height="40" width="40">
+                    <img src="{% static 'Website.jpg' %}" alt="صورة الموقع" height="40" width="40">
                     <p id="copyright" style="margin: 0;">
                         عوالمنا &copy; <span id="year"></span>
                     </p>
@@ -265,12 +266,12 @@
     </script>
 
     <!-- باقي الجافاسكربت -->
-    <script src="{{ url_for('static', filename='admin_script.js') }}"></script>
-    <script src="{{ url_for('static', filename='country.js') }}"></script>
-    <script src="{{ url_for('static', filename='create_center_account.js') }}"></script>
-    <script src="{{ url_for('static', filename='language.js') }}"></script>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{% static 'static/admin_script.js' %}"></script>
+    <script src="{% static 'static/country.js' %}"></script>
+    <script src="{% static 'static/create_center_account.js' %}"></script>
+    <script src="{% static 'static/language.js' %}"></script>
+    <script src="{% static 'static/script.js' %}"></script>
     <!-- json -->
-    <script src="{{ url_for('static', filename='json/stories') }}"></script>
+    <script src="{% static 'static/json/stories' %}"></script>
 </body>
 </html>

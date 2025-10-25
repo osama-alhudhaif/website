@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -55,8 +56,10 @@ ROOT_URLCONF = 'awallimna.urls'
 TEMPLATES = [ # type: ignore
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        # يجب وضع المسار هنا، لكي يتمكن Django من العثور على base.html
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], 
+        
+        'APP_DIRS': True, # لا تزال تسمح بالبحث في مجلدات التطبيق
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
