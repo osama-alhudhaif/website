@@ -15,7 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include  # 1. تم إضافة 'include' هنا
+from django.urls import path, include
+
+from awallimna import settings  # 1. تم إضافة 'include' هنا
 
 # تم حذف السطر الخاطئ: from . import views
 
@@ -26,3 +28,9 @@ urlpatterns = [
     # 3. ربط جميع روابط تطبيق 'stories_app' بالمسار الرئيسي للموقع ('')
     path('', include('stories_app.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # type: ignore
+    
+    # بما أنك تستخدم STATICFILES_DIRS، نحتاج إلى توجيه إضافي لخدمتها
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0]) # type: ignore
