@@ -1,0 +1,22 @@
+teacher_accounts.html
+```
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <header>
+        <h1>إدخال بيانات المعلمين</h1>
+    </header>
+    <main class="registration-container">
+        <div id="success-message" class="success-message" style="display: none;">
+            تم إرسال البيانات بنجاح.
+        </div>
+        <form id="teacherForm" onsubmit="handleSubmit(event)">
+            <div id="teacherInputs">
+                <!-- سيتم إضافة حقول الإدخال هنا ديناميكياً -->
+            </div>
+            <button type="submit">إرسال البيانات</button>
+        </form>
+    </main>
+</div>
+{% endblock %}
+```

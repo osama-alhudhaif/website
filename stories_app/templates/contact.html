@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}تواصل مع - عوالمُنا{% endblock %}
+{% block author %}عوالمُنا{% endblock %}
+{% block footer %}© 2025 عوالمُنا. جميع الحقوق محفوظة.{% endblock %}
+
+{% block content %}
+<section>
+    <div style="text-align: center">
+        <h1>تواصل معنا</h1>
+        <p>إذا كان لديك أي استفسارات، اقتراحات، أو تحتاج إلى مساعدة، لا تتردد في التواصل معنا.</p>
+        <p>يمكنك ملء النموذج أدناه وسنكون سعداء بالرد عليك في أقرب وقت ممكن.</p>
+    </div>
+    <form method="post" action="{{ url_for('contact') }}">
+        <label for="name">الاسم:</label>
+        <input type="text" id="name" name="name" required placeholder="أدخل اسمك الكامل">
+
+        <label for="email">البريد الإلكتروني:</label>
+        <input type="email" id="email" name="email" required placeholder="مثال: yourname@example.com">
+
+        <label for="category">نوع التواصل:</label>
+        <select id="category" name="category" required>
+            <option value="" disabled selected>-- اختر --</option>
+            <option value="technical_issue">مشكلة تقنية</option>
+            <option value="feedback">اقتراح</option>
+            <option value="inquiry">استفسار</option>
+            <option value="error">خلل</option>
+            <option value="other">آخر</option>
+        </select>
+
+        <label for="message">الرسالة:</label>
+        <textarea id="message" name="message" rows="5" required placeholder="اكتب رسالتك هنا..."></textarea>
+
+        <button type="submit">إرسال</button>
+    </form>
+</section>
+{% endblock %}
+
+{% block custom_css %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block custom_js %}{% endblock %}
+{% block custom_meta %}{% endblock %}
+
