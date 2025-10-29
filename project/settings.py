@@ -51,7 +51,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'project.urls'
 
-TEMPLATES = [
+TEMPLATES = [ # type: ignore
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
@@ -72,7 +72,8 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
+# تعديله الى شي مناسب لاستعمال MySQL
+DATABASES = { # type: ignore
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
