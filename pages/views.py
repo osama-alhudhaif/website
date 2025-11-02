@@ -6,5 +6,3 @@ from django.http import HttpResponse
 def index(request):
     return render(request, 'pages/index.html', {"name": "osama"})
 
-def test(request):
-    pass
