@@ -75,23 +75,23 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # تعديله الى شي مناسب لاستعمال MySQL
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'data_awalimna',
-#         'USER': 'osama-alhudhaif',
-#         'PASSWORD': 'Osama-alhudhaif2@',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     }
-# }
-
-DATABASES = { # type: ignore
+DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'data_awalimna',
+        'USER': 'osama-alhudhaif',
+        'PASSWORD': 'Osama-alhudhaif2@',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
+
+# DATABASES = { # type: ignore
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
