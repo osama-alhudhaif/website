@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pages',
+    'users',
+    'stories',
 ]
 
 MIDDLEWARE = [
@@ -72,23 +75,23 @@ WSGI_APPLICATION = 'awalimna.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'data_awalimna',
-        'USER': 'osama-alhudhaif',
-        'PASSWORD': 'Osama-alhudhaif2@',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'data_awalimna',
+#         'USER': 'osama-alhudhaif',
+#         'PASSWORD': 'Osama-alhudhaif2@',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Password validation
