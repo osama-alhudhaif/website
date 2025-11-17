@@ -2,7 +2,6 @@ from django.db import models
 from django.conf import settings
 
 # Create your models here.
-
 USER_ROLE = [
     'reader',
     'author',
@@ -195,3 +194,5 @@ class owner(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     ip_address = models.CharField(max_length=25)
 
+    def __str__(self):
+        return self.username
