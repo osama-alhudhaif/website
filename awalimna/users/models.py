@@ -180,4 +180,18 @@ class educational_center_student(models.Model):
 
 # owner model
 class owner(models.Model):
-    pass
+    id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=25)
+    name = models.CharField(max_length=25)
+    email = models.EmailField(max_length=254)
+    password = models.CharField(max_length=25)
+    address = models.CharField(max_length=25)
+    date_of_birth = models.DateField()
+    gender = models.CharField(max_length=10)
+    level = models.CharField(max_length=10)
+    country = models.CharField(max_length=25)
+    status = models.CharField(max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    ip_address = models.CharField(max_length=25)
+
