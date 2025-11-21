@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'stories',
 ]
 
 MIDDLEWARE = [
@@ -73,14 +75,22 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'awallimna_data',
+#         'USER': 'osamh-alhudhaif',
+#         'PASSWORD': 'OSamaalhefif2@', 
+#         'HOST': 'localhost',                   
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'awallimna_data',
-        'USER': 'osamh-alhudhaif',
-        'PASSWORD': 'OSamaalhefif2@', 
-        'HOST': 'localhost',                   
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        # هذا الملف سيتم إنشاؤه تلقائياً في جذر المشروع (website/)
+        'NAME': BASE_DIR / 'db.sqlite3', 
     }
 }
 
