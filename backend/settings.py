@@ -62,7 +62,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.request',
+                'django.template.context_processors.request', 
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -77,24 +77,23 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'awallimna_data',
-#         'USER': 'osamh-alhudhaif',
-#         'PASSWORD': 'OSamaalhefif2@', 
-#         'HOST': 'localhost',                   
-#         'PORT': '5432',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        # هذا الملف سيتم إنشاؤه تلقائياً في جذر المشروع (website/)
-        'NAME': BASE_DIR / 'db.sqlite3', 
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'data_awalimna', 
+        'USER': 'osama_alhudhaif', 
+        'PASSWORD': 'OSama_alhudhaif2@', 
+        'HOST': 'localhost',                   
+        'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3', 
+#     }
+# }
 
 
 # Password validation
