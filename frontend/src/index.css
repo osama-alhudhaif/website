@@ -1,0 +1,51 @@
+/* 1. تطبيق الخلفية العامة للموقع (نضيفها للجسم/body) */
+body {
+    background-color: #1A1A1A; /* خلفية أسود فحمي */
+    color: #F0F0F0; /* النص العام أبيض ناصع */
+    margin: 0; /* لإزالة الهوامش الافتراضية */
+    font-family: Arial, sans-serif; /* خط أساسي سهل القراءة */
+}
+
+/* 2. تطبيق الألوان على شريط الهيدر */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px; /* زيادة التباعد قليلاً */
+    background-color: #1A1A1A; /* نفس لون الخلفية لمظهر سلس */
+    border-bottom: 1px solid #333333; /* خط فاصل خفيف وداكن */
+}
+
+/* 3. تلوين الشعار واسم الموقع */
+#nameLogo {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    color: #F0F0F0; /* تلوين اسم الشعار بالأبيض الناصع */
+    font-weight: bold;
+    font-size: 1.5em; /* تكبير الخط قليلاً */
+}
+
+#nameLogo img {
+    width: 50px;
+    height: 50px;
+}
+
+/* 4. تلوين روابط تسجيل الدخول/الخروج */
+#log {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+}
+
+#log a {
+    text-decoration: none;
+    color: #4169E1; /* تلوين الروابط بلون التركيز (الأزرق الملكي) */
+    font-weight: 500;
+    transition: color 0.3s ease; /* إضافة تأثير انتقال سلس */
+}
+
+/* تأثير عند مرور مؤشر الفأرة (Hover) */
+#log a:hover {
+    color: #F0F0F0; /* يصبح أبيض عند المرور عليه */
+}
