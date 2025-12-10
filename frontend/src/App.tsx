@@ -7,12 +7,12 @@ import './App.css'; // استيراد CSS
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="page-container" dir="rtl"> {/* دعم RTL للعربية */}
+      <div className="page-container" dir="rtl"> {}
         <Header />
         <Routes>
           <Route path="/" element={<MainContent />} />
-          {/* يمكن إضافة المزيد من الروابط هنا، مثل <Route path="/login" element={<Login />} /> */}
         </Routes>
+
         <Footer />
       </div>
     </Router>
