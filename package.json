@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "devDependencies": {
+    "@types/react-router-dom": "^5.3.3",
     "concurrently": "^9.2.1",
     "jest": "^30.2.0"
   },
@@ -55,5 +56,8 @@
   "bugs": {
     "url": "https://github.com/osama-alhudhaif/website/issues"
   },
-  "homepage": "https://github.com/osama-alhudhaif/website#readme"
+  "homepage": "https://github.com/osama-alhudhaif/website#readme",
+  "dependencies": {
+    "react-router-dom": "^7.10.1"
+  }
 }
