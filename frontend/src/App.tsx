@@ -1,26 +1,22 @@
-// start my website
-function App() {
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import MainContent from './components/MainContent';
+import Footer from './components/Footer';
+import './App.css'; // استيراد CSS
+
+const App: React.FC = () => {
   return (
-    <>
-      <header>
-        <div id="nameLogo">
-          <h1>عوالمنا</h1>
-          <img src="/Website.jpg" alt="Website logo" />
-        </div>
-        <div id="log">
-          {/* Changed h6 to nav or div because h6 is for headers, not links */}
-          <nav>
-            <a href="/login">تسجيل الدخول</a>
-            {' / '}
-            <a href="/register">تسجيل حساب جديد</a>
-          </nav>
-        </div>
-      </header>
-      <main>
-        <p>موقع عالمي لعرض القصص والروايات بكل اللغات مع توفير خدمة ترجمة فورية ودقيقة من وإلى أي لغة.</p>
-      </main>
-    </>
+    <Router>
+      <div className="page-container" dir="rtl"> {/* دعم RTL للعربية */}
+        <Header />
+        <Routes>
+          <Route path="/" element={<MainContent />} />
+          {/* يمكن إضافة المزيد من الروابط هنا، مثل <Route path="/login" element={<Login />} /> */}
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
