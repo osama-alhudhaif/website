@@ -1,13 +1,32 @@
-You can easily **copy** this text by highlighting it with your mouse or using the copy button if your interface provides one, and then you can **paste** it wherever you need (e.g., into a document, an email, or a chat).
+# Project Setup and Running Instructions
 
----
+This guide provides the necessary steps to set up the environment and run both the backend (Django) and frontend (React/Vite) components of the website.
 
-### 📋 To Copy the Text
+## 🚀 Step 1: Initialize the Python Environment
 
-Here is the exact text you can copy and share:
+First, you need to create and activate a Python virtual environment to manage project dependencies.
 
-```text
-# To run the website, execute the following command:
+1.  **Create your Venv:** Choose a name for your environment (e.g., `myenv`).
+    ```bash
+    python -m venv NAME_OF_YOUR_VENV
+    ```
+    *(Replace `NAME_OF_YOUR_VENV` with your preferred name.)*
 
-# Run the website with the command:
-npm run dev
+2.  **Activate the Venv (Windows/PowerShell):**
+    ```bash
+    .\NAME_OF_YOUR_VENV\Scripts\activate
+    ```
+    *(For Linux/macOS, use: `source NAME_OF_YOUR_VENV/bin/activate`)*
+
+3.  **Install Python Requirements:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## 🛠️ Step 2: Install Node Dependencies
+
+Install the necessary packages for the frontend and concurrency tools.
+
+```bash
+npm install
+# Note: Ensure you run this from the project root.
