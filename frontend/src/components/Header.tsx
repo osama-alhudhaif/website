@@ -1,18 +1,32 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Header() {
+interface HeaderProps {
+  isLoggedIn: boolean;
+  userName?: string;
+}
+
+// استلام الخصائص isLoggedIn و userName
+function Header({ isLoggedIn, userName }: HeaderProps) {
   return (
     <header>
-      <div id="nameLogo">
-        <h1>عوالمنا</h1>
-        <img src="/Website.jpg" alt="شعار موقع عوالمنا" />
-      </div>
+      {/* ... الشعار ... */}
       <div id="log">
         <nav>
-          <Link to="/login">تسجيل الدخول</Link>
-          {' / '}
-          <Link to="/register">تسجيل حساب جديد</Link>
+          {isLoggedIn ? (
+            // إذا كان المستخدم مسجل دخوله
+            <>
+              <span>مرحباً، {userName || 'مستخدم'}!</span>
+              {' / '}
+              <Link to="/logout">تسجيل الخروج</Link>
+            </>
+          ) : (
+            // إذا لم يكن المستخدم مسجل دخوله (الحالة الحالية)
+            <>
+              <Link to="/login">تسجيل الدخول</Link>
+              {' / '}
+              <Link to="/register">تسجيل حساب جديد</Link>
+            </>
+          )}
         </nav>
       </div>
     </header>
