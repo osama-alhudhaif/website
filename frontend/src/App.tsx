@@ -9,9 +9,10 @@ const username = "سالم"; // مثال على بيانات
 
 const App: React.FC = () => {
   return (
+    <div className="Router">
     <Router>
       <div className="page-container" dir="rtl">
-        <Header userName={username} />
+        <Header userName={username} isLoggedIn={false} />
         <Routes>
           <Route path="/" element={<MainContent />} />
           <Route path="/about" element={<About />} />
@@ -19,8 +20,8 @@ const App: React.FC = () => {
         <Footer />
       </div>
     </Router>
+    </div>
   );
 };
 
 export default App;
-

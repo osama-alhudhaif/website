@@ -28,5 +28,10 @@ First, you need to create and activate a Python virtual environment to manage pr
 Install the necessary packages for the frontend and concurrency tools.
 
 ```bash
-npm install
-# Note: Ensure you run this from the project root.
+npm install 
+```
+
+## 🛠️ Step 3: run the backend and frontend
+``` bash
+npm run dev
+```
