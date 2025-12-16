@@ -1,27 +1,40 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import MainContent from './components/MainContent';
-import Footer from './components/Footer';
-import About from './components/About';
-import './App.css'; // استيراد CSS
+import { createBrowserRouter, RouterProvider, Link, Outlet } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
 
-const username = "سالم"; // مثال على بيانات
-
-const App: React.FC = () => {
-  return (
-    <div className="Router">
-    <Router>
-      <div className="page-container" dir="rtl">
-        <Header userName={username} isLoggedIn={false} />
-        <Routes>
-          <Route path="/" element={<MainContent />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+// مكون الـ Layout لإضافة Navbar ثابت
+const Layout = () => (
+  <div className="Header">
+    <div className="Logo">
+      <h2>
+      عوالمنا
+      </h2>
+      <p></p>
+    <img src="./Website.jpg" alt="Logo" className="logo-img" />
     </div>
-  );
-};
+    <div>
+    <nav style={{ padding: '10px', background: '#f4f4f4', marginBottom: '20px' }}>
+      <Link to="/" style={{ marginRight: '15px' }}>الرئيسية</Link>
+      \
+      <Link to="/about">عن الموقع</Link>
+    </nav>
+    </div>
+    <hr />
+    <Outlet /> {/* هنا سيتم عرض محتوى الصفحة (Home أو About) */}
+  </div>
+);
 
-export default App;
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />, // الـ Layout يحيط بكل الصفحات
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/about", element: <About /> },
+    ],
+  },
+]);
+
+export default function App() {
+  return <RouterProvider router={router} />;
+}
