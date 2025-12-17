@@ -1,3 +1,7 @@
+import { Link, Outlet } from "react-router-dom";
+
+const Header = () => {
+  return (
     <div className="Main-Container">
       <header className="Header">
         <div className="Right-Side">
@@ -20,6 +24,7 @@
       </main>
     </div>
   );
-}
+};
 
 export default Header;
+
