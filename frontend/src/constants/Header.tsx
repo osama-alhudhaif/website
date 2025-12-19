@@ -13,8 +13,8 @@ const Header = () => {
 
         <div className="Left-Side">
           <nav className="Nav-Links">
-            <Link to="/login">تسجيل الدخول</Link>
-            <Link to="/register">انشاء حساب</Link>
+            <Link to="./pages/login">تسجيل الدخول</Link>
+            <Link to="./pages/register">انشاء حساب</Link>
           </nav>
         </div>
       </header>
