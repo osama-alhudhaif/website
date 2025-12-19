@@ -26,13 +26,12 @@ const Register = () => {
                 <select id="gender" name="gender" required>
                     <option value="male">ذكر</option>
                     <option value="female">أنثى</option>
+                    <option value="other">اخرى</option>
                 </select>
                 <br />
                 <label htmlFor="country">البلد</label>
                 <select id="country" name="country" required>
-                    <option value="Syria">سوريا</option>
-                    <option value="Egypt">مصر</option>
-                    <option value="Jordan">الأردن</option>
+                    {/* استعمل مكتبة هنا */}
                 </select>
                 <br />
                 <label>
