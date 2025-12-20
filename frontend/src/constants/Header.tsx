@@ -6,15 +6,15 @@ const Header = () => {
       <header className="Header">
         <div className="Right-Side">
           <Link to="/" className="Logo-link">
-            <img src="./Website.jpg" alt="Logo" className="logo-img" />
+            <img src="./public/Website.png" alt="Logo" className="logo-img" />
             <h2 className="Brand-Name">عوالمنا</h2>
           </Link>
         </div>
 
         <div className="Left-Side">
           <nav className="Nav-Links">
-            <Link to="./pages/login">تسجيل الدخول</Link>
-            <Link to="./pages/register">انشاء حساب</Link>
+            <Link to="/login">تسجيل الدخول</Link>
+            <Link to="/register">انشاء حساب</Link>
           </nav>
         </div>
       </header>

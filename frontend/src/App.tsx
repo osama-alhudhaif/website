@@ -12,9 +12,9 @@ const App = () => (
     <div className="app-container">
       <Routes>
         {/* هنا نحدد أي صفحة تظهر عند كل رابط */}
-        <Route path="/" element={<Home />} /> 
-        <Route path="frontend/src/pages/login.tsx" element={<Login />} />
-        <Route path="frontend/src/pages/register.tsx" element={<Register />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
     <Footer />
