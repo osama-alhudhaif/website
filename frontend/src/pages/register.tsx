@@ -31,7 +31,6 @@ const Register = () => {
                 <br />
                 <label htmlFor="country">البلد</label>
                 <select id="country" name="country" required>
-                    {/* استعمل مكتبة هنا */}
                 </select>
                 <br />
                 <label>
