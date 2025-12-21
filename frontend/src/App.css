@@ -1,3 +1,11 @@
+/* تحسينات عامة */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl; /* ليتناسب مع اللغة العربية */
+}
+
+/* Header المطور */
 .Header {
   display: flex;
   justify-content: space-between;
@@ -5,7 +13,9 @@
   padding: 15px 50px;
   background-color: #ffffff;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  direction: rtl;
+  position: sticky; /* يبقى ثابت عند التمرير */
+  top: 0;
+  z-index: 1000;
 }
 
 .Right-Side .Logo-link {
@@ -13,12 +23,15 @@
   align-items: center;
   gap: 15px;
   text-decoration: none;
-  color: #333;
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .logo-img {
-  width: 400px;
-  height: 400px;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px; /* لمسة جمالية لشعار عوالمنا */
   object-fit: cover;
 }
 
@@ -30,5 +43,76 @@
 .Nav-Links a {
   text-decoration: none;
   color: #444;
-  font-weight: bold;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.Nav-Links a:hover {
+  color: #007bff; /* يتغير اللون عند تمرير الماوس */
+}
+
+/* منطقة المحتوى */
+.Content-Area {
+  min-height: calc(100vh - 200px); /* يضمن بقاء الفوتر في الأسفل */
+  padding: 40px 50px;
+}
+
+/* Footer المطور والاحترافي */
+.Footer {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 40px 50px 20px;
+}
+
+.Footer-Content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.Footer-Section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.Footer-Section h3 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.Footer-Section p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.Footer-Links {
+  list-style: none;
+  padding: 0;
+}
+
+.Footer-Links li {
+  margin-bottom: 10px;
+}
+
+.Footer-Links a {
+  color: #bdc3c7;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.Footer-Links a:hover {
+  color: #fff;
+  padding-right: 5px;
+}
+
+.Footer-Bottom {
+  text-align: center;
+  border-top: 1px solid #3e4f5f;
+  padding-top: 20px;
+  font-size: 0.85rem;
+  color: #bdc3c7;
 }
