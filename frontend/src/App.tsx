@@ -4,7 +4,7 @@ import Header from './constants/Header';
 import Footer from './constants/Footer';
 import Login from './pages/login';    // تأكد من استيراد الصفحات
 import Register from './pages/register';
-import Home from './pages/About';     // أو أي صفحة رئيسية أخرى
+import About from './constants/about';
 
 const App = () => (
   <>
@@ -12,7 +12,7 @@ const App = () => (
     <div className="app-container">
       <Routes>
         {/* هنا نحدد أي صفحة تظهر عند كل رابط */}
-        <Route path="/" element={<Home />} />
+        <Route path="/About" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
