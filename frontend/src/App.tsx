@@ -1,14 +1,16 @@
-import { Routes, Route } from 'react-router-dom'; // أضفنا Routes و Route
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from './constants/Header';
 import Footer from './constants/Footer';
-import Login from './pages/login';    // تأكد من استيراد الصفحات
+import Login from './pages/login';
 import Register from './pages/register';
 import About from './constants/about';
 
 const App = () => (
   <>
+  
     <Header />
+      <p>العنوان: عوالمنا: حيث يسكن الأدب وتتحدث التقنية. الشعار: "إذا للأدب دولة، فهي عوالمنا."</p>
     <div className="app-container">
       <Routes>
         {/* هنا نحدد أي صفحة تظهر عند كل رابط */}

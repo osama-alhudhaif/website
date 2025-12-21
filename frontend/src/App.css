@@ -3,6 +3,7 @@ body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   direction: rtl; /* ليتناسب مع اللغة العربية */
+  background-color: #F5F5F5;
 }
 
 /* Header المطور */
@@ -11,7 +12,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 15px 50px;
-  background-color: #ffffff;
+  background-color: #2145a641;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   position: sticky; /* يبقى ثابت عند التمرير */
   top: 0;
@@ -24,15 +25,16 @@ body {
   gap: 15px;
   text-decoration: none;
   color: #2c3e50;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
 .logo-img {
-  width: 50px;
-  height: 50px;
-  border-radius: 8px; /* لمسة جمالية لشعار عوالمنا */
-  object-fit: cover;
+  width: auto;      /* يسمح للعرض بالتمدد حسب أبعاد الشعار */
+  height: 50px;     /* يحافظ على ارتفاع ثابت ليتناسب مع الهيدر */
+  max-width: 150px; /* حد أقصى للعرض لكي لا يزاحم الروابط */
+  object-fit: contain; /* يضمن ظهور الصورة كاملة داخل الإطار دون قص */
+  border-radius: 0;   /* غالباً الشعارات المفرغة لا تحتاج border-radius */
 }
 
 .Nav-Links {
@@ -59,23 +61,33 @@ body {
 
 /* Footer المطور والاحترافي */
 .Footer {
-  background-color: #2c3e50;
-  color: #ecf0f1;
-  padding: 40px 50px 20px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 40px 50px;
+  direction: rtl;
+  width: 100%;
+  box-sizing: border-box; /* يضمن عدم خروج الفوتر عن الشاشة */
 }
 
 .Footer-Content {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  display: grid;
+  /* تقسيم الفوتر إلى 3 أعمدة متساوية (يمكنك تغيير الرقم حسب أقسامك) */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
   gap: 30px;
-  margin-bottom: 20px;
+  width: 100%;
 }
 
 .Footer-Section {
-  flex: 1;
-  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* يجعل النصوص تبدأ من اليمين */
+}
+
+.Social-Icons {
+  display: flex;
+  flex-direction: row; /* يضمن بقاء أيقونات التواصل بجانب بعضها */
+  gap: 20px;
+  margin-top: 15px;
 }
 
 .Footer-Section h3 {
