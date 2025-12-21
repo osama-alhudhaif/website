@@ -1,0 +1,50 @@
+.Footer {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 40px 20px 20px;
+  direction: rtl; /* لضمان التنسيق العربي الصحيح */
+}
+
+.Footer-Content {
+  display: flex;
+  justify-content: space-between; /* يوزع المساحات بين الأقسام بالتساوي */
+  align-items: flex-start;
+  flex-wrap: nowrap; /* يمنع النزول لسطر جديد في الشاشات الواسعة */
+  gap: 20px;
+}
+
+/* في حال كانت الشاشة صغيرة جداً (جوال)، هنا نسمح بالنزول */
+@media (max-width: 768px) {
+  .Footer-Content {
+    flex-wrap: wrap; 
+    flex-direction: column; /* يرتبهم تحت بعض فقط في الجوال */
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.Footer-Section {
+  flex: 1; /* يجعل كل قسم يأخذ مساحة متساوية */
+  /* الغِ أو قلل الـ min-width إذا أردت بقاءهم بجانب بعض في مساحات أضيق */
+  min-width: 150px; 
+}
+
+.Social-Icons { display: flex; gap: 20px; }
+
+.Social-Link {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
+  transition: transform 0.3s;
+}
+
+.Social-Link span { font-size: 12px; margin-top: 5px; }
+
+.Social-Link:hover { transform: translateY(-5px); }
+
+.Icon-FB { color: #1877F2; }
+
+.product-name { color: #00d1b2; font-weight: bold; } /* تمييز كتابنا وورقنا بلون مختلف */
