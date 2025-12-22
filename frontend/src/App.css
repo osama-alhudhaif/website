@@ -13,7 +13,7 @@ body {
   align-items: center;
   padding: 15px 50px;
   background-color: #2145a641;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky; /* يبقى ثابت عند التمرير */
   top: 0;
   z-index: 1000;
@@ -59,30 +59,6 @@ body {
   padding: 40px 50px;
 }
 
-/* Footer المطور والاحترافي */
-.Footer {
-  background-color: #1a1a1a;
-  color: #ffffff;
-  padding: 40px 50px;
-  direction: rtl;
-  width: 100%;
-  box-sizing: border-box; /* يضمن عدم خروج الفوتر عن الشاشة */
-}
-
-.Footer-Content {
-  display: grid;
-  /* تقسيم الفوتر إلى 3 أعمدة متساوية (يمكنك تغيير الرقم حسب أقسامك) */
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-  gap: 30px;
-  width: 100%;
-}
-
-.Footer-Section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* يجعل النصوص تبدأ من اليمين */
-}
-
 .Social-Icons {
   display: flex;
   flex-direction: row; /* يضمن بقاء أيقونات التواصل بجانب بعضها */
@@ -99,15 +75,6 @@ body {
 .Footer-Section p {
   font-size: 0.9rem;
   line-height: 1.6;
-}
-
-.Footer-Links {
-  list-style: none;
-  padding: 0;
-}
-
-.Footer-Links li {
-  margin-bottom: 10px;
 }
 
 .Footer-Links a {

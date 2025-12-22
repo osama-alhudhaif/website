@@ -34,24 +34,23 @@ const Footer = () => {
             {/* منصة X (تويتر سابقاً) */}
             <a href="https://twitter.com/awalimna" target="_blank" rel="noreferrer" className="Social-Link">
               <FaXTwitter className="Icon-X" />
-              <span>@awalimna</span>
+              <span>awalimna</span>
             </a>
 
             {/* فيسبوك */}
             <a href="https://facebook.com/awalimna" target="_blank" rel="noreferrer" className="Social-Link">
               <FaFacebook className="Icon-FB" />
-              <span>@awalimna</span>
+              <span>awalimna</span>
             </a>
           </div>
         </div>
+        <div className="Footer-Bottom">
+          <hr className="Footer-Divider" />
+          <p className="Rights">
+            &copy; {new Date().getFullYear()} <strong>عوالمنا</strong>. جميع الحقوق محفوظة. 
+            تم التطوير بواسطة <strong>أديب</strong>.
+          </p>
       </div>
-
-      <div className="Footer-Bottom">
-        <hr className="Footer-Divider" />
-        <p className="Rights">
-          &copy; {new Date().getFullYear()} <strong>عوالمنا</strong>. جميع الحقوق محفوظة. 
-          تم التطوير بواسطة <strong>أديب</strong>.
-        </p>
       </div>
     </footer>
   );
