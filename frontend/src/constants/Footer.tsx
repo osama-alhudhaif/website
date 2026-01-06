@@ -1,4 +1,3 @@
-import { FaFacebook, FaXTwitter } from "react-icons/fa6"; // استخدام FaXTwitter للشعار الجديد
 import "./Footer.css";
 
 const Footer = () => {
@@ -26,24 +25,7 @@ const Footer = () => {
             <li><a href="/privacy">سياسة الخصوصية</a></li>
           </ul>
         </div>
-
-        {/* قسم التواصل الاجتماعي */}
-        <div className="Footer-Section">
-          <h3 className="Footer-Title">تابعنا</h3>
-          <div className="Social-Icons">
-            {/* منصة X (تويتر سابقاً) */}
-            <a href="https://twitter.com/awalimna" target="_blank" rel="noreferrer" className="Social-Link">
-              <FaXTwitter className="Icon-X" />
-              <span>awalimna</span>
-            </a>
-
-            {/* فيسبوك */}
-            <a href="https://facebook.com/awalimna" target="_blank" rel="noreferrer" className="Social-Link">
-              <FaFacebook className="Icon-FB" />
-              <span>awalimna</span>
-            </a>
-          </div>
-        </div>
+        
         <div className="Footer-Bottom">
           <hr className="Footer-Divider" />
           <p className="Rights">

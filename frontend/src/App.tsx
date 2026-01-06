@@ -12,7 +12,6 @@ const App = () => (
     <Header />
     <div className="app-container">
       <Routes>
-        {/* هنا نحدد أي صفحة تظهر عند كل رابط */}
         <Route path="/About" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
