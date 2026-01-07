@@ -1,4 +1,6 @@
-node_modules/
+*.pyc
+__pycache__/
 db.sqlite3
-.vs/
+.venv/
+awalimna/
 .env

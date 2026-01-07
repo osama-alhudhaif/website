@@ -1,5 +1,5 @@
 {"name":"website",
-"version":"1.0.0",
+"version":"0.1.0",
 "description":"موقع عالمي لعرض القصص والروايات بكل اللغات مع توفير خدمة ترجمة فورية ودقيقة من وإلى أي لغة.",
 "main":"index.js",
 "scripts":{"start:backend":"python manage.py runserver 8001",

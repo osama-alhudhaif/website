@@ -18,6 +18,9 @@ const Header = () => {
           </nav>
         </div>
       </header>
+      <div className="Header-Content">
+        <p>مرحبا بك في عوالمنا</p>
+      </div>
 
       <main className="Content-Area">
         <Outlet />
