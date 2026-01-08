@@ -7,8 +7,7 @@ import Register from './pages/register';
 import About from './constants/about';
 
 const App = () => (
-  <>
-  
+  <div className="app-wrapper">
     <Header />
     <div className="app-container">
       <Routes>
@@ -18,7 +17,7 @@ const App = () => (
       </Routes>
     </div>
     <Footer />
-  </>
+  </div>
 );
 
 export default App;
