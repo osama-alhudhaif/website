@@ -1,39 +1,95 @@
 .Footer {
-  background-color: #1a1a1a;
-  color: #ffffff;
-  padding: 40px 20px;
-  direction: rtl;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 40px 20px 20px;
+    direction: rtl;
+    margin-top: auto;
 }
 
 .Footer-Content {
-  display: flex;
-  flex-direction: row; /* هذا يضمن الصف الأفقي */
-  justify-content: space-around; /* توزيع متساوٍ للأقسام */
-  align-items: flex-start;
-  max-width: 1200px;
-  margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
 }
 
 .Footer-Section {
-  flex: 1; /* يجعل كل قسم يأخذ مساحة متساوية */
-  min-width: 200px; /* يمنع القسم من أن يصبح نحيفاً جداً */
-  margin: 10px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.Footer-Title {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.Footer-Description {
+    line-height: 1.6;
+    color: #cccccc;
+    margin: 0;
+}
+
+.product-name {
+    color: #4a9eff;
+    font-weight: 600;
 }
 
 .Footer-Links {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .Footer-Links li {
-  margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
-/* للجوال: تحويل الصف الأفقي إلى عمودي */
-@media (max-width: 768px) {
-  .Footer-Content {
-    flex-direction: column;
-    align-items: center;
+.Footer-Links a {
+    color: #cccccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 1rem;
+}
+
+.Footer-Links a:hover {
+    color: #4a9eff;
+}
+
+.Footer-Bottom {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.Footer-Divider {
+    border: none;
+    border-top: 1px solid #333333;
+    margin: 20px 0;
+}
+
+.Rights {
     text-align: center;
-  }
+    color: #888888;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .Footer-Content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+    }
+    .Footer-Section {
+        width: 100%;
+    }
+    .Footer-Description {
+        font-size: 0.95rem;
+    }
 }
