@@ -5,6 +5,7 @@ import Footer from './constants/Footer';
 import Login from './pages/login';
 import Register from './pages/register';
 import About from './constants/about';
+import Body from './constants/body';
 
 const App = () => (
   <div className="app-wrapper">
@@ -16,6 +17,7 @@ const App = () => (
         <Route path="/register" element={<Register />} />
       </Routes>
     </div>
+    <Body />
     <Footer />
   </div>
 );

@@ -3,7 +3,7 @@ const Register = () => {
         <div>
             <form>
                 <h1>انشاء حساب</h1>
-                <h3>مرحبا بك في عوالمنا</h3>
+                <h3>مرحبا بك في Oda</h3>
                 <label htmlFor="username">اسم المستخدم</label>
                 <input type="text" id="username" name="username" required />
                 <br />

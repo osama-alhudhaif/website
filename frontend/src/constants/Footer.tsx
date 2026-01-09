@@ -5,11 +5,11 @@ const Footer = () => {
     <footer className="Footer">
       <div className="Footer-Content">
         
-        {/* قسم معلومات مشروع عوالمنا */}
+        {/* قسم معلومات مشروع Oda */}
         <div className="Footer-Section">
-          <h3 className="Footer-Title">عوالمنا</h3>
+          <h3 className="Footer-Title">Oda</h3>
           <p className="Footer-Description">
-            نبتكر في <strong>عوالمنا</strong> لتطوير أجهزة 
+            نبتكر في <strong>Oda</strong> لتطوير أجهزة 
             <span className="product-name"> كتابنا</span> و 
             <span className="product-name"> ورقنا</span> 
             بذكاء المدرب الرقمي <strong>أديب</strong>.
@@ -29,7 +29,7 @@ const Footer = () => {
         <div className="Footer-Bottom">
           <hr className="Footer-Divider" />
           <p className="Rights">
-            &copy; {new Date().getFullYear()} <strong>عوالمنا</strong>. جميع الحقوق محفوظة. 
+            &copy; {new Date().getFullYear()} <strong>Oda</strong>. جميع الحقوق محفوظة. 
             تم التطوير بواسطة <strong>أديب</strong>.
           </p>
       </div>
