@@ -79,14 +79,15 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# ابحث عن هذا الجزء وعدله هكذا مؤقتاً
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'data_awalimna',  # تأكد من وجودها في pgAdmin
-        'USER': 'postgres',
-        'PASSWORD': 'OSamaalhefif2@', 
-        'HOST': '',
-        'PORT': '',
+        'NAME': 'oda_data',
+        'USER': 'osama_alhudhaif',
+        'PASSWORD': 'OSama_alhudhaif2@',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
