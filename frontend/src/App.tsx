@@ -6,6 +6,7 @@ import Login from './pages/login';
 import Register from './pages/register';
 import About from './constants/about';
 import Body from './constants/body';
+import Reading from './constants/reading';
 
 const App = () => (
   <div className="app-wrapper">
@@ -15,6 +16,7 @@ const App = () => (
         <Route path="/About" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/reading" element={<Reading />} />
       </Routes>
     </div>
     <Body />
