@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',  # مكتبة الـ JSON
-    'accounts',        # تطبيق الحسابات
-    'stories',         # تطبيق القصص
+    'rest_framework',
+    'accounts',
+    'stories',
+    'rest_framework.authtoken',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [

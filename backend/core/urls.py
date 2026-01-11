@@ -16,6 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib import admin
+
+admin.site.site_header = "لوحة التحكم موقع oda"
+admin.site.site_title = "بوابة الإدارة"
+admin.site.index_title = "لوحة التحكم"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
