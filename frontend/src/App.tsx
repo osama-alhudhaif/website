@@ -6,7 +6,7 @@ import Login from './pages/login';
 import Register from './pages/register';
 import About from './constants/about';
 import Body from './constants/body';
-import Reading from './constants/reading';
+import Reading from './constants/Reading';
 
 const App = () => {
   return (
