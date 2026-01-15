@@ -1,0 +1,38 @@
+/* تنسيق الحاوية الأساسية للروابط */
+.Nav-Links {
+  display: flex;
+  align-items: center;
+  gap: 25px; /* المسافة بين العناصر */
+  direction: rtl; /* لضمان الترتيب من اليمين لليسار */
+}
+
+/* تنسيق الروابط */
+.Nav-Item {
+  text-decoration: none;
+  color: #333; /* غير اللون حسب تصميمك */
+  font-weight: 500;
+  font-size: 16px;
+}
+
+/* تنسيق القائمة المنسدلة لتشبه الروابط */
+.Custom-Select {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  color: #555;
+  transition: all 0.3s ease;
+}
+
+.Custom-Select:hover {
+  border-color: #888;
+}
+
+.Custom-Select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0,123,255,0.2);
+}
