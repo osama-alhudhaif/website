@@ -14,13 +14,19 @@ const App = () => {
       <Header />
       <div className="app-container">
         <Routes>
+          {/* الصفحة الرئيسية */}
+          <Route path="/" element={<Body />} /> 
+          
+          {/* مسار الفئات الديناميكي */}
+          <Route path="/category/:categoryName" element={<Body />} /> 
+          
           <Route path="/About" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reading" element={<Reading />} />
         </Routes>
       </div>
-      <Body />
+      {/* ملاحظة: نقلت <Body /> ليكون داخل الـ Routes كصفحة رئيسية */}
       <Footer />
     </div>
   );
