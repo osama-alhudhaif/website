@@ -1,7 +1,9 @@
+import cardstore from "./Cardstore"
+
 const Body = () => {
     return (
         <div>
-            <p>test</p>
+            <p></p>
         </div>
     )
 }

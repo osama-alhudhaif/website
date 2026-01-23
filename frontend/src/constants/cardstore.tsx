@@ -1,4 +1,4 @@
-const cardstore = () => {
+const Cardstore = () => {
     return (
         <div>
             <p></p>
@@ -6,4 +6,4 @@ const cardstore = () => {
     )
 }
 
-export default cardstore
+export default Cardstore
