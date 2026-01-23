@@ -1,0 +1,9 @@
+// frontend/src/api/auth/authService.ts
+import axiosInstance from '../__base__/axiosInstance';
+// import { ExampleType } from '../../types/Example'; // ??????? ???????
+
+// ???? ????? ??? ????????
+export const getExampleData = async () => {
+  const response = await axiosInstance.get('/auth/example/');
+  return response.data;
+};
