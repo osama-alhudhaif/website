@@ -27,7 +27,6 @@ const Footer = () => {
         </div>
         
         <div className="Footer-Bottom">
-          <hr className="Footer-Divider" />
           <p className="Rights">
             &copy; {new Date().getFullYear()} <strong>Oda</strong>. جميع الحقوق محفوظة. 
             تم التطوير بواسطة <strong>أديب</strong>.
