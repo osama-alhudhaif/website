@@ -29,7 +29,6 @@ const Footer = () => {
         <div className="Footer-Bottom">
           <p className="Rights">
             &copy; {new Date().getFullYear()} <strong>Oda</strong>. جميع الحقوق محفوظة. 
-            تم التطوير بواسطة <strong>أديب</strong>.
           </p>
       </div>
       </div>
