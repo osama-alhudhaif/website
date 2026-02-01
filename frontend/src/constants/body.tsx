@@ -1,3 +1,4 @@
+import Cardstore from "./Cardstore"
 
 const Body = () => {
     return (
