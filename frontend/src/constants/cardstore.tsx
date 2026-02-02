@@ -1,3 +1,5 @@
+import { useState, type FC } from "react"
+
 interface CardstoreProps {
     name: string
     description: string
@@ -6,12 +8,12 @@ interface CardstoreProps {
 
 const Cardstore: FC<CardstoreProps> = ({
     name = "osama",
-    description = "test",
+    description = "44",
     likes = 0,
 }) => {
-    const [nameState, setNameState] = useState(name)
-    const [descriptionState, setDescriptionState] = useState(description)
-    const [likesState, setLikesState] = useState(likes)
+    const [nameState, ] = useState(name)
+    const [descriptionState, ] = useState(description)
+    const [likesState, ] = useState(likes)
 
     return (
         <div>
