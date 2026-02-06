@@ -9,6 +9,7 @@ import Body from './constants/body';
 import Reading from './constants/Reading';
 import AuthorProfile from './profel/AuthorProfile';
 import MyProfile from './profel/MyProfile';
+import Cardstore from './constants/Cardstore';
 
 const App = () => {
   const location = useLocation();
