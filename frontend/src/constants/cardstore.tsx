@@ -25,4 +25,3 @@ const Cardstore: FC<CardstoreProps> = ({
 }
 
 export default Cardstore
-
