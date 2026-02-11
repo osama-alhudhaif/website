@@ -35,3 +35,5 @@ npm install
 ``` bash
 npm run dev
 ```
+
+if (!( $env:VIRTUAL_ENV )) { .\oda\Scripts\Activate.ps1 } ; npm run dev
