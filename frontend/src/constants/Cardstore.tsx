@@ -1,9 +1,10 @@
 import { useState, type FC } from "react"
 
+// أضفنا ? لكي يقبل الكود عدم إرسال قيم من الأب (بما أنك وضعت قيم افتراضية)
 interface CardstoreProps {
-    name: string
-    description: string
-    likes: number
+    name?: string
+    description?: string
+    likes?: number
 }
 
 const Cardstore: FC<CardstoreProps> = ({
@@ -11,9 +12,10 @@ const Cardstore: FC<CardstoreProps> = ({
     description = "44",
     likes = 0,
 }) => {
-    const [nameState, ] = useState(name)
-    const [descriptionState, ] = useState(description)
-    const [likesState, ] = useState(likes)
+    // ملاحظة: إذا كنت لن تغير القيم، استخدم name و description مباشرة من الـ props
+    const [nameState] = useState(name)
+    const [descriptionState] = useState(description)
+    const [likesState] = useState(likes)
 
     return (
         <div>
