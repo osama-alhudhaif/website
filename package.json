@@ -3,7 +3,7 @@
 "description":"موقع عالمي لعرض القصص والروايات بكل اللغات مع توفير خدمة ترجمة فورية ودقيقة من وإلى أي لغة.",
 "main":"index.js",
 "scripts": {
-    "start:backend": "cd backend && ..\\oda\\Scripts\\python.exe manage.py runserver 8001",
+    "start:backend": "cd backend && python3 manage.py runserver",
     "start:frontend": "npm run dev --prefix frontend",
     "dev": "concurrently -k -p \"[{name}]\" -n \"Django,Vite\" -c \"blue,green\" \"npm run start:backend\" \"npm run start:frontend\""
 },
