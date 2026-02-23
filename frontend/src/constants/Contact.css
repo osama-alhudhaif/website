@@ -1,0 +1,142 @@
+.contact-section {
+  padding: 60px 20px;
+  background-color: #f9fbff; /* لون خلفية مريح للعين */
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  direction: rtl;
+}
+
+.contact-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.contact-header h2 {
+  font-size: 2.5rem;
+  color: #1a202c;
+  margin-bottom: 10px;
+}
+
+.contact-header p {
+  color: #718096;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  padding: 40px;
+}
+
+.contact-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  border-left: 1px solid #edf2f7; /* فاصل جانبي */
+  padding-left: 20px;
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.info-card .icon {
+  color: #3182ce;
+  width: 28px;
+  height: 28px;
+}
+
+.info-card h4 {
+  font-size: 1rem;
+  color: #4a5568;
+  margin-bottom: 2px;
+}
+
+.info-card p {
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group input, 
+.input-group textarea {
+  width: 100%;
+  padding: 15px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus, 
+.input-group textarea:focus {
+  border-color: #3182ce;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(49, 130, 206, 0.1);
+}
+
+.submit-btn {
+  background: #3182ce;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  background: #2b6cb0;
+  transform: translateY(-2px);
+}
+
+.status-msg {
+  color: #38a169;
+  text-align: center;
+  font-weight: bold;
+  background: #f0fff4;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* الاستجابة للهواتف */
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  
+  .contact-sidebar {
+    border-left: none;
+    border-bottom: 1px solid #edf2f7;
+    padding-bottom: 20px;
+    padding-left: 0;
+  }
+}

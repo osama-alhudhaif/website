@@ -20,9 +20,9 @@ const Footer = () => {
         <div className="Footer-Section">
           <h3 className="Footer-Title">المساعدة</h3>
           <ul className="Footer-Links">
-            <li><a href="/about">من نحن</a></li>
-            <li><a href="/contact">تواصل معنا</a></li>
-            <li><a href="/privacy">سياسة الخصوصية</a></li>
+            <li><a href="/About">من نحن</a></li>
+            <li><a href="/Contact">تواصل معنا</a></li>
+            <li><a href="/Frivacy">سياسة الخصوصية</a></li>
           </ul>
         </div>
         

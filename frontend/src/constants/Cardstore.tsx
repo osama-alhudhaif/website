@@ -1,3 +1,4 @@
+import "./Cardstore"
 import { useState, type FC } from "react"
 
 // أضفنا ? لكي يقبل الكود عدم إرسال قيم من الأب (بما أنك وضعت قيم افتراضية)
@@ -18,7 +19,7 @@ const Cardstore: FC<CardstoreProps> = ({
     const [likesState] = useState(likes)
 
     return (
-        <div>
+        <div id="Cardstore">
             <p>{nameState}</p>
             <p>{descriptionState}</p>
             <p>{likesState}</p>
