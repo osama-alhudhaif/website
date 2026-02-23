@@ -9,17 +9,18 @@ import Body from './constants/body';
 import Reading from './constants/Reading';
 import AuthorProfile from './profel/AuthorProfile';
 import MyProfile from './profel/MyProfile';
-import Cardstore from './constants/Cardstore';
+// استيراد صفحة التواصل الجديدة هنا
+import Contact from './constants/Contact'; 
 
 const App = () => {
   const location = useLocation();
 
-  // المسارات التي تتطلب هيدر مبسط (شعار واسم فقط)
+  // تحديث المسارات التي تتطلب هيدر مبسط لتشمل صفحة التواصل إذا أردت ذلك
+  // حالياً سأتركها كما هي لكي يظهر الهيدر الكامل في صفحة التواصل
   const isProfilePage = ['/profel/AuthorProfile', '/profel/MyProfile'].includes(location.pathname);
 
   return (
     <div className="app-wrapper">
-      {/* إذا كانت صفحة بروفايل، اظهر هيدر بسيط، وإذا لا اظهر الهيدر العادي */}
       {isProfilePage ? (
         <header style={{ 
           padding: '10px 20px', 
@@ -29,7 +30,6 @@ const App = () => {
           direction: 'rtl' 
         }}>
           <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            {/* استبدل src برابط شعارك الحقيقي */}
             <img src="/logo.png" alt="Logo" style={{ width: '40px', height: '40px' }} />
             <span style={{ fontSize: '1.2em', fontWeight: 'bold', color: '#333' }}>اسم الموقع</span>
           </Link>
@@ -48,6 +48,9 @@ const App = () => {
           <Route path="/reading" element={<Reading />} />
           <Route path="/profel/AuthorProfile" element={<AuthorProfile />} />
           <Route path="/profel/MyProfile" element={<MyProfile />} />
+          
+          {/* إدراج مسار صفحة التواصل هنا */}
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
 
