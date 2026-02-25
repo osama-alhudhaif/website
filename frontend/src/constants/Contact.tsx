@@ -1,109 +1,88 @@
-import React, { useState, type ChangeEvent, type FormEvent } from 'react';
-import { Mail, Twitter, Send } from 'lucide-react';
-import './Contact.css';
-
-// تعريف أنواع البيانات للمدخلات
-interface ContactFormData {
-  name: string;
-  email: string;
-  message: string;
-}
-
-const Contact: React.FC = () => {
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: '',
-    email: '',
-    message: '',
-  });
-
-  const [status, setStatus] = useState<string>('');
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    // هنا يمكنك ربط النموذج بـ API أو EmailJS
-    console.log('بيانات النموذج:', formData);
-    setStatus('تم إرسال رسالتك بنجاح!');
-    setFormData({ name: '', email: '', message: '' });
-  };
-
+const Frivacy = () => {
   return (
-    <section className="contact-section">
-      <div className="contact-container">
-        <header className="contact-header">
-          <h2>تواصل معي</h2>
-          <p>يسعدني دائماً استقبال رسائلكم واستفساراتكم.</p>
-        </header>
+    <div 
+      dir="rtl" 
+      style={{ 
+        maxWidth: '850px', 
+        margin: '40px auto', 
+        padding: '40px', 
+        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+        lineHeight: '1.8',
+        color: '#2d3436',
+        backgroundColor: '#fff',
+        borderRadius: '12px',
+        boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
+        textAlign: 'right'
+      }}
+    >
+      <header style={{ borderBottom: '3px solid #007bff', marginBottom: '30px', paddingBottom: '10px' }}>
+        <h1 style={{ color: '#007bff', fontSize: '2rem', margin: '0' }}>سياسة الخصوصية</h1>
+        <p style={{ color: '#636e72', fontSize: '0.9rem' }}>آخر تحديث: {new Date().toLocaleDateString('ar-SA')}</p>
+      </header>
 
-        <div className="contact-grid">
-          {/* معلومات التواصل */}
-          <aside className="contact-sidebar">
-            <div className="info-card">
-              <Mail className="icon" />
-              <div>
-                <h4>البريد الإلكتروني</h4>
-                <p>osama@oda.com</p>
-              </div>
-            </div>
-            <div className="info-card">
-            </div>
-            <div className="info-card">
-              <Twitter className="icon" />
-              <div>
-                <h4>تويتر</h4>
-                <p>@oda</p>
-              </div>
-            </div>
-          </aside>
+      <section>
+        <p>
+          مرحباً بك في <strong>موقع oda - أودا</strong>. نحن نولي خصوصيتك أهمية بالغة، وتوضح هذه الصفحة التزامنا بحماية بياناتك وكيفية التعامل معها.
+        </p>
+      </section>
 
-          {/* نموذج التواصل */}
-          <main className="contact-main">
-            <form onSubmit={handleSubmit} className="contact-form">
-              <div className="input-group">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="الاسم الكامل"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="input-group">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="البريد الإلكتروني"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="input-group">
-                <textarea
-                  name="message"
-                  placeholder="كيف يمكنني مساعدتك؟"
-                  rows={5}
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                ></textarea>
-              </div>
-              <button type="submit" className="submit-btn">
-                <span>إرسال</span>
-                <Send size={18} />
-              </button>
-              {status && <p className="status-msg">{status}</p>}
-            </form>
-          </main>
-        </div>
+      <div style={{ display: 'grid', gap: '25px', marginTop: '30px' }}>
+        
+        <section>
+          <h2 style={{ color: '#2d3436', fontSize: '1.4rem' }}>1. جمع المعلومات</h2>
+          <p>
+            نحن لا نقوم بجمع بيانات تعريف شخصية (مثل الاسم أو العنوان) إلا إذا قمت بتزويدنا بها طواعية عبر نماذج التواصل أو التسجيل. ومع ذلك، قد نقوم بجمع معلومات تقنية غير شخصية مثل:
+          </p>
+          <ul style={{ paddingRight: '20px' }}>
+            <li>نوع المتصفح ونظام التشغيل.</li>
+            <li>العنوان المجهول للبروتوكول (IP Address).</li>
+            <li>الصفحات التي تمت زيارتها ووقت البقاء فيها.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 style={{ color: '#2d3436', fontSize: '1.4rem' }}>2. ملفات تعريف الارتباط والتخزين المحلي</h2>
+          <p>
+            نستخدم ملفات <strong>Cookies</strong> وتقنيات <strong>Local Storage</strong> لتحسين أداء الموقع، مثل حفظ تفضيلاتك أو الحفاظ على جلسة تسجيل الدخول الخاصة بك، مما يغنيك عن إدخال بياناتك في كل مرة.
+          </p>
+        </section>
+
+        <section>
+          <h2 style={{ color: '#2d3436', fontSize: '1.4rem' }}>3. حماية البيانات</h2>
+          <p>
+            نحن نطبق معايير أمنية صارمة لمنع الوصول غير المصرح به إلى بياناتك. يتم تشفير كافة البيانات المتبادلة بين جهازك وخوادمنا عبر بروتوكول <strong>HTTPS</strong> الآمن.
+          </p>
+        </section>
+
+        <section>
+          <h2 style={{ color: '#2d3436', fontSize: '1.4rem' }}>4. حقوق المستخدم</h2>
+          <p>بموجب قوانين حماية البيانات، لديك الحق في:</p>
+          <ul style={{ paddingRight: '20px' }}>
+            <li>الوصول إلى بياناتك التي نملكها.</li>
+            <li>طلب تصحيح أو حذف بياناتك من سجلاتنا.</li>
+            <li>الاعتراض على معالجة بياناتك لأغراض تسويقية.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 style={{ color: '#2d3436', fontSize: '1.4rem' }}>5. روابط الأطراف الثالثة</h2>
+          <p>
+            قد يحتوي موقعنا على روابط لمواقع أخرى (مثل X أو منصات التواصل). نحن لسنا مسؤولين عن ممارسات الخصوصية الخاصة بتلك المواقع، وننصحك بقراءة سياسة الخصوصية لكل موقع تزوره.
+          </p>
+        </section>
+
+        <section style={{ backgroundColor: '#f8f9fa', padding: '20px', borderRadius: '8px', borderRight: '5px solid #007bff' }}>
+          <h2 style={{ marginTop: '0', fontSize: '1.2rem' }}>تواصل معنا</h2>
+          <p>لأي استفسار يتعلق بخصوصيتك، يمكنك مراسلتنا مباشرة عبر:</p>
+          <p>📧 <strong>oda@oda.com</strong></p>
+        </section>
       </div>
-    </section>
+
+      <footer style={{ marginTop: '40px', textAlign: 'center', borderTop: '1px solid #eee', paddingTop: '20px', color: '#b2bec3' }}>
+        <p>&copy; {new Date().getFullYear()} oda - أودا. جميع الحقوق محفوظة.</p>
+      </footer>
+    </div>
   );
 };
 
-export default Contact;
+export default Frivacy;
