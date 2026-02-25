@@ -9,14 +9,12 @@ import Body from './constants/body';
 import Reading from './constants/Reading';
 import AuthorProfile from './profel/AuthorProfile';
 import MyProfile from './profel/MyProfile';
-// استيراد صفحة التواصل الجديدة هنا
 import Contact from './constants/Contact'; 
+import Frivacy from './constants/Frivacy'; // تم الاستيراد بنجاح هنا
 
 const App = () => {
   const location = useLocation();
 
-  // تحديث المسارات التي تتطلب هيدر مبسط لتشمل صفحة التواصل إذا أردت ذلك
-  // حالياً سأتركها كما هي لكي يظهر الهيدر الكامل في صفحة التواصل
   const isProfilePage = ['/profel/AuthorProfile', '/profel/MyProfile'].includes(location.pathname);
 
   return (
@@ -48,9 +46,10 @@ const App = () => {
           <Route path="/reading" element={<Reading />} />
           <Route path="/profel/AuthorProfile" element={<AuthorProfile />} />
           <Route path="/profel/MyProfile" element={<MyProfile />} />
-          
-          {/* إدراج مسار صفحة التواصل هنا */}
           <Route path="/contact" element={<Contact />} />
+          
+          {/* إضافة مسار سياسة الخصوصية هنا لتفعيل الرابط */}
+          <Route path="/Frivacy" element={<Frivacy />} />
         </Routes>
       </div>
 
