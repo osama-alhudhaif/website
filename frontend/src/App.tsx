@@ -10,7 +10,8 @@ import Reading from './constants/Reading';
 import AuthorProfile from './profel/AuthorProfile';
 import MyProfile from './profel/MyProfile';
 import Contact from './constants/Contact'; 
-import Frivacy from './constants/Frivacy'; // تم الاستيراد بنجاح هنا
+import Frivacy from './constants/Frivacy';
+import ErrorPage from './constants/ErrorPage';
 
 const App = () => {
   const location = useLocation();
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="/profel/AuthorProfile" element={<AuthorProfile />} />
           <Route path="/profel/MyProfile" element={<MyProfile />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<ErrorPage />} />
           
           {/* إضافة مسار سياسة الخصوصية هنا لتفعيل الرابط */}
           <Route path="/Frivacy" element={<Frivacy />} />
