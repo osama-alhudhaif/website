@@ -11,7 +11,7 @@ import AuthorProfile from './profel/AuthorProfile';
 import MyProfile from './profel/MyProfile';
 import Contact from './constants/Contact'; 
 import Frivacy from './constants/Frivacy';
-import ErrorPage from './constants/ErrorPage';
+import ErrorPage from './errors/AppErrorBoundary';
 
 const App = () => {
   const location = useLocation();
