@@ -35,4 +35,8 @@ npm install
 ``` bash
 npm run dev
 ```
+or
+``` bash
+if [ -z "$VIRTUAL_ENV" ]; then source NAME_OF_YOUR_VENV/bin/activate; fi; npm run dev
+```
 
