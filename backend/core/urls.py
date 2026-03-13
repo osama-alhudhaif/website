@@ -24,7 +24,7 @@ from django.utils.html import format_html
 # لاحظ: حذفنا المسافات والتعليقات الزائدة في الأعلى لتجنب الخطأ
 # ولاحظ أن المسار أصبح يبدأ بـ /static/ مباشرة
 
-admin.site.site_header = format_html('<img src="/static/Website.png" style="height: 30px; vertical-align: middle;"> لوحة التحكم موقع oda')
+admin.site.site_header = format_html('<img src="/static/Website.png" style="height: 30px; vertical-align: middle;"> {}', 'لوحة التحكم موقع oda')
 admin.site.site_title = "بوابة الإدارة"
 admin.site.index_title = "مرحباً بك في الإدارة"
 admin.site.enable_nav_sidebar = False

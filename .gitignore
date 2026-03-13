@@ -1,3 +1,18 @@
-node_modules
-oda/
-oda/
+# Python / Django
+__pycache__/
+*.py[cod]
+db.sqlite3
+backend/staticfiles/
+
+# Environment Variables (الأهم!)
+.env
+backend/.env
+frontend/.env
+
+# Node / Vite
+node_modules/
+dist/
+frontend/dist/
+
+# OS files
+.DS_Store
