@@ -2,7 +2,7 @@ import { useState } from "react"
 import Cardstore from "./Cardstore"
 
 const Body = () => {
-    const [nameState] = useState("osama")
+    const [nameState] = useState("test")
     const [descriptionState] = useState("44")
     const [likesState] = useState(0)
 

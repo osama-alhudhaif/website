@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # Local apps (Oda Project)
     'accounts',
     'stories',
+    'qalam',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +121,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom User Model for Oda
 AUTH_USER_MODEL = 'accounts.User'
+
+# Django REST Framework configuration for Oda APIs
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const login = () => {
     return (
         <div>
@@ -10,7 +12,9 @@ const login = () => {
                 <input type="password" id="password" name="password" required />
                 <br />
                 <button type="submit">تسجيل الدخول</button>
-                <link href="./pages/register">انشاء حساب</link>
+                <div style={{ marginTop: "10px" }}>
+                    <Link to="/register">انشاء حساب</Link>
+                </div>
             </form>
         </div>
     );

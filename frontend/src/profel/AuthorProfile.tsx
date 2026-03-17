@@ -1,4 +1,5 @@
 import { type FC, useState } from "react";
+import { Link } from "react-router-dom";
 
 // 1) تعريف نوع القصة
 interface Story {
@@ -94,23 +95,23 @@ const AuthorProfile: FC = () => {
           
           {/* قسم الروابط (المتابعين والمتابَعين) */}
           <div style={{ display: "flex", gap: "20px", marginTop: "10px" }}>
-            <a 
-              href={`/${name}/followers`} 
-              style={statsLinkStyle}
+            <Link
+              to={`/${name}/followers`}
+              style={statsLinkStyle as React.CSSProperties}
               onMouseOver={(e) => (e.currentTarget.style.color = "#000")}
               onMouseOut={(e) => (e.currentTarget.style.color = "#555")}
             >
               <strong>{followers}</strong> متابِع
-            </a>
+            </Link>
             
-            <a 
-              href={`/${name}/following`} 
-              style={statsLinkStyle}
+            <Link
+              to={`/${name}/following`}
+              style={statsLinkStyle as React.CSSProperties}
               onMouseOver={(e) => (e.currentTarget.style.color = "#000")}
               onMouseOut={(e) => (e.currentTarget.style.color = "#555")}
             >
               <strong>{following}</strong> متابَع
-            </a>
+            </Link>
           </div>
         </div>
 
