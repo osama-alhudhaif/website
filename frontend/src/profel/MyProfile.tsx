@@ -1,4 +1,5 @@
 import { type FC, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface Story {
   id: number;
@@ -36,8 +37,12 @@ const MyProfile: FC = () => {
       <div style={{ textAlign: "center", marginBottom: "30px" }}>
         <h1>{name} (ملفي الشخصي)</h1>
         <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
-          <a href="/followers" style={{ textDecoration: "none", color: "#333" }}><strong>{followers}</strong> متابِع</a>
-          <a href="/following" style={{ textDecoration: "none", color: "#333" }}><strong>{following}</strong> متابَع</a>
+          <Link to="/followers" style={{ textDecoration: "none", color: "#333" }}>
+            <strong>{followers}</strong> متابِع
+          </Link>
+          <Link to="/following" style={{ textDecoration: "none", color: "#333" }}>
+            <strong>{following}</strong> متابَع
+          </Link>
         </div>
       </div>
 

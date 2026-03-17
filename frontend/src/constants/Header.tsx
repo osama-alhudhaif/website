@@ -7,8 +7,7 @@ const Header = () => {
   const handleCategoryChange = (e: { target: { value: any; }; }) => {
     const category = e.target.value;
     if (category) {
-      // سينقلك لصفحة موحدة للفئات، مثلاً: /action
-      navigate(`${category}`);
+      navigate(`/category/${category}`);
     }
   };
 

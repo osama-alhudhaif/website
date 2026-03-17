@@ -11,6 +11,7 @@ import AuthorProfile from './profel/AuthorProfile';
 import MyProfile from './profel/MyProfile';
 import Contact from './constants/Contact'; 
 import Frivacy from './constants/Frivacy';
+import Qalam from './pages/Qalam';
 // import ErrorPage from './errors/AppErrorBoundary';
 
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/About" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/qalam" element={<Qalam />} />
           <Route path="/reading" element={<Reading />} />
           <Route path="/profel/AuthorProfile" element={<AuthorProfile />} />
           <Route path="/profel/MyProfile" element={<MyProfile />} />

@@ -19,8 +19,8 @@ class User(AbstractUser):
         WRITER = 'WRITER', 'حساب كاتب'
         MUAASIS = 'MUAASIS', 'المؤسس'
         EDU_CENTER = 'EDU_CENTER', 'المركز التعليمي'
-        TEACHER = 'TEACHER', 'معلم'
-        STUDENT = 'STUDENT', 'طالب'
+        TEACHER = 'EDU_CENTER_TEACHER', 'معلم في مركز تعليمي'
+        STUDENT = 'EDU_CENTER_STUDENT', 'طالب في مركز تعليمي'
         GUEST = 'GUEST', 'زائر'
 
     role = models.CharField(max_length=20, choices=Role.choices, default=Role.REGULAR)
