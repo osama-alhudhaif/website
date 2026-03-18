@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.utils.html import format_html
+from django.conf import settings
+from django.conf.urls.static import static
 
 # لاحظ: حذفنا المسافات والتعليقات الزائدة في الأعلى لتجنب الخطأ
 # ولاحظ أن المسار أصبح يبدأ بـ /static/ مباشرة
@@ -21,5 +23,4 @@ urlpatterns = [
     # Public API endpoints (versioned)
     path('api/v1/accounts/', include('accounts.api.urls')),
     path('api/v1/stories/', include('stories.api.urls')),
-    path('api/v1/qalam/', include('qalam.api.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
