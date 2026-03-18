@@ -1,14 +1,63 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="public/Website.png" href="./public/Website.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Oda - أودا</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="./public/Website.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oda - أودا</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .dark {
+      background-color: #1a202c;
+      color: #cbd5e0;
+    }
+    .dark a {
+      color: #63b3ed;
+    }
+  </style>
+</head>
+<body class="font-sans">
+  <nav class="bg-gray-800 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="text-2xl font-bold">
+        Oda - أودا
+      </div>
+      <ul class="flex space-x-4">
+        <li><a href="#" class="text-gray-300 hover:text-white">الصفحة الرئيسية</a></li>
+        <li><a href="#" class="text-gray-300 hover:text-white">من نحن</a></li>
+        <li><a href="#" class="text-gray-300 hover:text-white">خدماتنا</a></li>
+        <li><a href="#" class="text-gray-300 hover:text-white">اتصل بنا</a></li>
+      </ul>
+    </div>
+  </nav>
+  <section class="bg-gray-900 py-20">
+    <div class="container mx-auto text-center">
+      <h1 class="text-4xl font-bold mb-4">مرحبا بك في أودا</h1>
+      <p class="text-xl mb-8">نحن نقدم حلول تقنية عالية الجودة لاحتياجاتك.</p>
+      <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">ابدأ الآن</a>
+    </div>
+  </section>
+  <section class="py-20">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12">مميزاتنا</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-gray-800 p-8 rounded">
+          <h3 class="text-2xl font-bold mb-4">تقنية متطورة</h3>
+          <p class="text-lg">نستخدم أحدث التقنيات لتقديم أفضل الخدمات.</p>
+        </div>
+        <div class="bg-gray-800 p-8 rounded">
+          <h3 class="text-2xl font-bold mb-4">دعم فني ممتاز</h3>
+          <p class="text-lg">فريقنا متاح 24/7 لتقديم الدعم الفني.</p>
+        </div>
+        <div class="bg-gray-800 p-8 rounded">
+          <h3 class="text-2xl font-bold mb-4">خصوصية البيانات</h3>
+          <p class="text-lg">نحرص على حماية خصوصية بياناتك وخصوصيتها.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
 </html>
 
