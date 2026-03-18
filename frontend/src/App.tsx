@@ -4,6 +4,7 @@ import Header from './constants/Header';
 import Footer from './constants/Footer';
 import Login from './pages/login';
 import Register from './pages/register';
+import UploadStory from './pages/upload-story';
 import About from './constants/about';
 import Body from './constants/body';
 import Reading from './constants/Reading';
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/About" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/upload-story" element={<UploadStory />} />
           <Route path="/reading" element={<Reading />} />
           <Route path="/profel/AuthorProfile" element={<AuthorProfile />} />
           <Route path="/profel/MyProfile" element={<MyProfile />} />
