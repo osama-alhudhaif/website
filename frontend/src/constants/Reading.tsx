@@ -1,32 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-// تحديد أنواع البيانات للمكون (TypeScript Interface)
-interface ReadingProps {
-    title?: string;
-    author?: string;
-    content?: string;
+interface Story {
+    id: number;
+    title: string;
+    author: string;
+    content: string;
 }
 
-const Reading: React.FC<ReadingProps> = ({ 
-    title = "عنوان القصة الافتراضي", 
-    author = "اسم المؤلف", 
-    content = "نص القصة سيظهر هنا..." 
-}) => {
+const Reading: React.FC = () => {
+    const { id } = useParams<{ id: string }>();
+    const [story, setStory] = useState<Story | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (id) {
+            fetch(`/api/v1/stories/stories/${id}/`)
+                .then(res => res.json())
+                .then(data => {
+                    setStory(data);
+                    setLoading(false);
+                })
+                .catch(err => {
+                    console.error('Failed to fetch story:', err);
+                    setLoading(false);
+                });
+        }
+    }, [id]);
+
+    if (loading) return <div>جاري التحميل...</div>;
+    if (!story) return <div>القصة غير موجودة</div>;
+
     return (
         <div className="reading-page-wrapper" dir="rtl">
             <header className="data-header">
-                <h1 className="main-title">{title}</h1>
+                <h1 className="main-title">{story.title}</h1>
                 <h3 className="author-info">
-                    <span>المؤلف:</span> {author}
+                    <span>المؤلف:</span> {story.author}
                 </h3>
             </header>
 
             <hr className="separator" />
 
             <article className="storetext">
-                {/* استخدام whiteSpace: 'pre-line' للحفاظ على فواصل الأسطر في النص */}
                 <p style={{ whiteSpace: 'pre-line' }}>
-                    {content}
+                    {story.content}
                 </p>
             </article>
         </div>
