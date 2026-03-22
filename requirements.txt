@@ -9,6 +9,7 @@ django-cors-headers==4.9.0
 django-rest-swagger==2.2.0
 djangorestframework==3.16.1
 drf-yasg==1.21.15
+gunicorn==23.0.0
 h11==0.16.0
 httpcore==1.0.9
 httpx==0.28.1
@@ -29,3 +30,4 @@ sqlparse==0.5.5
 typing_extensions==4.15.0
 uritemplate==4.2.0
 urllib3==2.6.3
+whitenoise==6.9.0
