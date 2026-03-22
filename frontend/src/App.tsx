@@ -31,7 +31,7 @@ const App = () => {
         }}>
           <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <img src="/logo.png" alt="Logo" style={{ width: '40px', height: '40px' }} />
-            <span style={{ fontSize: '1.2em', fontWeight: 'bold', color: '#333' }}>اسم الموقع</span>
+            <span style={{ fontSize: '1.2em', fontWeight: 'bold', color: '#333' }}>أودا</span>
           </Link>
         </header>
       ) : (
@@ -46,7 +46,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/upload-story" element={<UploadStory />} />
-          <Route path="/reading" element={<Reading />} />
+          <Route path="/reading/:id" element={<Reading />} />
           <Route path="/profel/AuthorProfile" element={<AuthorProfile />} />
           <Route path="/profel/MyProfile" element={<MyProfile />} />
           <Route path="/contact" element={<Contact />} />

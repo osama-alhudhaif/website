@@ -17,7 +17,7 @@ const Header = () => {
         <div className="Right-Side">
           <Link to="/" className="Logo-link" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
             <img src="/Website.png" alt="Logo" className="logo-img" style={{ width: '40px', marginLeft: '10px' }} />
-            <h2 className="Brand-Name" style={{ color: '#fff', margin: 0 }}>Oda</h2>
+            <h2 className="Brand-Name" style={{ color: '#fff', margin: 0 }}>أودا</h2>
           </Link>
         </div>
 
