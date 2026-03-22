@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config/api';
 import './upload-story.css';
 
 const UploadStory = () => {
@@ -58,7 +59,7 @@ const UploadStory = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://127.0.0.1:8000/api/v1/stories/stories/', {
+      const response = await fetch(`${API_BASE_URL}/stories/stories/`, {
         method: 'POST',
         headers: {
           'Authorization': `Token ${token}`,
