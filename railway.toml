@@ -1,3 +1,4 @@
+#:schema https://json.schemastore.org/non-existent.json
 [build]
 builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
@@ -5,11 +6,11 @@ dockerfilePath = "Dockerfile"
 [deploy]
 startCommand = "gunicorn --bind 0.0.0.0:8000 --workers 4 --threads 2 --timeout 60 --access-logfile - --error-logfile - core.wsgi:application"
 healthcheckPath = "/health/"
-healthcheckPort = 8000
+# ملاحظة: إذا الـ Dockerfile حقك يسوي EXPOSE لـ 8000، ريلوي بتعرفه تلقائياً
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
 
-[deploy.env]
+[variables]
 PYTHONDONTWRITEBYTECODE = "1"
 PYTHONUNBUFFERED = "1"
 DJANGO_SETTINGS_MODULE = "core.settings"
