@@ -1,8 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
-
-from accounts.models import User, Subscription, Follow
-
+# تأكد من أن المسار صحيح حسب هيكلة مجلداتك
+from apps.accounts.models import User, Subscription, Follow 
 
 class UserSerializer(serializers.ModelSerializer):
     has_active_subscription = serializers.SerializerMethodField()
@@ -21,13 +20,15 @@ class UserSerializer(serializers.ModelSerializer):
             'phone',
             'country',
             'role',
+            'gender',
+            'date_of_birth',
             'dark_mode_enabled',
             'has_active_subscription',
             'subscription_info',
             'followers_count',
             'following_count',
         ]
-        read_only_fields = ['id', 'role']
+        read_only_fields = ['id'] # أزلنا role من هنا لنسمح بتحديثه أو إرساله
 
     def get_has_active_subscription(self, obj):
         return obj.has_active_subscription()
@@ -56,6 +57,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
+        # التعديل الجوهري: إضافة كافة الحقول التي كانت تُفقد سابقاً
         fields = [
             'username',
             'email',
@@ -63,16 +65,24 @@ class RegistrationSerializer(serializers.ModelSerializer):
             'last_name',
             'password',
             'password_confirm',
+            'date_of_birth',
+            'gender',
+            'country',
+            'role',
         ]
 
     def validate(self, attrs):
-        if attrs['password'] != attrs['password_confirm']:
+        # التأكد من تطابق كلمة المرور قبل البدء في الإنشاء
+        if attrs.get('password') != attrs.get('password_confirm'):
             raise serializers.ValidationError({'password_confirm': 'Passwords do not match.'})
         return attrs
 
     def create(self, validated_data):
+        # حذف حقل التأكيد لأنه ليس جزءاً من مودل المستخدم
         validated_data.pop('password_confirm')
         password = validated_data.pop('password')
+        
+        # إنشاء الكائن باستخدام البيانات المتبقية (بما فيها role, country, etc.)
         user = User(**validated_data)
         user.set_password(password)
         user.save()
@@ -136,4 +146,3 @@ class FollowSerializer(serializers.ModelSerializer):
         model = Follow
         fields = ['id', 'follower', 'follower_username', 'following', 'following_username', 'created_at']
         read_only_fields = ['id', 'created_at']
-
