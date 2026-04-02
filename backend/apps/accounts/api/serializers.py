@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
-# تأكد من أن المسار صحيح حسب هيكلة مجلداتك
-from apps.accounts.models import User, Subscription, Follow 
+from accounts.models import User, Subscription, Follow
+
 
 class UserSerializer(serializers.ModelSerializer):
     has_active_subscription = serializers.SerializerMethodField()
@@ -12,23 +12,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'id',
-            'username',
-            'email',
-            'first_name',
-            'last_name',
-            'phone',
-            'country',
-            'role',
-            'gender',
-            'date_of_birth',
-            'dark_mode_enabled',
-            'has_active_subscription',
-            'subscription_info',
-            'followers_count',
-            'following_count',
+            "id", "username", "email", "first_name", "last_name",
+            "phone", "country", "role", "gender", "date_of_birth",
+            "dark_mode_enabled", "has_active_subscription",
+            "subscription_info", "followers_count", "following_count",
         ]
-        read_only_fields = ['id'] # أزلنا role من هنا لنسمح بتحديثه أو إرساله
+        read_only_fields = ["id"]
 
     def get_has_active_subscription(self, obj):
         return obj.has_active_subscription()
@@ -37,10 +26,10 @@ class UserSerializer(serializers.ModelSerializer):
         subscription = obj.get_active_subscription()
         if subscription:
             return {
-                'plan_type': subscription.plan_type,
-                'plan_type_display': subscription.get_plan_type_display(),
-                'end_date': subscription.end_date,
-                'days_remaining': subscription.days_remaining(),
+                "plan_type": subscription.plan_type,
+                "plan_type_display": subscription.get_plan_type_display(),
+                "end_date": subscription.end_date,
+                "days_remaining": subscription.days_remaining(),
             }
         return None
 
@@ -57,32 +46,20 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        # التعديل الجوهري: إضافة كافة الحقول التي كانت تُفقد سابقاً
         fields = [
-            'username',
-            'email',
-            'first_name',
-            'last_name',
-            'password',
-            'password_confirm',
-            'date_of_birth',
-            'gender',
-            'country',
-            'role',
+            "username", "email", "first_name", "last_name",
+            "password", "password_confirm", "date_of_birth",
+            "gender", "country", "role",
         ]
 
     def validate(self, attrs):
-        # التأكد من تطابق كلمة المرور قبل البدء في الإنشاء
-        if attrs.get('password') != attrs.get('password_confirm'):
-            raise serializers.ValidationError({'password_confirm': 'Passwords do not match.'})
+        if attrs.get("password") != attrs.get("password_confirm"):
+            raise serializers.ValidationError({"password_confirm": "Passwords do not match."})
         return attrs
 
     def create(self, validated_data):
-        # حذف حقل التأكيد لأنه ليس جزءاً من مودل المستخدم
-        validated_data.pop('password_confirm')
-        password = validated_data.pop('password')
-        
-        # إنشاء الكائن باستخدام البيانات المتبقية (بما فيها role, country, etc.)
+        validated_data.pop("password_confirm")
+        password = validated_data.pop("password")
         user = User(**validated_data)
         user.set_password(password)
         user.save()
@@ -94,55 +71,36 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
-        username = attrs.get('username')
-        password = attrs.get('password')
-
-        user = authenticate(username=username, password=password)
+        user = authenticate(username=attrs.get("username"), password=attrs.get("password"))
         if not user:
-            raise serializers.ValidationError('Invalid username or password.')
-
-        attrs['user'] = user
+            raise serializers.ValidationError("Invalid username or password.")
+        attrs["user"] = user
         return attrs
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
-    plan_type_display = serializers.CharField(source='get_plan_type_display', read_only=True)
-    status_display = serializers.CharField(source='get_status_display', read_only=True)
+    plan_type_display = serializers.CharField(source="get_plan_type_display", read_only=True)
+    status_display = serializers.CharField(source="get_status_display", read_only=True)
     price = serializers.SerializerMethodField()
 
     class Meta:
         model = Subscription
         fields = [
-            'id',
-            'plan_type',
-            'plan_type_display',
-            'status',
-            'status_display',
-            'is_active',
-            'monthly_price',
-            'yearly_price',
-            'educational_price',
-            'price',
-            'start_date',
-            'end_date',
-            'days_remaining',
-            'auto_renew',
-            'created_at',
+            "id", "plan_type", "plan_type_display", "status", "status_display",
+            "is_active", "monthly_price", "yearly_price", "educational_price",
+            "price", "start_date", "end_date", "days_remaining", "auto_renew", "created_at",
         ]
-        read_only_fields = [
-            'id', 'status', 'is_active', 'start_date', 'end_date',
-            'days_remaining', 'created_at'
-        ]
+        read_only_fields = ["id", "status", "is_active", "start_date", "end_date", "days_remaining", "created_at"]
 
     def get_price(self, obj):
         return obj.get_price()
 
 
 class FollowSerializer(serializers.ModelSerializer):
-    follower_username = serializers.CharField(source='follower.username', read_only=True)
-    following_username = serializers.CharField(source='following.username', read_only=True)
+    follower_username = serializers.CharField(source="follower.username", read_only=True)
+    following_username = serializers.CharField(source="following.username", read_only=True)
 
     class Meta:
         model = Follow
-        fields = ['id', 'follower', 'follower_username', 'following', 'following_username', 'created_at']
-        read_only_fields = ['id', 'created_at']
+        fields = ["id", "follower", "follower_username", "following", "following_username", "created_at"]
+        read_only_fields = ["id", "created_at"]

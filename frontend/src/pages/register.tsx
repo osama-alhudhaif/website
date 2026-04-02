@@ -77,13 +77,11 @@ const Register = () => {
                     <option value="female">أنثى</option>
                 </select><br/>
 
-                <label>نوع الحساب (الدور)</label><br/>
                 <select name="role" onChange={handleChange} required style={inputStyle}>
                     <option value="">اختر</option>
-                    <option value="writer">كاتب (مؤلف)</option>
-                    <option value="reader">قارئ</option>
-                    <option value="translator">مترجم</option>
-                </select><br/>
+                    <option value="WRITER">كاتب (مؤلف)</option>
+                    <option value="READER">قارئ</option>
+                </select>
 
                 <label>البلد</label><br/>
                 <input type="text" name="country" placeholder="مثلاً: Saudi Arabia" onChange={handleChange} required style={inputStyle} /><br/><br/>
