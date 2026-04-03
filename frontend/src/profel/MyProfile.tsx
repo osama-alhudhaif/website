@@ -18,6 +18,7 @@ const MyProfile: FC = () => {
     { id: 1, title: "كين وسيد التنانين", evaluation: 4.5, numberOfTimesRead: 10, isHidden: false },
     { id: 2, title: "ظلال العنقاء", evaluation: 4.0, numberOfTimesRead: 8, isHidden: false },
     { id: 3, title: "سر المدينة المفقودة", evaluation: 3.8, numberOfTimesRead: 12, isHidden: false },
+    { id: 4, title: "الرحلة إلى العالم الآخر", evaluation: 4.2, numberOfTimesRead: 15, isHidden: false },
   ]);
 
   // دالة الحذف
