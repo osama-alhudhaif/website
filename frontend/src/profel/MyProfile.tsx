@@ -44,7 +44,7 @@ const MyProfile: FC = () => {
           <Link to="/following" style={{ textDecoration: "none", color: "#333" }}>
             <strong>{following}</strong> متابَع
           </Link>
-        </div>
+        </div>``
       </div>
 
       <hr />

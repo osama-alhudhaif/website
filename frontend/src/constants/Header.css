@@ -1,7 +1,6 @@
 .Main-Container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 .Header {
@@ -161,4 +160,5 @@
 .Content-Area {
   flex: 1;
   padding: 20px;
+  min-height: auto;
 }
