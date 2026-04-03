@@ -1,38 +1,164 @@
-/* تنسيق الحاوية الأساسية للروابط */
+.Main-Container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.Header {
+  background-color: #1a1a2e;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.Logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 10px;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.Brand-Name {
+  color: #fff;
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
 .Nav-Links {
   display: flex;
   align-items: center;
-  gap: 25px; /* المسافة بين العناصر */
-  direction: rtl; /* لضمان الترتيب من اليمين لليسار */
+  gap: 20px;
+  direction: rtl;
 }
 
-/* تنسيق الروابط */
 .Nav-Item {
   text-decoration: none;
-  color: #333; /* غير اللون حسب تصميمك */
+  color: #fff;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
+  transition: color 0.2s;
 }
 
-/* تنسيق القائمة المنسدلة لتشبه الروابط */
+.Nav-Item:hover {
+  color: #3498db;
+}
+
+.Register-Btn {
+  background-color: #3498db;
+  padding: 8px 15px;
+  border-radius: 20px;
+}
+
+.Register-Btn:hover {
+  background-color: #2980b9;
+  color: #fff;
+}
+
+.Select-Container {
+  position: relative;
+  width: 160px;
+  direction: rtl;
+}
+
 .Custom-Select {
-  padding: 6px 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: white;
-  font-family: inherit;
+  width: 100%;
+  padding: 8px 12px;
   font-size: 14px;
+  color: #fff;
+  background-color: #1a1a2e;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  appearance: none;
+  -webkit-appearance: none;
   cursor: pointer;
   outline: none;
-  color: #555;
-  transition: all 0.3s ease;
+  transition: 0.3s ease;
+  text-align: right;
+  font-family: inherit;
 }
 
 .Custom-Select:hover {
-  border-color: #888;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .Custom-Select:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0,123,255,0.2);
+  border-color: #3498db;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.Custom-Select option {
+  background-color: #1a1a2e;
+  color: #fff;
+}
+
+.Custom-Select option:disabled {
+  color: #aaa;
+}
+
+.Select-Arrow {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  pointer-events: none;
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.User-Menu-Container {
+  position: relative;
+}
+
+.User-Name {
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.user-menu {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  background-color: #1a1a2e;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 8px 0;
+  min-width: 160px;
+  z-index: 1000;
+  direction: rtl;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.user-menu a,
+.user-menu div {
+  display: block;
+  padding: 10px 16px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.user-menu a:hover,
+.user-menu div:hover {
+  background-color: rgba(255,255,255,0.08);
+}
+
+.Content-Area {
+  flex: 1;
+  padding: 20px;
 }

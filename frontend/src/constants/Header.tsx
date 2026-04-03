@@ -1,9 +1,18 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import './Header.css';
+
+const menuItemStyle: React.CSSProperties = {
+    display: 'block',
+    padding: '10px 16px',
+    color: '#fff',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    fontSize: '14px',
+};
 
 const Header = () => {
   const navigate = useNavigate();
 
-  // دالة التعامل مع تغيير الفئة
   const handleCategoryChange = (e: { target: { value: any; }; }) => {
     const category = e.target.value;
     if (category) {
@@ -11,83 +20,76 @@ const Header = () => {
     }
   };
 
+  const toggleMenu = () => {
+    const menu = document.getElementById('user-menu');
+    if (menu) menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  };
+
+  const toggleDarkMode = () => {
+    const isDark = document.body.style.backgroundColor === 'rgb(18, 18, 18)';
+    document.body.style.backgroundColor = isDark ? '' : '#121212';
+    document.body.style.color = isDark ? '' : '#fff';
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    window.location.href = '/';
+  };
+
   return (
     <div className="Main-Container">
-      <header className="Header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 20px' }}>
+      <header className="Header">
         <div className="Right-Side">
-          <Link to="/" className="Logo-link" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-            <img src="/Website.png" alt="Logo" className="logo-img" style={{ width: '40px', marginLeft: '10px' }} />
-            <h2 className="Brand-Name" style={{ color: '#fff', margin: 0 }}>أودا</h2>
+          <Link to="/" className="Logo-link">
+            <img src="/Website.png" alt="Logo" className="logo-img" />
+            <h2 className="Brand-Name">أودا</h2>
           </Link>
         </div>
 
         <div className="Left-Side">
-          <nav className="Nav-Links" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <nav className="Nav-Links">
             
-            {/* القائمة المنسدلة الذكية */}
-            <div className="Select-Container" style={{ position: 'relative', width: '160px', direction: 'rtl' }}>
+            <div className="Select-Container">
               <select 
                 className="Custom-Select" 
                 defaultValue=""
                 onChange={handleCategoryChange}
-                style={{
-                  width: '100%',
-                  padding: '8px 12px',
-                  fontSize: '14px',
-                  color: '#fff',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)', // شفافية ناعمة
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '20px', // حواف دائرية أكثر عصرية
-                  appearance: 'none',
-                  WebkitAppearance: 'none',
-                  cursor: 'pointer',
-                  outline: 'none',
-                  transition: '0.3s ease',
-                  textAlign: 'right'
-                }}
-                onFocus={(e) => {
-                    e.target.style.borderColor = '#3498db';
-                    e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
-                }}
-                onBlur={(e) => {
-                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                    e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
-                }}
               >
-                <option value="" disabled style={{ backgroundColor: '#1a1a1a' }}>اختر الفئة</option>
-                <option value="war" style={{ backgroundColor: '#1a1a1a' }}>حرب</option>
-                <option value="sci-fi" style={{ backgroundColor: '#1a1a1a' }}>خيال علمي</option>
-                <option value="action" style={{ backgroundColor: '#1a1a1a' }}>أكشن</option>
-                <option value="fantasy" style={{ backgroundColor: '#1a1a1a' }}>الفانتازيا</option>
-                <option value="mystery" style={{ backgroundColor: '#1a1a1a' }}>الجريمة والغموض</option>
-                <option value="horror" style={{ backgroundColor: '#1a1a1a' }}>الرعب</option>
-                <option value="history" style={{ backgroundColor: '#1a1a1a' }}>القصص التاريخية</option>
-                <option value="heist" style={{ backgroundColor: '#1a1a1a' }}>سرقة</option>
-                <option value="adventure" style={{ backgroundColor: '#1a1a1a' }}>المغامرات</option>
-                <option value="romance" style={{ backgroundColor: '#1a1a1a' }}>رومانسية</option>
+                <option value="" disabled>اختر الفئة</option>
+                <option value="war">حرب</option>
+                <option value="sci-fi">خيال علمي</option>
+                <option value="action">أكشن</option>
+                <option value="fantasy">الفانتازيا</option>
+                <option value="mystery">الجريمة والغموض</option>
+                <option value="horror">الرعب</option>
+                <option value="history">القصص التاريخية</option>
+                <option value="heist">سرقة</option>
+                <option value="adventure">المغامرات</option>
+                <option value="romance">رومانسية</option>
               </select>
-
-              {/* سهم أيقوني صغير */}
-              <span style={{
-                position: 'absolute',
-                left: '12px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                color: '#fff',
-                pointerEvents: 'none',
-                fontSize: '10px',
-                opacity: 0.7
-              }}>▼</span>
+              <span className="Select-Arrow">▼</span>
             </div>
 
-            <Link to="/login" className="Nav-Item" style={{ color: '#fff', textDecoration: 'none' }}>تسجيل الدخول</Link>
-            <Link to="/register" className="Nav-Item" style={{ 
-                color: '#fff', 
-                textDecoration: 'none',
-                backgroundColor: '#3498db', 
-                padding: '8px 15px', 
-                borderRadius: '20px' 
-            }}>انشاء حساب</Link>
+            {localStorage.getItem('token') ? (
+              <div className="User-Menu-Container">
+                <span className="User-Name" onClick={toggleMenu}>
+                  {localStorage.getItem('username') || 'حسابي'} ▼
+                </span>
+                <div id="user-menu" className="user-menu" style={{ display: 'none' }}>
+                  <Link to="/profel/MyProfile" style={menuItemStyle}>👤 حسابي</Link>
+                  <Link to="/settings" style={menuItemStyle}>⚙️ الإعدادات</Link>
+                  <div style={menuItemStyle} onClick={toggleDarkMode}>🌙 المظهر</div>
+                  <div style={{ ...menuItemStyle, color: '#e74c3c' }} onClick={handleLogout}>🚪 تسجيل خروج</div>
+                </div>
+              </div>
+            ) : (
+              <>
+                <Link to="/login" className="Nav-Item">تسجيل الدخول</Link>
+                <Link to="/register" className="Nav-Item Register-Btn">انشاء حساب</Link>
+              </>
+            )}
+
           </nav>
         </div>
       </header>

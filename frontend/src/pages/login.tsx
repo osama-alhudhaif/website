@@ -24,6 +24,7 @@ const Login = () => {
 
             if (response.ok) {
                 localStorage.setItem("token", data.token);
+                localStorage.setItem("username", data.user.username);
                 navigate("/");
             } else {
                 setError(data.detail || "خطأ في اسم المستخدم أو كلمة المرور");
