@@ -11,7 +11,7 @@ const Privacy: React.FC = () => {
       </p>
 
       <p>
-        نحن في <strong>[اسم موقعك]</strong> نحترم خصوصية زوارنا ونلتزم بحمايتها. توضح سياسة الخصوصية هذه كيف نقوم بجمع واستخدام وحماية المعلومات التي قد نحصل عليها عند زيارتك لموقعنا.
+        نحن في <strong>أودا - oda</strong> نحترم خصوصية زوارنا ونلتزم بحمايتها. توضح سياسة الخصوصية هذه كيف نقوم بجمع واستخدام وحماية المعلومات التي قد نحصل عليها عند زيارتك لموقعنا.
       </p>
 
       <section style={{ marginTop: '2rem' }}>
@@ -57,8 +57,7 @@ const Privacy: React.FC = () => {
         <h2>6. تواصل معنا</h2>
         <p>إذا كان لديك أي أسئلة أو استفسارات حول سياسة الخصوصية، يسعدنا تواصلك معنا عبر:</p>
         <ul>
-          <li><strong>البريد الإلكتروني:</strong> [ضع بريدك الإلكتروني هنا]</li>
-          <li><strong>حساب GitHub:</strong> <a href="https://github.com/osama-alhudhaif" target="_blank" rel="noopener noreferrer">osama-alhudhaif</a></li>
+          <li><a href="/Contact">صفحة التواصل</a></li>
         </ul>
       </section>
     </div>
