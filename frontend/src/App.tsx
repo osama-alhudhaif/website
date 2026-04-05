@@ -11,8 +11,10 @@ import Reading from './constants/Reading';
 import AuthorProfile from './profel/AuthorProfile';
 import MyProfile from './profel/MyProfile';
 import Contact from './constants/Contact'; 
-import Frivacy from './constants/Frivacy';
-// import ErrorPage from './errors/AppErrorBoundary';
+import Privacy from './constants/Privacy';
+import Terms from './constants/Terms';
+import Partners from './constants/Partners';
+import ErrorPage from './errors/AppErrorBoundary';
 
 const App = () => {
   const location = useLocation();
@@ -49,11 +51,12 @@ const App = () => {
           <Route path="/reading/:id" element={<Reading />} />
           <Route path="/profel/AuthorProfile" element={<AuthorProfile />} />
           <Route path="/profel/MyProfile" element={<MyProfile />} />
-          <Route path="/contact" element={<Contact />} />
-          {/* <Route path="/" element={<ErrorPage />} /> */}
+          <Route path="/Contact" element={<Contact />} />
+          <Route path="/errors" element={<ErrorPage />} />
           
-          {/* إضافة مسار سياسة الخصوصية هنا لتفعيل الرابط */}
-          <Route path="/Frivacy" element={<Frivacy />} />
+          <Route path="/Privacy" element={<Privacy />} />
+          <Route path="/Terms" element={<Terms />} />
+          <Route path="/Partners" element={<Partners />} />
         </Routes>
       </div>
 

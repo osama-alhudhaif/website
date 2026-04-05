@@ -15,14 +15,20 @@ const Footer = () => {
           </p>
         </div>
 
-        <div className="Footer-Section">
-          <h3 className="Footer-Title">المساعدة</h3>
-          <ul className="Footer-Links">
-            <li><Link to="/About">من نحن</Link></li>
-            <li><Link to="/Contact">تواصل معنا</Link></li>
-            <li><Link to="/Frivacy">سياسة الخصوصية</Link></li>
-          </ul>
-        </div>
+<div className="Footer-Section">
+  <h3 className="Footer-Title">المساعدة</h3>
+  <ul className="Footer-Links">
+    <li style={{ display: 'flex', gap: '20px' }}>
+      <Link to="/About">من نحن</Link>
+      <Link to="/Contact">تواصل معنا</Link>
+    </li>
+    <li style={{ display: 'flex', gap: '20px' }}>
+      <Link to="/Privacy">سياسة الخصوصية</Link>
+      <Link to="/Terms">شروط الاستخدام</Link>
+    </li>
+    <li><Link to="/Partners">الشراكات</Link></li>
+  </ul>
+</div>
 
         <div className="Footer-Bottom">
           <p className="Rights">
