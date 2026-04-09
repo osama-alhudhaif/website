@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config/api';
 
 const Register = () => {
     // الحالة الابتدائية بأسماء الحقول المطابقة لـ Django تماماً
@@ -33,7 +34,7 @@ const Register = () => {
 
         try {
             // الرابط الكامل الذي تأكدنا من عمله في الباك-إند
-            const response = await axios.post('http://localhost:8000/api/v1/accounts/register/', formData);
+            const response = await axios.post(`${API_BASE_URL}/accounts/register/`, formData);
             setMessage("تم إنشاء حسابك في Oda بنجاح! جرب تسجيل الدخول الآن.");
             console.log("نجاح:", response.data);
         } catch (err: any) {
