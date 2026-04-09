@@ -77,7 +77,7 @@ const Header = () => {
                   {localStorage.getItem('username') || 'حسابي'} ▼
                 </span>
                 <div id="user-menu" className="user-menu" style={{ display: 'none' }}>
-                  <Link to="/profel/MyProfile" style={menuItemStyle}>👤 حسابي</Link>
+                  <Link to="/profile/me" style={menuItemStyle}>👤 حسابي</Link>
                   <Link to="/settings" style={menuItemStyle}>⚙️ الإعدادات</Link>
                   <div style={menuItemStyle} onClick={toggleDarkMode}>🌙 المظهر</div>
                   <div style={{ ...menuItemStyle, color: '#e74c3c' }} onClick={handleLogout}>🚪 تسجيل خروج</div>
