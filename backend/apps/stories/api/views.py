@@ -69,6 +69,26 @@ class RatingListCreateAPIView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user, story=story)
 
 
+class CommentDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticated, IsAuthorOrReadOnly]
+
+    def get_queryset(self):
+        return Comment.objects.filter(is_approved=True)
+
+    def perform_update(self, serializer):
+        # Only allow updating if the user is the author
+        if serializer.instance.user != self.request.user:
+            raise permissions.PermissionDenied("You can only edit your own comments.")
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        # Only allow deletion if the user is the author
+        if instance.user != self.request.user:
+            raise permissions.PermissionDenied("You can only delete your own comments.")
+        instance.delete()
+
+
 class UserRatingAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
