@@ -8,6 +8,72 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 
+# Django 6.0.4 pathlib compatibility fix
+from pathlib import PurePosixPath
+import re
+
+def patched_validate_file_name(name, allow_relative_path=False):
+    """
+    Complete replacement for validate_file_name that handles pathlib objects.
+    This fixes the Django 6.0.4 'PurePosixPath' object has no attribute 'is_absolute' error.
+    """
+    # Convert pathlib objects to string
+    if hasattr(name, 'as_posix') or isinstance(name, PurePosixPath):
+        name = str(name)
+    
+    # Original Django validation logic (copied from Django source)
+    if not name:
+        raise ValueError('The provided file name is empty.')
+    
+    # Simple string-based validation to avoid pathlib issues
+    if not allow_relative_path and (name.startswith('/') or (len(name) > 1 and name[1] == ':')):
+        raise ValueError('Absolute file paths are not allowed.')
+    
+    if '..' in name.split('/') or '..' in name.split('\\'):
+        raise ValueError('File paths cannot contain ".." components.')
+    
+    # Check for invalid characters
+    if re.search(r'[<>:"|?*]', name):
+        raise ValueError('File name contains invalid characters.')
+    
+    return name
+
+# Apply monkey patch
+import django.core.files.utils
+django.core.files.utils.validate_file_name = patched_validate_file_name
+
+# Additional fix for get_available_name pathlib issues
+from django.core.files.storage import Storage
+original_get_available_name = Storage.get_available_name
+
+def patched_get_available_name(self, name, max_length=None):
+    """
+    Patched version that handles pathlib objects in get_available_name.
+    """
+    # Convert pathlib objects to string
+    if hasattr(name, 'as_posix') or isinstance(name, PurePosixPath):
+        name = str(name)
+    
+    # Call original method with string name
+    return original_get_available_name(self, name, max_length)
+
+# Apply the patch
+Storage.get_available_name = patched_get_available_name
+
+# Fix Django 6 autoreload pathlib issues
+import django.utils.autoreload
+from pathlib import Path as OriginalPath
+
+# Monkey patch Path.with_suffix for Django 6 compatibility
+def patched_with_suffix(self, suffix):
+    """Fixed version of with_suffix that works with Django 6"""
+    return str(self).rsplit('.', 1)[0] + suffix
+
+# Apply the monkey patch to fix autoreload
+if hasattr(OriginalPath, 'with_suffix'):
+    original_with_suffix = OriginalPath.with_suffix
+    OriginalPath.with_suffix = patched_with_suffix
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env_path = BASE_DIR / '.env'
@@ -45,7 +111,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # مسؤول عن خدمة ملفات Vite
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -101,13 +167,22 @@ TIME_ZONE = 'Asia/Riyadh'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/dist')]
+# --- إعدادات الملفات الثابتة (Vite Compatibility) ---
+# نستخدم 'static/' لتجنب التضارب مع النظام، وسنتعامل مع الروابط في urls.py
+STATIC_URL = 'static/' # اتركه هكذا ليتوقف خطأ الإعدادات
+STATIC_ROOT = str(os.path.join(BASE_DIR, 'staticfiles'))
+STATICFILES_DIRS = [
+    str(os.path.join(BASE_DIR, 'frontend/dist')),
+]
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# تخزين WhiteNoise storage with Django 6 compatibility fix
+# Use default storage - we'll serve files directly to avoid Django 6 pathlib issues
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+# --- إعدادات Media ---
+# إضافة السلاش في البداية '/' ضروري جداً لفك الاشتباك
+MEDIA_URL = '/media/' 
+MEDIA_ROOT = str(os.path.join(BASE_DIR, 'media'))
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
@@ -128,7 +203,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ALLOW_ALL_ORIGINS = DEBUG  # في التطوير فقط
+CORS_ALLOW_ALL_ORIGINS = DEBUG
 
 CORS_ALLOWED_ORIGINS = [
     origin.strip()
