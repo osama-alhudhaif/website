@@ -1,0 +1,65 @@
+"""
+Custom views that fix Django 6.0.4 pathlib compatibility issues.
+"""
+
+import os
+from django.http import HttpResponse, Http404
+from django.conf import settings
+from django.views.static import serve as original_serve
+from pathlib import Path
+
+
+def fixed_serve(request, path, document_root=None):
+    """
+    Fixed version of Django's serve view that handles PosixPath objects properly.
+    This fixes the 'PosixPath' object has no attribute 'stat' error in Django 6.0.4.
+    """
+    # Convert document_root to string if it's a Path object
+    if document_root is not None:
+        if hasattr(document_root, 'as_posix'):
+            document_root = str(document_root)
+        elif isinstance(document_root, Path):
+            document_root = str(document_root)
+    
+    # Build the full path
+    fullpath = os.path.join(document_root, path)
+    
+    # Convert fullpath to string if it's a Path object
+    if hasattr(fullpath, 'as_posix'):
+        fullpath = str(fullpath)
+    elif isinstance(fullpath, Path):
+        fullpath = str(fullpath)
+    
+    # Check if file exists
+    if not os.path.exists(fullpath):
+        raise Http404(f'"{path}" does not exist')
+    
+    # Check if it's a file (not directory)
+    if not os.path.isfile(fullpath):
+        raise Http404(f'"{path}" is not a file')
+    
+    # Get file content and MIME type
+    try:
+        with open(fullpath, 'rb') as f:
+            content = f.read()
+        
+        # Determine content type
+        content_type = 'application/octet-stream'
+        if path.endswith('.js'):
+            content_type = 'application/javascript'
+        elif path.endswith('.css'):
+            content_type = 'text/css'
+        elif path.endswith('.png'):
+            content_type = 'image/png'
+        elif path.endswith('.jpg') or path.endswith('.jpeg'):
+            content_type = 'image/jpeg'
+        elif path.endswith('.gif'):
+            content_type = 'image/gif'
+        elif path.endswith('.svg'):
+            content_type = 'image/svg+xml'
+        
+        response = HttpResponse(content, content_type=content_type)
+        return response
+    
+    except Exception as e:
+        raise Http404(f'Error serving file: {e}')

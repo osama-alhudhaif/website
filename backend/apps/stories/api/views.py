@@ -1,4 +1,4 @@
-from rest_framework import viewsets, permissions, generics, status, serializers
+from rest_framework import viewsets, permissions, generics, status, serializers, filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -16,20 +16,19 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
 class StoryViewSet(viewsets.ModelViewSet):
     serializer_class = StorySerializer
     permission_classes = [permissions.IsAuthenticated, IsAuthorOrReadOnly]
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['title', 'description', 'author__username', 'genre']
+    ordering_fields = ['created_at', 'views_count', 'title']
+    ordering = ['-created_at']
 
     def get_queryset(self):
-        queryset = Story.objects.select_related('author').all()
+        queryset = Story.objects.select_related('author').filter(status='published')
         genre = self.request.query_params.get('genre')
-        language = self.request.query_params.get('language')
-        author_id = self.request.query_params.get('author')
-
         if genre:
             queryset = queryset.filter(genre__iexact=genre)
-        if language:
-            queryset = queryset.filter(language__iexact=language)
-        if author_id:
-            queryset = queryset.filter(author_id=author_id)
-
+        # إذا طلب المستخدم قصصه الخاصة (مسودة + منشورة)
+        if self.request.query_params.get('my_stories'):
+            queryset = Story.objects.select_related('author').filter(author=self.request.user)
         return queryset
 
     def perform_create(self, serializer):
@@ -37,89 +36,65 @@ class StoryViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
-        # زيادة عدد المشاهدات
         instance.views_count += 1
         instance.save()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
+        return Response(self.get_serializer(instance).data)
 
 
 class CommentListCreateAPIView(generics.ListCreateAPIView):
-    """عرض التعليقات وإضافة تعليق جديد"""
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        story_id = self.kwargs.get('story_id')
-        # إظهار التعليقات المعتمدة فقط
-        return Comment.objects.filter(story_id=story_id, is_approved=True)
+        return Comment.objects.filter(story_id=self.kwargs['story_id'], is_approved=True)
 
     def perform_create(self, serializer):
-        # التحقق من الاشتراك لميزة التعليق
-        if not self.request.user.has_active_subscription():
-            raise permissions.PermissionDenied('يجب الاشتراك لإضافة تعليق')
-
-        story_id = self.kwargs.get('story_id')
-        try:
-            story = Story.objects.get(id=story_id)
-        except Story.DoesNotExist:
-            raise serializers.ValidationError('القصة غير موجودة')
-
+        story_id = self.kwargs['story_id']
+        story = Story.objects.get(id=story_id)
         serializer.save(user=self.request.user, story=story)
 
 
-class CommentDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    """عرض تفاصيل التعليق"""
-    serializer_class = CommentSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        return Comment.objects.filter(user=self.request.user)
-
-
 class RatingListCreateAPIView(generics.ListCreateAPIView):
-    """عرض التقييمات وإضافة تقييم جديد"""
     serializer_class = RatingSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        story_id = self.kwargs.get('story_id')
-        return Rating.objects.filter(story_id=story_id)
+        return Rating.objects.filter(story_id=self.kwargs['story_id'])
 
     def perform_create(self, serializer):
-        # التحقق من الاشتراك لميزة التقييم
-        if not self.request.user.has_active_subscription():
-            raise permissions.PermissionDenied('يجب الاشتراك لتقييم القصص')
-
-        story_id = self.kwargs.get('story_id')
-        try:
-            story = Story.objects.get(id=story_id)
-        except Story.DoesNotExist:
-            raise serializers.ValidationError('القصة غير موجودة')
-
-        # التحقق من عدم وجود تقييم سابق
+        story_id = self.kwargs['story_id']
+        story = Story.objects.get(id=story_id)
         if Rating.objects.filter(story=story, user=self.request.user).exists():
-            raise serializers.ValidationError('لقد قمت بتقييم هذه القصة مسبقاً')
-
+            raise serializers.ValidationError('لقد قيّمت هذه القصة مسبقاً')
         serializer.save(user=self.request.user, story=story)
 
 
+class CommentDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticated, IsAuthorOrReadOnly]
+
+    def get_queryset(self):
+        return Comment.objects.filter(is_approved=True)
+
+    def perform_update(self, serializer):
+        # Only allow updating if the user is the author
+        if serializer.instance.user != self.request.user:
+            raise permissions.PermissionDenied("You can only edit your own comments.")
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        # Only allow deletion if the user is the author
+        if instance.user != self.request.user:
+            raise permissions.PermissionDenied("You can only delete your own comments.")
+        instance.delete()
+
+
 class UserRatingAPIView(APIView):
-    """الحصول على تقييم المستخدم للقصة"""
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, story_id):
-        # التحقق من الاشتراك
-        if not request.user.has_active_subscription():
-            return Response(
-                {'error': 'يجب الاشتراك لرؤية التقييمات'},
-                status=status.HTTP_403_FORBIDDEN
-            )
-
         try:
             rating = Rating.objects.get(story_id=story_id, user=request.user)
-            serializer = RatingSerializer(rating)
-            return Response(serializer.data)
+            return Response(RatingSerializer(rating).data)
         except Rating.DoesNotExist:
             return Response({'rating': None})
-
