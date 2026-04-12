@@ -72,7 +72,7 @@ const MyProfile: FC = () => {
                 </div>
                 <div style={{ marginTop: "12px", display: "flex", justifyContent: "center", gap: "10px" }}>
                     <Link to="/profile/edit" style={{ padding: "8px 16px", backgroundColor: "#1a73e8", color: "#fff", borderRadius: "5px", textDecoration: "none" }}>
-                        تعديل الملف
+                        تعديل الحساب
                     </Link>
                     <Link to="/upload-story" style={{ padding: "8px 16px", backgroundColor: "#34a853", color: "#fff", borderRadius: "5px", textDecoration: "none" }}>
                         + رفع قصة

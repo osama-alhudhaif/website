@@ -76,6 +76,7 @@ const Register = () => {
                     <option value="">اختر</option>
                     <option value="male">ذكر</option>
                     <option value="female">أنثى</option>
+                    <option value="other">آخر</option>
                 </select><br/>
 
                 <select name="role" onChange={handleChange} required style={inputStyle}>

@@ -15,6 +15,7 @@ import Contact from './constants/Contact';
 import Privacy from './constants/Privacy';
 import Terms from './constants/Terms';
 import Partners from './constants/Partners';
+import Accounts from './constants/Accounts';
 import ErrorPage from './errors/AppErrorBoundary';
 import VerifyEmail from './pages/verify-email';
 import ForgotPassword from './pages/forgot-password';
@@ -65,6 +66,7 @@ const App = () => {
           <Route path="/Privacy" element={<Privacy />} />
           <Route path="/Terms" element={<Terms />} />
           <Route path="/Partners" element={<Partners />} />
+          <Route path="/settings" element={<Accounts />} />
         </Routes>
       </div>
 
