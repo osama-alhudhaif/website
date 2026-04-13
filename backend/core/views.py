@@ -57,6 +57,20 @@ def fixed_serve(request, path, document_root=None):
             content_type = 'image/gif'
         elif path.endswith('.svg'):
             content_type = 'image/svg+xml'
+        elif path.endswith('.txt'):
+            content_type = 'text/plain; charset=utf-8'
+        elif path.endswith('.pdf'):
+            content_type = 'application/pdf'
+        elif path.endswith('.epub'):
+            content_type = 'application/epub+zip'
+        elif path.endswith('.docx'):
+            content_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        elif path.endswith('.ico'):
+            content_type = 'image/x-icon'
+        elif path.endswith('.woff2'):
+            content_type = 'font/woff2'
+        elif path.endswith('.woff'):
+            content_type = 'font/woff'
         
         response = HttpResponse(content, content_type=content_type)
         return response

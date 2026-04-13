@@ -9,8 +9,65 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # Django 6.0.4 pathlib compatibility fix
-from pathlib import PurePosixPath
+from pathlib import PurePosixPath, PurePath as _PurePath
 import re
+
+# إصلاح شامل لـ PurePath في هذا build المخصص من Python 3.12
+import pathlib as _pathlib
+
+def _pp_str(self):
+    return str.__str__(self) if isinstance(self, str) else object.__str__(self)
+
+def _pp_parts(self):
+    s = str(self).replace('\\', '/')
+    segs = [p for p in s.split('/') if p]
+    return ('/',) + tuple(segs) if s.startswith('/') else tuple(segs)
+
+def _pp_drive(self):
+    s = str(self)
+    if len(s) >= 2 and s[1] == ':':
+        return s[:2]
+    return ''
+
+def _pp_root(self):
+    s = str(self).replace('\\', '/')
+    return '/' if s.startswith('/') else ''
+
+def _pp_anchor(self):
+    return _pp_drive(self) + _pp_root(self)
+
+def _pp_suffixes(self):
+    name = str(self).replace('\\', '/').split('/')[-1]
+    if name.startswith('.') and name.count('.') == 1:
+        return ()
+    parts = name.split('.')
+    return tuple('.' + s for s in parts[1:]) if len(parts) > 1 else ()
+
+def _pp_parents(self):
+    import os
+    p = str(self).replace('\\', '/')
+    result = []
+    while True:
+        parent = '/'.join(p.rstrip('/').split('/')[:-1])
+        if not parent or parent == p:
+            break
+        result.append(_pathlib.PurePath(parent))
+        p = parent
+    if _pp_root(self):
+        result.append(_pathlib.PurePath('/'))
+    return tuple(result)
+
+for _attr, _fn in [
+    ('parts',   _pp_parts),
+    ('drive',   _pp_drive),
+    ('root',    _pp_root),
+    ('anchor',  _pp_anchor),
+    ('suffixes', _pp_suffixes),
+    ('parents', _pp_parents),
+]:
+    for _cls in (_pathlib.PurePath, _pathlib.PurePosixPath):
+        if not hasattr(_cls, _attr):
+            setattr(_cls, _attr, property(_fn))
 
 def patched_validate_file_name(name, allow_relative_path=False):
     """
@@ -47,18 +104,31 @@ from django.core.files.storage import Storage
 original_get_available_name = Storage.get_available_name
 
 def patched_get_available_name(self, name, max_length=None):
-    """
-    Patched version that handles pathlib objects in get_available_name.
-    """
-    # Convert pathlib objects to string
     if hasattr(name, 'as_posix') or isinstance(name, PurePosixPath):
         name = str(name)
-    
-    # Call original method with string name
     return original_get_available_name(self, name, max_length)
 
-# Apply the patch
 Storage.get_available_name = patched_get_available_name
+
+# Fix Django 6 generate_filename PurePath.parts bug in storage/base.py
+import os as _os
+from django.core.files.storage.base import Storage as _BaseStorage
+
+_original_generate_filename = _BaseStorage.generate_filename
+
+def _patched_generate_filename(self, filename):
+    filename = str(filename).replace("\\", "/")
+    dirname, fname = _os.path.split(filename)
+    # استخدام string split بدلاً من PurePath.parts لتجنب خلل Django 6
+    parts = [p for p in dirname.replace("\\", "/").split("/") if p]
+    if ".." in parts:
+        from django.core.exceptions import SuspiciousFileOperation
+        raise SuspiciousFileOperation(
+            "Detected path traversal attempt in '%s'" % dirname
+        )
+    return _os.path.normpath(_os.path.join(dirname, self.get_valid_name(fname)))
+
+_BaseStorage.generate_filename = _patched_generate_filename
 
 # Fix Django 6 autoreload pathlib issues
 import django.utils.autoreload
@@ -220,4 +290,13 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'Oda <no-reply@oda.com>')
 ODA_SUPPORT_EMAIL = os.getenv('ODA_SUPPORT_EMAIL', 'support@oda.com')
 
+# عنوان الموقع (يُستخدم في روابط الإيميلات)
 FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:5173')
+
+# إعدادات الأمان للإنتاج
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True

@@ -16,8 +16,9 @@ class UserSerializer(serializers.ModelSerializer):
             "phone", "country", "role", "gender", "date_of_birth",
             "dark_mode_enabled", "has_active_subscription",
             "subscription_info", "followers_count", "following_count",
+            "date_joined",
         ]
-        read_only_fields = ["id"]
+        read_only_fields = ["id", "date_joined"]
 
     def get_has_active_subscription(self, obj):
         return obj.has_active_subscription()

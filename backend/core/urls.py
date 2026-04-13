@@ -27,23 +27,27 @@ urlpatterns = [
     path('api/v1/accounts/', include('accounts.api.urls')),
     path('api/v1/stories/', include('stories.api.urls')),
     
-    # 1. Serve Vite assets directly with fixed serve view
+    # Serve uploaded media files (stories, images) in all environments
+    re_path(r'^media/(?P<path>.*)$', fixed_serve, {
+        'document_root': str(settings.MEDIA_ROOT),
+    }),
+
+    # Serve Vite assets directly
     re_path(r'^assets/(?P<path>.*)$', fixed_serve, {
         'document_root': str(os.path.join(settings.BASE_DIR, 'frontend/dist/assets')),
     }),
-    
-    # 2. Serve other static files directly with fixed serve view
+
+    # Serve other static files directly
     re_path(r'^static/(?P<path>.*)$', fixed_serve, {
         'document_root': str(os.path.join(settings.BASE_DIR, 'frontend/dist')),
     }),
-    
-    # 2. الصفحة الرئيسية
+
+    # الصفحة الرئيسية
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
-    
-    # 3. أي مسار آخر يوجه لـ index.html (لحماية React Router)
+
+    # أي مسار آخر يوجه لـ index.html (لحماية React Router)
     re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

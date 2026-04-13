@@ -6,6 +6,10 @@ FROM node:20-alpine AS frontend-builder
 
 WORKDIR /app/frontend
 
+# Build arg for API URL (in production, frontend & backend share the same domain)
+ARG VITE_API_BASE_URL=/api/v1
+ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
+
 # Copy frontend package files
 COPY frontend/package*.json ./
 COPY frontend/tsconfig*.json ./

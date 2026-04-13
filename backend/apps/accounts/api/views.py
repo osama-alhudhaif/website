@@ -1,8 +1,14 @@
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, serializers, status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
+
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.core.mail import send_mail
+from django.conf import settings
 
 from accounts.models import User, Subscription, Follow
 from .serializers import (
@@ -15,6 +21,114 @@ class RegistrationAPIView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegistrationSerializer
     permission_classes = [permissions.AllowAny]
+
+    def perform_create(self, serializer):
+        user = serializer.save()
+        # إرسال إيميل التحقق
+        try:
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = default_token_generator.make_token(user)
+            frontend_url = getattr(settings, 'FRONTEND_URL', 'http://localhost:5173')
+            verify_url = f"{frontend_url}/verify-email/{uid}/{token}/"
+            send_mail(
+                subject='تأكيد البريد الإلكتروني - أودا',
+                message=f'مرحباً {user.username}،\n\nاضغط على الرابط التالي لتأكيد بريدك الإلكتروني:\n{verify_url}\n\nشكراً لانضمامك إلى منصة أودا!',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[user.email],
+                fail_silently=True,
+            )
+        except Exception:
+            pass
+
+
+class VerifyEmailAPIView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request, uid, token):
+        try:
+            user_id = force_str(urlsafe_base64_decode(uid))
+            user = User.objects.get(pk=user_id)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            return Response({'error': 'رابط التحقق غير صالح'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not default_token_generator.check_token(user, token):
+            return Response({'error': 'رابط التحقق منتهي الصلاحية أو غير صالح'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.is_active = True
+        user.save()
+        return Response({'message': 'تم التحقق من البريد الإلكتروني بنجاح! يمكنك الآن تسجيل الدخول.'})
+
+
+class PasswordResetRequestAPIView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        email = request.data.get('email', '').strip()
+        if not email:
+            return Response({'error': 'البريد الإلكتروني مطلوب'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(email=email)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = default_token_generator.make_token(user)
+            frontend_url = getattr(settings, 'FRONTEND_URL', 'http://localhost:5173')
+            reset_url = f"{frontend_url}/reset-password/{uid}/{token}/"
+            send_mail(
+                subject='استعادة كلمة المرور - أودا',
+                message=f'مرحباً {user.username}،\n\nاضغط على الرابط التالي لإعادة تعيين كلمة المرور:\n{reset_url}\n\nإذا لم تطلب هذا، تجاهل هذا الإيميل.',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[user.email],
+                fail_silently=True,
+            )
+        except User.DoesNotExist:
+            pass  # لا نكشف إذا كان الإيميل موجوداً أم لا
+        except Exception:
+            pass  # نتجاهل أخطاء الإيميل - نرجع نفس الرسالة دائماً
+
+        return Response({'message': 'إذا كان البريد الإلكتروني مسجلاً، ستصل رسالة الاستعادة قريباً.'})
+
+
+class PasswordResetConfirmAPIView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request, uid, token):
+        new_password = request.data.get('new_password', '')
+        if len(new_password) < 8:
+            return Response({'error': 'كلمة المرور يجب أن تكون 8 أحرف على الأقل'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user_id = force_str(urlsafe_base64_decode(uid))
+            user = User.objects.get(pk=user_id)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            return Response({'error': 'رابط إعادة التعيين غير صالح'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not default_token_generator.check_token(user, token):
+            return Response({'error': 'رابط إعادة التعيين منتهي الصلاحية'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.set_password(new_password)
+        user.save()
+        return Response({'message': 'تم تغيير كلمة المرور بنجاح! يمكنك الآن تسجيل الدخول.'})
+
+
+class ChangePasswordAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        current_password = request.data.get('current_password', '')
+        new_password = request.data.get('new_password', '')
+
+        if not request.user.check_password(current_password):
+            return Response({'error': 'كلمة المرور الحالية غير صحيحة'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if len(new_password) < 8:
+            return Response({'error': 'كلمة المرور الجديدة يجب أن تكون 8 أحرف على الأقل'}, status=status.HTTP_400_BAD_REQUEST)
+
+        request.user.set_password(new_password)
+        request.user.save()
+        # تحديث الـ token بعد تغيير كلمة المرور
+        Token.objects.filter(user=request.user).delete()
+        new_token, _ = Token.objects.get_or_create(user=request.user)
+        return Response({'message': 'تم تغيير كلمة المرور بنجاح', 'token': new_token.key})
 
 
 class LoginAPIView(APIView):

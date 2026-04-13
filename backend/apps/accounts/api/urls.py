@@ -1,19 +1,22 @@
 from django.urls import path
-# الاستيراد من ملف views.py الموجود في نفس مجلد api
 from .views import (
-    RegistrationAPIView, 
-    LoginAPIView, 
+    RegistrationAPIView,
+    LoginAPIView,
     ProfileAPIView,
-    SubscriptionListCreateAPIView, 
+    SubscriptionListCreateAPIView,
     SubscriptionDetailAPIView,
-    CurrentSubscriptionAPIView, 
+    CurrentSubscriptionAPIView,
     SubscriptionPricingAPIView,
-    ToggleDarkModeAPIView, 
-    FollowListCreateAPIView, 
+    ToggleDarkModeAPIView,
+    FollowListCreateAPIView,
     UnfollowAPIView,
-    FollowersListAPIView, 
-    FollowingListAPIView, 
-    PublicAuthorProfileAPIView
+    FollowersListAPIView,
+    FollowingListAPIView,
+    PublicAuthorProfileAPIView,
+    VerifyEmailAPIView,
+    PasswordResetRequestAPIView,
+    PasswordResetConfirmAPIView,
+    ChangePasswordAPIView,
 )
 
 # هذا الاسم يستخدم للتحويل بين الروابط داخل Django
@@ -21,14 +24,19 @@ app_name = 'accounts_api'
 
 urlpatterns = [
     # --- مسارات المصادقة (Authentication) ---
-    # الرابط الكامل: /api/v1/accounts/register/
     path('register/', RegistrationAPIView.as_view(), name='register'),
-    
-    # الرابط الكامل: /api/v1/accounts/login/
     path('login/', LoginAPIView.as_view(), name='login'),
-    
-    # الرابط الكامل: /api/v1/accounts/me/ (للملف الشخصي الحالي)
     path('me/', ProfileAPIView.as_view(), name='me'),
+
+    # --- التحقق من الإيميل ---
+    path('verify-email/<str:uid>/<str:token>/', VerifyEmailAPIView.as_view(), name='verify-email'),
+
+    # --- استعادة كلمة المرور ---
+    path('password-reset/', PasswordResetRequestAPIView.as_view(), name='password-reset'),
+    path('password-reset/confirm/<str:uid>/<str:token>/', PasswordResetConfirmAPIView.as_view(), name='password-reset-confirm'),
+
+    # --- تغيير كلمة المرور (للمسجلين) ---
+    path('change-password/', ChangePasswordAPIView.as_view(), name='change-password'),
 
     # --- مسارات الاشتراكات (Subscriptions) ---
     path('subscriptions/', SubscriptionListCreateAPIView.as_view(), name='subscription-list'),

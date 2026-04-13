@@ -14,3 +14,16 @@ restartPolicyMaxRetries = 3
 PYTHONDONTWRITEBYTECODE = "1"
 PYTHONUNBUFFERED = "1"
 DJANGO_SETTINGS_MODULE = "core.settings"
+# المتغيرات التالية يجب ضبطها يدوياً في Railway Dashboard:
+# DEBUG=False
+# SECRET_KEY=<مفتاح سري قوي>
+# ALLOWED_HOSTS=<your-app>.railway.app
+# FRONTEND_URL=https://<your-app>.railway.app
+# CORS_ALLOWED_ORIGINS=https://<your-app>.railway.app
+# DB_NAME=<railway-postgres-db>
+# DB_USER=<railway-postgres-user>
+# DB_PASSWORD=<railway-postgres-password>
+# DB_HOST=<railway-postgres-host>
+# DB_PORT=5432
+# EMAIL_HOST_USER=<gmail>
+# EMAIL_HOST_PASSWORD=<app-password>

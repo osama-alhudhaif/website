@@ -40,3 +40,8 @@ frontend/node_modules/
 # --- Build Logs ---
 *.log
 .aider*
+
+# --- Backend built frontend (dist) ---
+backend/frontend/
+venv_new/
+python3.12_*.deb

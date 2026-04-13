@@ -32,7 +32,7 @@ class StorySerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
         ]
-        read_only_fields = ['id', 'views_count', 'likes_count', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'author', 'author_username', 'file_name', 'views_count', 'likes_count', 'average_rating', 'ratings_count', 'comments_count', 'created_at', 'updated_at']
 
     def get_average_rating(self, obj):
         return obj.get_average_rating()
@@ -59,7 +59,7 @@ class CommentSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
         ]
-        read_only_fields = ['id', 'user', 'is_approved', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'story', 'user', 'user_username', 'is_approved', 'created_at', 'updated_at']
 
 
 class RatingSerializer(serializers.ModelSerializer):
@@ -78,5 +78,5 @@ class RatingSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
         ]
-        read_only_fields = ['id', 'user', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'story', 'user', 'user_username', 'rating_display', 'created_at', 'updated_at']
 

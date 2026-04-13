@@ -1,9 +1,0 @@
-// frontend/src/api/stories/storiesService.ts
-import axiosInstance from '../__base__/axiosInstance';
-// import { ExampleType } from '../../types/Example'; // ??????? ???????
-
-// ???? ????? ??? ????????
-export const getExampleData = async () => {
-  const response = await axiosInstance.get('/stories/example/');
-  return response.data;
-};
