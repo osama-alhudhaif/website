@@ -34,11 +34,11 @@ const Register = () => {
 
         try {
             // الرابط الكامل الذي تأكدنا من عمله في الباك-إند
-            const response = await axios.post(`${API_BASE_URL}/accounts/register/`, formData);
+            await axios.post(`${API_BASE_URL}/accounts/register/`, formData);
             setMessage("تم إنشاء حسابك في Oda بنجاح! جرب تسجيل الدخول الآن.");
-            console.log("نجاح:", response.data);
+            // الإصدار 12: إزالة console.log الذي قد يعرض بيانات المستخدم (الاسم، البريد، إلخ)
         } catch (err: any) {
-            console.error("خطأ من السيرفر:", err.response?.data);
+            // الإصدار 12: إزالة console.error الذي قد يعرض بيانات حساسة من استجابة الخادم
             // عرض تفاصيل الخطأ بدقة (مثل: اسم المستخدم موجود مسبقاً)
             const errorMsg = err.response?.data 
                 ? JSON.stringify(err.response.data) 

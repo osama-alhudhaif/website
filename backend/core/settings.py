@@ -160,9 +160,11 @@ if not SECRET_KEY:
         raise ValueError("SECRET_KEY must be set in production!")
     SECRET_KEY = 'django-insecure-dev-only-key-change-in-production'
 
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+# الإصدار 3: قراءة DEBUG من متغير البيئة مع القيمة الافتراضية False لضمان الأمان في الإنتاج
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
+# الإصدار 7: قراءة ALLOWED_HOSTS من متغير البيئة بدلاً من القيمة الثابتة لتجنب خطر 0.0.0.0
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -265,19 +267,33 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # الإصدار 11: استخدام صفحات مخصصة تحدد الحد الأقصى لحجم الصفحة
+    'DEFAULT_PAGINATION_CLASS': 'core.pagination.StandardResultsSetPagination',
     'PAGE_SIZE': 20,
     'DEFAULT_FILTER_BACKENDS': [
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ],
+    # الإصدار 8: إضافة تحديد معدل الطلبات لحماية endpoints المصادقة
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '30/minute',
+        'user': '100/minute',
+        # معدل مخصص لـ endpoints تسجيل الدخول والتسجيل وإعادة تعيين كلمة المرور
+        'auth': '5/minute',
+    },
 }
 
-CORS_ALLOW_ALL_ORIGINS = DEBUG
+# الإصدار 6: إزالة CORS_ALLOW_ALL_ORIGINS واستبداله بقائمة محددة من متغير البيئة
+# لا يجب السماح بجميع الأصول حتى في وضع التطوير
+CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGINS = [
     origin.strip()
-    for origin in os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173').split(',')
+    for origin in os.environ.get('CORS_ALLOWED_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173').split(',')
     if origin.strip()
 ]
 
@@ -292,6 +308,12 @@ ODA_SUPPORT_EMAIL = os.getenv('ODA_SUPPORT_EMAIL', 'support@oda.com')
 
 # عنوان الموقع (يُستخدم في روابط الإيميلات)
 FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:5173')
+
+# الإصدار 4: إعدادات الكوكيز الأمنية - HttpOnly و Secure و SameSite لحماية الجلسات والـ CSRF
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = 'Lax'
 
 # إعدادات الأمان للإنتاج
 if not DEBUG:

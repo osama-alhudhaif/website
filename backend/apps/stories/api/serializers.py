@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
 from stories.models import Story, Comment, Rating
+# الإصدار 9: استيراد مُحقِّق الملفات للتحقق من نوع الملف وحجمه وامتداده
+from utils.file_validators import validate_story_file
 
 
 class StorySerializer(serializers.ModelSerializer):
@@ -33,6 +35,11 @@ class StorySerializer(serializers.ModelSerializer):
             'updated_at',
         ]
         read_only_fields = ['id', 'author', 'author_username', 'file_name', 'views_count', 'likes_count', 'average_rating', 'ratings_count', 'comments_count', 'created_at', 'updated_at']
+
+    def validate_file_path(self, value):
+        # الإصدار 9: التحقق من الملف المرفوع (الحجم، الامتداد، نوع MIME)
+        validate_story_file(value)
+        return value
 
     def get_average_rating(self, obj):
         return obj.get_average_rating()

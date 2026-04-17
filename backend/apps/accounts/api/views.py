@@ -3,6 +3,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
+# الإصدار 8: استيراد فئات تحديد المعدل لحماية endpoints المصادقة من الهجمات
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -17,10 +19,18 @@ from .serializers import (
 )
 
 
+# الإصدار 8: معدل مخصص صارم لـ endpoints المصادقة (5 طلبات في الدقيقة للمجهولين)
+class AuthRateThrottle(AnonRateThrottle):
+    rate = '5/minute'
+    scope = 'auth'
+
+
 class RegistrationAPIView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegistrationSerializer
     permission_classes = [permissions.AllowAny]
+    # الإصدار 8: تطبيق تحديد المعدل على endpoint التسجيل
+    throttle_classes = [AuthRateThrottle]
 
     def perform_create(self, serializer):
         user = serializer.save()
@@ -61,6 +71,8 @@ class VerifyEmailAPIView(APIView):
 
 class PasswordResetRequestAPIView(APIView):
     permission_classes = [permissions.AllowAny]
+    # الإصدار 8: تطبيق تحديد المعدل على endpoint طلب إعادة تعيين كلمة المرور
+    throttle_classes = [AuthRateThrottle]
 
     def post(self, request):
         email = request.data.get('email', '').strip()
@@ -90,6 +102,8 @@ class PasswordResetRequestAPIView(APIView):
 
 class PasswordResetConfirmAPIView(APIView):
     permission_classes = [permissions.AllowAny]
+    # الإصدار 8: تطبيق تحديد المعدل على endpoint تأكيد إعادة تعيين كلمة المرور
+    throttle_classes = [AuthRateThrottle]
 
     def post(self, request, uid, token):
         new_password = request.data.get('new_password', '')
@@ -133,6 +147,8 @@ class ChangePasswordAPIView(APIView):
 
 class LoginAPIView(APIView):
     permission_classes = [permissions.AllowAny]
+    # الإصدار 8: تطبيق تحديد المعدل على endpoint تسجيل الدخول لمنع هجمات brute-force
+    throttle_classes = [AuthRateThrottle]
 
     def post(self, request, *args, **kwargs):
         serializer = LoginSerializer(data=request.data)

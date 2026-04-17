@@ -2,17 +2,9 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config/api";
 
-const setPermanentCookie = (name: string, value: string) => {
-    const expires = new Date(Date.now() + 10 * 365 * 864e5).toUTCString();
-    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
-};
-const getCookie = (name: string): string | null => {
-    const row = document.cookie.split("; ").find(r => r.startsWith(`${name}=`));
-    return row ? decodeURIComponent(row.split("=")[1]) : null;
-};
-const deleteCookie = (name: string) => {
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
-};
+// الإصدار 2 و 4: إزالة تخزين التوكن في cookies غير آمنة من طرف العميل
+// التوكن يُخزَّن في sessionStorage عند عدم تفعيل "تذكرني"، وفي localStorage عند تفعيله
+// لا يجب تعيين cookies تحتوي على التوكن من JavaScript لأنها لا تدعم HttpOnly
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -23,8 +15,9 @@ const Login = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const savedToken = getCookie("token");
-        if (savedToken) { localStorage.setItem("token", savedToken); navigate("/"); }
+        // التحقق من وجود توكن محفوظ في أحد المخزنين
+        const savedToken = localStorage.getItem("token") || sessionStorage.getItem("token");
+        if (savedToken) { navigate("/"); }
     }, [navigate]);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -38,13 +31,14 @@ const Login = () => {
             });
             const data = await response.json();
             if (response.ok) {
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("username", data.user.username);
                 if (rememberMe) {
-                    setPermanentCookie("token", data.token);
-                    setPermanentCookie("username", data.user.username);
+                    // الإصدار 2: تخزين التوكن في localStorage عند اختيار "تذكرني"
+                    localStorage.setItem("token", data.token);
+                    localStorage.setItem("username", data.user.username);
                 } else {
-                    deleteCookie("token"); deleteCookie("username");
+                    // الإصدار 2: تخزين التوكن في sessionStorage (يُمسح عند إغلاق المتصفح)
+                    sessionStorage.setItem("token", data.token);
+                    sessionStorage.setItem("username", data.user.username);
                 }
                 navigate("/");
             } else {

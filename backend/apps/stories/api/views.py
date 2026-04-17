@@ -1,6 +1,8 @@
 from rest_framework import viewsets, permissions, generics, status, serializers, filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
+# الإصدار 10: استيراد get_object_or_404 لمعالجة حالة عدم وجود القصة بشكل آمن
+from django.shortcuts import get_object_or_404
 
 from stories.models import Story, Comment, Rating
 from .serializers import StorySerializer, CommentSerializer, RatingSerializer
@@ -50,7 +52,8 @@ class CommentListCreateAPIView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         story_id = self.kwargs['story_id']
-        story = Story.objects.get(id=story_id)
+        # الإصدار 10: استخدام get_object_or_404 بدلاً من Story.objects.get لإرجاع 404 عند عدم الوجود
+        story = get_object_or_404(Story, id=story_id)
         serializer.save(user=self.request.user, story=story)
 
 
@@ -63,7 +66,8 @@ class RatingListCreateAPIView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         story_id = self.kwargs['story_id']
-        story = Story.objects.get(id=story_id)
+        # الإصدار 10: استخدام get_object_or_404 بدلاً من Story.objects.get لإرجاع 404 عند عدم الوجود
+        story = get_object_or_404(Story, id=story_id)
         if Rating.objects.filter(story=story, user=self.request.user).exists():
             raise serializers.ValidationError('لقد قيّمت هذه القصة مسبقاً')
         serializer.save(user=self.request.user, story=story)
