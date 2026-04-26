@@ -1,10 +1,11 @@
 from rest_framework import viewsets, permissions, generics, status, serializers, filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
-# الإصدار 10: استيراد get_object_or_404 لمعالجة حالة عدم وجود القصة بشكل آمن
+from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
+from django.db import models as db_models
 
-from stories.models import Story, Comment, Rating
+from stories.models import Story, Comment, Rating, StoryLike
 from .serializers import StorySerializer, CommentSerializer, RatingSerializer
 
 
@@ -41,6 +42,27 @@ class StoryViewSet(viewsets.ModelViewSet):
         instance.views_count += 1
         instance.save()
         return Response(self.get_serializer(instance).data)
+
+    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
+    def like(self, request, pk=None):
+        story = self.get_object()
+        like, created = StoryLike.objects.get_or_create(user=request.user, story=story)
+        if not created:
+            like.delete()
+            story.likes_count = db_models.F('likes_count') - 1
+            story.save(update_fields=['likes_count'])
+            story.refresh_from_db()
+            return Response({'liked': False, 'likes_count': story.likes_count})
+        story.likes_count = db_models.F('likes_count') + 1
+        story.save(update_fields=['likes_count'])
+        story.refresh_from_db()
+        return Response({'liked': True, 'likes_count': story.likes_count})
+
+    @action(detail=True, methods=['get'], permission_classes=[permissions.IsAuthenticated])
+    def is_liked(self, request, pk=None):
+        story = self.get_object()
+        liked = StoryLike.objects.filter(user=request.user, story=story).exists()
+        return Response({'liked': liked})
 
 
 class CommentListCreateAPIView(generics.ListCreateAPIView):

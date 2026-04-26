@@ -52,6 +52,18 @@ class Comment(models.Model):
         return f"تعليق {self.user.username} على {self.story.title}"
 
 
+class StoryLike(models.Model):
+    story = models.ForeignKey(Story, on_delete=models.CASCADE, related_name='likes')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='story_likes')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ['story', 'user']
+
+    def __str__(self):
+        return f"{self.user.username} أعجب بـ {self.story.title}"
+
+
 class Rating(models.Model):
     """موديل تقييم القصص"""
 

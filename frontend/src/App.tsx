@@ -20,6 +20,7 @@ import ErrorPage from './errors/AppErrorBoundary';
 import VerifyEmail from './pages/verify-email';
 import ForgotPassword from './pages/forgot-password';
 import ResetPassword from './pages/reset-password';
+import Notifications from './pages/notifications';
 
 const App = () => {
   const location = useLocation();
@@ -67,6 +68,7 @@ const App = () => {
           <Route path="/Terms" element={<Terms />} />
           <Route path="/Partners" element={<Partners />} />
           <Route path="/settings" element={<Accounts />} />
+          <Route path="/notifications" element={<Notifications />} />
         </Routes>
       </div>
 

@@ -7,11 +7,13 @@ interface Story {
     id: number
     title: string
     description: string
+    author: number
     author_username: string
     genre: string
     views_count: number
     average_rating: number | null
     likes_count: number
+    created_at: string
 }
 
 const Body = () => {
@@ -92,7 +94,18 @@ const Body = () => {
                 <>
                     {stories.map((story) => (
                         <Link key={story.id} to={`/reading/${story.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-                            <Cardstore name={story.title} description={story.description} likes={story.likes_count} />
+                            <Cardstore
+                                id={story.id}
+                                name={story.title}
+                                description={story.description}
+                                likes={story.likes_count}
+                                views={story.views_count}
+                                rating={story.average_rating ?? 0}
+                                genre={story.genre}
+                                author={story.author_username}
+                                authorId={story.author}
+                                createdAt={story.created_at}
+                            />
                         </Link>
                     ))}
 

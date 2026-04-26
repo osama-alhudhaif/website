@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
-from accounts.models import User, Subscription, Follow
+from accounts.models import User, Subscription, Follow, Notification
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -105,3 +105,15 @@ class FollowSerializer(serializers.ModelSerializer):
         model = Follow
         fields = ["id", "follower", "follower_username", "following", "following_username", "created_at"]
         read_only_fields = ["id", "created_at"]
+
+class NotificationSerializer(serializers.ModelSerializer):
+    sender_username = serializers.CharField(source='sender.username', read_only=True, allow_null=True)
+    notif_type_display = serializers.CharField(source='get_notif_type_display', read_only=True)
+
+    class Meta:
+        model = Notification
+        fields = [
+            'id', 'notif_type', 'notif_type_display', 'title', 'message',
+            'is_read', 'related_story_id', 'sender_username', 'created_at',
+        ]
+        read_only_fields = ['id', 'created_at']

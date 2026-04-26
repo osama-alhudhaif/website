@@ -28,16 +28,23 @@ const Reading: React.FC = () => {
     const [translateLoading, setTranslateLoading] = useState(false);
     const [targetLang, setTargetLang] = useState('en');
     const [showTranslateBar, setShowTranslateBar] = useState(false);
+    const [isLiked, setIsLiked] = useState(false);
+    const [likesCount, setLikesCount] = useState(0);
+    const [likeLoading, setLikeLoading] = useState(false);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
         if (!id) return;
         const headers: Record<string, string> = token ? { Authorization: `Token ${token}` } : {};
+        const likeHeaders: Record<string, string> = token ? { Authorization: `Token ${token}` } : {};
         Promise.all([
             fetch(`${API_BASE_URL}/stories/stories/${id}/`, { headers }).then(r => r.json()),
             fetch(`${API_BASE_URL}/stories/stories/${id}/comments/`, { headers }).then(r => r.json()),
-        ]).then(([storyData, commentsData]) => {
+            token ? fetch(`${API_BASE_URL}/stories/stories/${id}/is_liked/`, { headers: likeHeaders }).then(r => r.json()).catch(() => ({ liked: false })) : Promise.resolve({ liked: false }),
+        ]).then(([storyData, commentsData, likeData]) => {
             setStory(storyData);
+            setLikesCount(storyData.likes_count || 0);
+            setIsLiked(likeData.liked || false);
             setComments(Array.isArray(commentsData) ? commentsData : commentsData.results || []);
             const ext = getExt(storyData.file_name || storyData.file_path);
             if (ext === 'txt' && storyData.file_path) {
@@ -78,6 +85,20 @@ const Reading: React.FC = () => {
         if (!res) return;
         const data = await res.json();
         if (data.translated_text) setTranslatedText(data.translated_text);
+    };
+
+    const toggleLike = async () => {
+        if (!token || likeLoading) return;
+        setLikeLoading(true);
+        const res = await fetch(`${API_BASE_URL}/stories/stories/${id}/like/`, {
+            method: 'POST',
+            headers: { Authorization: `Token ${token}`, 'Content-Type': 'application/json' },
+        }).catch(() => null);
+        setLikeLoading(false);
+        if (!res) return;
+        const data = await res.json();
+        setIsLiked(data.liked);
+        setLikesCount(data.likes_count);
     };
 
     const submitRating = async (value: number) => {
@@ -124,6 +145,27 @@ const Reading: React.FC = () => {
                     <span>{new Date(story.created_at).toLocaleDateString('ar-SA')}</span>
                 </div>
             </header>
+
+            {/* زر اللايك */}
+            {token && (
+                <div style={{ display: 'flex', gap: '10px', marginBottom: '16px' }}>
+                    <button
+                        onClick={toggleLike}
+                        disabled={likeLoading}
+                        style={{
+                            display: 'flex', alignItems: 'center', gap: '6px',
+                            padding: '8px 18px', borderRadius: '24px', cursor: 'pointer',
+                            backgroundColor: isLiked ? '#fee2e2' : '#f5f5f5',
+                            border: `1.5px solid ${isLiked ? '#f87171' : '#ddd'}`,
+                            color: isLiked ? '#e53e3e' : '#555',
+                            fontWeight: isLiked ? '600' : '400',
+                            transition: 'all 0.2s', fontSize: '14px',
+                        }}
+                    >
+                        {isLiked ? '❤️' : '🤍'} {likesCount.toLocaleString('ar-EG')} إعجاب
+                    </button>
+                </div>
+            )}
 
             {story.description && (
                 <div style={{ backgroundColor: '#f8f8f8', padding: '12px 16px', borderRight: '4px solid #1a73e8', marginBottom: '24px', borderRadius: '4px', color: '#555' }}>

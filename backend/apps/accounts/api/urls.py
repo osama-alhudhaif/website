@@ -17,9 +17,11 @@ from .views import (
     PasswordResetRequestAPIView,
     PasswordResetConfirmAPIView,
     ChangePasswordAPIView,
+    NotificationListAPIView,
+    NotificationMarkReadAPIView,
+    NotificationUnreadCountAPIView,
 )
 
-# هذا الاسم يستخدم للتحويل بين الروابط داخل Django
 app_name = 'accounts_api'
 
 urlpatterns = [
@@ -35,24 +37,30 @@ urlpatterns = [
     path('password-reset/', PasswordResetRequestAPIView.as_view(), name='password-reset'),
     path('password-reset/confirm/<str:uid>/<str:token>/', PasswordResetConfirmAPIView.as_view(), name='password-reset-confirm'),
 
-    # --- تغيير كلمة المرور (للمسجلين) ---
+    # --- تغيير كلمة المرور ---
     path('change-password/', ChangePasswordAPIView.as_view(), name='change-password'),
 
-    # --- مسارات الاشتراكات (Subscriptions) ---
+    # --- مسارات الاشتراكات ---
     path('subscriptions/', SubscriptionListCreateAPIView.as_view(), name='subscription-list'),
     path('subscriptions/<int:pk>/', SubscriptionDetailAPIView.as_view(), name='subscription-detail'),
     path('subscriptions/current/', CurrentSubscriptionAPIView.as_view(), name='current-subscription'),
     path('subscriptions/pricing/', SubscriptionPricingAPIView.as_view(), name='subscription-pricing'),
 
-    # --- الوضع الليلي (Dark Mode) ---
+    # --- الوضع الليلي ---
     path('toggle-dark-mode/', ToggleDarkModeAPIView.as_view(), name='toggle-dark-mode'),
 
-    # --- نظام المتابعة (Follows) ---
+    # --- نظام المتابعة ---
     path('follows/', FollowListCreateAPIView.as_view(), name='follow-list'),
     path('unfollow/<int:user_id>/', UnfollowAPIView.as_view(), name='unfollow'),
     path('users/<int:user_id>/followers/', FollowersListAPIView.as_view(), name='followers-list'),
     path('users/<int:user_id>/following/', FollowingListAPIView.as_view(), name='following-list'),
 
-    # --- بروفايل المؤلف (Author Profile - يتطلب اشتراك) ---
+    # --- بروفايل المؤلف ---
     path('authors/<int:user_id>/', PublicAuthorProfileAPIView.as_view(), name='author-profile'),
+
+    # --- الإشعارات ---
+    path('notifications/', NotificationListAPIView.as_view(), name='notification-list'),
+    path('notifications/unread-count/', NotificationUnreadCountAPIView.as_view(), name='notification-unread-count'),
+    path('notifications/mark-all-read/', NotificationMarkReadAPIView.as_view(), name='notification-mark-all-read'),
+    path('notifications/<int:pk>/mark-read/', NotificationMarkReadAPIView.as_view(), name='notification-mark-read'),
 ]

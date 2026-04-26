@@ -12,10 +12,10 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
 from django.conf import settings
 
-from accounts.models import User, Subscription, Follow
+from accounts.models import User, Subscription, Follow, Notification
 from .serializers import (
     UserSerializer, RegistrationSerializer, LoginSerializer,
-    SubscriptionSerializer, FollowSerializer
+    SubscriptionSerializer, FollowSerializer, NotificationSerializer
 )
 
 
@@ -372,3 +372,32 @@ class PublicAuthorProfileAPIView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
+
+
+class NotificationListAPIView(generics.ListAPIView):
+    serializer_class = NotificationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Notification.objects.filter(recipient=self.request.user)
+
+
+class NotificationMarkReadAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk=None):
+        if pk:
+            notif = generics.get_object_or_404(Notification, pk=pk, recipient=request.user)
+            notif.is_read = True
+            notif.save()
+            return Response({'message': 'تم تعليم الإشعار كمقروء'})
+        Notification.objects.filter(recipient=request.user, is_read=False).update(is_read=True)
+        return Response({'message': 'تم تعليم كل الإشعارات كمقروءة'})
+
+
+class NotificationUnreadCountAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        count = Notification.objects.filter(recipient=request.user, is_read=False).count()
+        return Response({'unread_count': count})

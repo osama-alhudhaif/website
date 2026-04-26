@@ -152,6 +152,30 @@ class Subscription(models.Model):
         return max(0, remaining.days)
 
 
+class Notification(models.Model):
+    class NotifType(models.TextChoices):
+        COMMENT = 'COMMENT', 'تعليق جديد'
+        LIKE = 'LIKE', 'إعجاب'
+        FOLLOW = 'FOLLOW', 'متابعة جديدة'
+        STORY = 'STORY', 'قصة جديدة من كاتب تتابعه'
+        SYSTEM = 'SYSTEM', 'رسالة نظام'
+
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='sent_notifications')
+    notif_type = models.CharField(max_length=20, choices=NotifType.choices)
+    title = models.CharField(max_length=255)
+    message = models.TextField()
+    is_read = models.BooleanField(default=False)
+    related_story_id = models.IntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"إشعار لـ {self.recipient.username}: {self.title}"
+
+
 class Follow(models.Model):
     """موديل المتابعة بين المستخدمين"""
     follower = models.ForeignKey(
