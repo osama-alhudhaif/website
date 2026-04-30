@@ -50,3 +50,17 @@ python3.12_*.deb
 python3.12_*.deb
 report.md
 PROJECT_REVIEW.md
+
+# Database files - NEVER commit
+*.sqlite
+*.sqlite3
+*.db
+*.sql
+*.sql.gz
+*.sql.bak
+*.dump
+db.sqlite3
+awalimna/db.sqlite3
+
+# Visual Studio cache
+.vs/
