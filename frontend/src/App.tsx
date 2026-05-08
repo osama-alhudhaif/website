@@ -1,4 +1,6 @@
 import { Routes, Route, useLocation, Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import './App.css';
 import Header from './constants/Header';
 import Footer from './constants/Footer';
@@ -24,6 +26,14 @@ import Notifications from './pages/notifications';
 
 const App = () => {
   const location = useLocation();
+  const { i18n, t } = useTranslation();
+  const isRTL = i18n.language === 'ar' || i18n.language.startsWith('ar');
+
+  // ضبط اتجاه الصفحة تلقائياً بناءً على اللغة
+  useEffect(() => {
+    document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+    document.documentElement.lang = i18n.language;
+  }, [i18n.language, isRTL]);
 
   const isProfilePage = ['/profile/me', '/profile/edit'].includes(location.pathname)
     || location.pathname.startsWith('/profile/author/');
@@ -36,11 +46,11 @@ const App = () => {
           borderBottom: '1px solid #eee',
           display: 'flex',
           alignItems: 'center',
-          direction: 'rtl'
+          direction: isRTL ? 'rtl' : 'ltr',
         }}>
           <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <img src="/Website.png" alt="Logo" style={{ width: '40px', height: '40px' }} />
-            <span style={{ fontSize: '1.2em', fontWeight: 'bold', color: '#333' }}>أودا</span>
+            <span style={{ fontSize: '1.2em', fontWeight: 'bold', color: '#333' }}>{t('common.appName')}</span>
           </Link>
         </header>
       ) : (

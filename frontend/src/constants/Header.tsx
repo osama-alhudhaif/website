@@ -1,6 +1,7 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { API_BASE_URL } from "../config/api";
+import { useTranslation } from "react-i18next";
+import { API_BASE_URL, getToken, getUsername, clearAuth } from "../config/api";
 import './Header.css';
 
 const menuItemStyle: React.CSSProperties = {
@@ -14,8 +15,10 @@ const menuItemStyle: React.CSSProperties = {
 
 const Header = () => {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   const [unreadCount, setUnreadCount] = useState(0);
-  const token = localStorage.getItem('token');
+  const token = getToken();
+  const isRTL = i18n.language === 'ar' || i18n.language.startsWith('ar');
 
   useEffect(() => {
     if (!token) return;
@@ -51,44 +54,60 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
+    clearAuth();
     window.location.href = '/';
+  };
+
+  const switchLanguage = () => {
+    const next = i18n.language.startsWith('ar') ? 'en' : 'ar';
+    i18n.changeLanguage(next);
   };
 
   return (
     <div className="Main-Container">
-      <header className="Header">
+      <header className="Header" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
         <div className="Right-Side">
           <Link to="/" className="Logo-link">
             <img src="/Website.png" alt="Logo" className="logo-img" />
-            <h2 className="Brand-Name">أودا</h2>
+            <h2 className="Brand-Name">{t('common.appName')}</h2>
           </Link>
         </div>
 
         <div className="Left-Side">
           <nav className="Nav-Links">
-            
+
             <div className="Select-Container">
-              <select 
-                className="Custom-Select" 
+              <select
+                className="Custom-Select"
                 defaultValue=""
                 onChange={handleCategoryChange}
               >
-                <option value="" disabled>اختر الفئة</option>
-                <option value="war">حرب</option>
-                <option value="sci-fi">خيال علمي</option>
-                <option value="action">أكشن</option>
-                <option value="fantasy">الفانتازيا</option>
-                <option value="mystery">الجريمة والغموض</option>
-                <option value="horror">الرعب</option>
-                <option value="history">القصص التاريخية</option>
-                <option value="heist">سرقة</option>
-                <option value="adventure">المغامرات</option>
-                <option value="romance">رومانسية</option>
+                <option value="" disabled>{t('header.chooseCategory')}</option>
+                <option value="war">{t('categories.war')}</option>
+                <option value="sci-fi">{t('categories.sci-fi')}</option>
+                <option value="action">{t('categories.action')}</option>
+                <option value="fantasy">{t('categories.fantasy')}</option>
+                <option value="mystery">{t('categories.mystery')}</option>
+                <option value="horror">{t('categories.horror')}</option>
+                <option value="history">{t('categories.history')}</option>
+                <option value="heist">{t('categories.heist')}</option>
+                <option value="adventure">{t('categories.adventure')}</option>
+                <option value="romance">{t('categories.romance')}</option>
               </select>
               <span className="Select-Arrow">▼</span>
             </div>
+
+            {/* زر تبديل اللغة */}
+            <button
+              onClick={switchLanguage}
+              style={{
+                background: 'none', border: '1px solid #ccc', borderRadius: '6px',
+                padding: '4px 10px', cursor: 'pointer', fontSize: '13px',
+                color: 'inherit',
+              }}
+            >
+              {isRTL ? 'EN' : 'ع'}
+            </button>
 
             {token ? (
               <>
@@ -108,21 +127,21 @@ const Header = () => {
                 </Link>
                 <div className="User-Menu-Container">
                   <span className="User-Name" onClick={toggleMenu}>
-                    {localStorage.getItem('username') || 'حسابي'} ▼
+                    {getUsername() || t('header.myAccount')} ▼
                   </span>
                   <div id="user-menu" className="user-menu" style={{ display: 'none' }}>
-                    <Link to="/profile/me" style={menuItemStyle}>👤 حسابي</Link>
-                    <Link to="/notifications" style={menuItemStyle}>🔔 الإشعارات {unreadCount > 0 && `(${unreadCount})`}</Link>
-                    <Link to="/settings" style={menuItemStyle}>⚙️ الإعدادات</Link>
-                    <div style={menuItemStyle} onClick={toggleDarkMode}>🌙 المظهر</div>
-                    <div style={{ ...menuItemStyle, color: '#e74c3c' }} onClick={handleLogout}>🚪 تسجيل خروج</div>
+                    <Link to="/profile/me" style={menuItemStyle}>👤 {t('header.myAccount')}</Link>
+                    <Link to="/notifications" style={menuItemStyle}>🔔 {t('header.notifications')} {unreadCount > 0 && `(${unreadCount})`}</Link>
+                    <Link to="/settings" style={menuItemStyle}>⚙️ {t('header.settings')}</Link>
+                    <div style={menuItemStyle} onClick={toggleDarkMode}>🌙 {t('header.appearance')}</div>
+                    <div style={{ ...menuItemStyle, color: '#e74c3c' }} onClick={handleLogout}>🚪 {t('header.logout')}</div>
                   </div>
                 </div>
               </>
             ) : (
               <>
-                <Link to="/login" className="Nav-Item">تسجيل الدخول</Link>
-                <Link to="/register" className="Nav-Item Register-Btn">انشاء حساب</Link>
+                <Link to="/login" className="Nav-Item">{t('header.login')}</Link>
+                <Link to="/register" className="Nav-Item Register-Btn">{t('header.register')}</Link>
               </>
             )}
 

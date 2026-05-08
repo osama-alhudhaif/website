@@ -1,28 +1,29 @@
 {
     "$schema": "https://json.schemastore.org/package.json",
     "name": "oda_website",
-    "version": "0.2.8",
+    "version": "0.3.0",
     "description": "موقع عالمي لعرض القصص والروايات بكل اللغات مع توفير خدمة ترجمة فورية ودقيقة من وإلى أي لغة.",
     "main": "index.js",
     "type": "commonjs",
     "scripts": {
         "start:backend": "cd backend && python3 run_gunicorn.py 0.0.0.0:8000",
         "start:frontend": "npm run dev --prefix frontend",
-        "dev": "concurrently -k -p \"[{name}]\" -n \"Django,Vite\" -c \"blue,green\" \"npm run start:backend\" \"npm run start:frontend\""
+        "start:database": "sudo systemctl start postgresql",
+        "start:AI": "ollama run qwen2.5-coder:32b",
+        "dev": "npm run start:database && concurrently --kill-others-on-fail -p \"[{name}]\" -n \"Django,Vite,AI\" -c \"blue,green,yellow\" \"npm run start:backend\" \"npm run start:frontend\" \"npm run start:AI\""
     },
     "devDependencies": {
-        "@types/react-router-dom": "^5.3.3",
         "concurrently": "^9.2.1",
         "jest": "^30.3.0"
     },
     "dependencies": {
-        "axios": "^1.14.0",
+        "axios": "^1.16.0",
         "country-list": "^2.4.1",
-        "lucide-react": "^1.7.0",
-        "react": "^19.2.4",
-        "react-dom": "^19.2.4",
+        "lucide-react": "^1.14.0",
+        "react": "^19.2.6",
+        "react-dom": "^19.2.6",
         "react-icons": "^5.6.0",
-        "react-router-dom": "^7.13.2"
+        "react-router-dom": "^7.15.0"
     },
     "repository": {
         "type": "git",
@@ -191,7 +192,7 @@
         "văn học",
         "sách",
         "đa ngôn ngữ",
-        "dịch ngay لحظة",
+        "dịch ngay lập tức",
         "cerita",
         "novel",
         "terjemahan",

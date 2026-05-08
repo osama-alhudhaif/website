@@ -1,0 +1,927 @@
+{
+  "ar": {
+    "email": {
+
+      "_comment_section_1": "═══ 1. المصادقة والحساب (15) ═══",
+
+      "welcome": {
+        "subject": "أهلاً بك في منصة Oda {userName} 🚀",
+        "title": "مرحباً بك في Oda",
+        "greeting": "عزيزي {userName}،",
+        "body": "يسعدنا انضمامك إلى رحلة الترجمة الأدبية والفنية بالذكاء الاصطناعي. هنا، تُترجَم الكلمات بروحها، لا بحرفها فقط. خصصنا لك جولة قصيرة لتبدأ أول مشروع ترجمة لك.",
+        "button": "ابدأ جولتك",
+        "signature": "بالتوفيق،\nفريق Oda"
+      },
+
+      "emailVerification": {
+        "subject": "أكّد بريدك الإلكتروني للمتابعة",
+        "title": "خطوة أخيرة لتفعيل حسابك",
+        "greeting": "أهلاً {userName}،",
+        "body": "لإكمال إنشاء حسابك في Oda، الرجاء تأكيد بريدك الإلكتروني خلال 24 ساعة. هذه الخطوة لحماية حسابك وضمان وصول إشعاراتك.",
+        "button": "تأكيد البريد الإلكتروني",
+        "signature": "فريق Oda"
+      },
+
+      "emailVerified": {
+        "subject": "تم تأكيد بريدك بنجاح ✅",
+        "title": "حسابك جاهز للانطلاق",
+        "greeting": "مرحباً {userName}،",
+        "body": "تم تأكيد بريدك الإلكتروني بنجاح. كل خصائص Oda أصبحت في متناولك الآن، من الترجمة الأدبية إلى أدوات التحرير الإبداعي.",
+        "button": "اذهب إلى لوحتي",
+        "signature": "فريق Oda"
+      },
+
+      "passwordReset": {
+        "subject": "طلب إعادة تعيين كلمة المرور",
+        "title": "إعادة تعيين كلمة المرور",
+        "greeting": "أهلاً {userName}،",
+        "body": "استلمنا طلباً لإعادة تعيين كلمة مرور حسابك. الرابط أدناه صالح لمدة ساعة واحدة فقط. إذا لم تطلب ذلك، تجاهل هذه الرسالة وأخبر فريق الأمان.",
+        "button": "إعادة تعيين كلمة المرور",
+        "signature": "فريق أمان Oda"
+      },
+
+      "passwordResetSuccess": {
+        "subject": "تم تغيير كلمة المرور بنجاح",
+        "title": "كلمة المرور محدّثة",
+        "greeting": "مرحباً {userName}،",
+        "body": "تم تغيير كلمة مرور حسابك بنجاح في {time}. إذا لم تكن أنت، يرجى التواصل مع {securityEmail} فوراً لتأمين حسابك.",
+        "button": "تسجيل الدخول",
+        "signature": "فريق أمان Oda"
+      },
+
+      "passwordChanged": {
+        "subject": "تنبيه: كلمة المرور تم تحديثها",
+        "title": "تم تحديث كلمة المرور",
+        "greeting": "عزيزي {userName}،",
+        "body": "نُعلمك أن كلمة مرور حسابك تم تغييرها للتو من جهازك. إذا لم تقم بهذا الإجراء، تواصل معنا فوراً.",
+        "button": "تأمين حسابي",
+        "signature": "فريق أمان Oda"
+      },
+
+      "loginAlert": {
+        "subject": "تسجيل دخول جديد إلى حسابك",
+        "title": "تنبيه دخول",
+        "greeting": "أهلاً {userName}،",
+        "body": "تم تسجيل الدخول إلى حسابك في {time} من {location} عبر {device}. إن كنت أنت، تجاهل الرسالة. وإن لم تكن، أمّن حسابك الآن.",
+        "button": "مراجعة النشاط",
+        "signature": "فريق أمان Oda"
+      },
+
+      "loginNewDevice": {
+        "subject": "دخول من جهاز جديد 🔐",
+        "title": "تم اكتشاف جهاز جديد",
+        "greeting": "مرحباً {userName}،",
+        "body": "سجّل أحدهم الدخول إلى حسابك من جهاز لم نتعرف عليه من قبل: {device} - {location}. إذا كان هذا أنت، فلا داعي للقلق. وإلا، فغيّر كلمة المرور فوراً.",
+        "button": "إدارة الأجهزة",
+        "signature": "فريق أمان Oda"
+      },
+
+      "loginSuspicious": {
+        "subject": "⚠️ محاولة دخول مشبوهة",
+        "title": "نشاط غير معتاد على حسابك",
+        "greeting": "تنبيه {userName}،",
+        "body": "رصدنا محاولة دخول مشبوهة إلى حسابك من {location} في {time}. تم إيقاف المحاولة تلقائياً. ننصح بشدة بتغيير كلمة مرورك وتفعيل المصادقة الثنائية.",
+        "button": "تأمين الحساب الآن",
+        "signature": "فريق أمان Oda"
+      },
+
+      "accountLocked": {
+        "subject": "تم قفل حسابك مؤقتاً 🔒",
+        "title": "حسابك مقفل لحمايتك",
+        "greeting": "عزيزي {userName}،",
+        "body": "تم تجاوز عدد محاولات الدخول الفاشلة، فقفلنا حسابك مؤقتاً لـ {duration}. يمكنك استعادة الوصول الآن عبر إعادة تعيين كلمة المرور.",
+        "button": "استعادة الحساب",
+        "signature": "فريق أمان Oda"
+      },
+
+      "accountUnlocked": {
+        "subject": "تم فتح حسابك",
+        "title": "حسابك جاهز للاستخدام",
+        "greeting": "أهلاً {userName}،",
+        "body": "أُعيد فتح حسابك. يمكنك الآن الدخول بشكل طبيعي. ننصح بمراجعة إعدادات الأمان لتفادي التكرار.",
+        "button": "تسجيل الدخول",
+        "signature": "فريق Oda"
+      },
+
+      "emailChange": {
+        "subject": "تأكيد تغيير البريد الإلكتروني",
+        "title": "تأكيد البريد الجديد",
+        "greeting": "مرحباً {userName}،",
+        "body": "تلقّينا طلباً لتغيير بريدك الإلكتروني إلى {newEmail}. أكد التغيير خلال ساعة لإكمال العملية.",
+        "button": "تأكيد التغيير",
+        "signature": "فريق Oda"
+      },
+
+      "emailChanged": {
+        "subject": "تم تحديث بريدك الإلكتروني",
+        "title": "البريد الإلكتروني محدّث",
+        "greeting": "{userName}،",
+        "body": "تم تحديث بريد حسابك بنجاح إلى {newEmail}. كل التنبيهات القادمة ستصلك على هذا البريد.",
+        "button": "إدارة الحساب",
+        "signature": "فريق Oda"
+      },
+
+      "usernameChanged": {
+        "subject": "تم تغيير اسم المستخدم",
+        "title": "اسم المستخدم محدّث",
+        "greeting": "أهلاً {userName}،",
+        "body": "تم تحديث اسم المستخدم الخاص بك إلى @{newUsername}. سيظهر هذا الاسم في كل ترجماتك ومنشوراتك.",
+        "button": "بروفايلي",
+        "signature": "فريق Oda"
+      },
+
+      "accountDeactivated": {
+        "subject": "تم تعطيل حسابك مؤقتاً",
+        "title": "نأمل عودتك قريباً",
+        "greeting": "{userName}،",
+        "body": "تم تعطيل حسابك بناءً على طلبك. بياناتك محفوظة لمدة {duration} يمكنك خلالها إعادة تفعيل الحساب باستعادة الدخول. بعدها، سيُحذف الحساب نهائياً.",
+        "button": "إعادة تفعيل الحساب",
+        "signature": "فريق Oda"
+      },
+
+      "_comment_section_2": "═══ 2. الاشتراكات والدفع (12) ═══",
+
+      "subscriptionStarted": {
+        "subject": "تم تفعيل اشتراكك في {planName} 🎉",
+        "title": "أهلاً بك في {planName}",
+        "greeting": "تهانينا {userName}،",
+        "body": "تم تفعيل اشتراكك في باقة {planName}. تستطيع الآن الوصول إلى ترجمات غير محدودة وأدوات الذكاء الاصطناعي المتقدمة، حتى {expiryDate}.",
+        "button": "اكتشف ميزاتك",
+        "signature": "فريق Oda"
+      },
+
+      "subscriptionUpgraded": {
+        "subject": "تم ترقية اشتراكك إلى {planName} ⬆️",
+        "title": "ترقية ناجحة",
+        "greeting": "{userName}،",
+        "body": "تمت ترقية اشتراكك إلى باقة {planName}. كل المميزات الجديدة مفعّلة من اللحظة، وستظهر في فاتورتك القادمة.",
+        "button": "استكشاف الجديد",
+        "signature": "فريق Oda"
+      },
+
+      "subscriptionDowngraded": {
+        "subject": "تم تخفيض اشتراكك إلى {planName}",
+        "title": "تغيير الباقة",
+        "greeting": "أهلاً {userName}،",
+        "body": "تم تخفيض اشتراكك إلى باقة {planName}، وسيُطبَّق التغيير اعتباراً من {effectiveDate}. حتى ذلك التاريخ، تستمتع بكامل ميزات باقتك الحالية.",
+        "button": "إدارة الاشتراك",
+        "signature": "فريق Oda"
+      },
+
+      "subscriptionCancelled": {
+        "subject": "تم إلغاء اشتراكك",
+        "title": "نأسف لمغادرتك",
+        "greeting": "عزيزي {userName}،",
+        "body": "تم إلغاء اشتراكك في باقة {planName}. ستستمر مميزاتك حتى نهاية الفترة المدفوعة في {expiryDate}. نتمنى لك التوفيق، وبابنا مفتوح متى عدت.",
+        "button": "تجديد الاشتراك",
+        "signature": "فريق Oda"
+      },
+
+      "subscriptionRenewed": {
+        "subject": "تم تجديد اشتراكك تلقائياً",
+        "title": "اشتراكك متجدد",
+        "greeting": "{userName}،",
+        "body": "تم تجديد اشتراكك في باقة {planName} بنجاح بمبلغ {amount}. الاشتراك ساري حتى {newExpiryDate}.",
+        "button": "عرض الفاتورة",
+        "signature": "فريق Oda"
+      },
+
+      "subscriptionExpiringSoon": {
+        "subject": "اشتراكك ينتهي خلال {daysLeft} أيام",
+        "title": "تذكير بانتهاء الاشتراك",
+        "greeting": "أهلاً {userName}،",
+        "body": "اشتراكك في باقة {planName} ينتهي بعد {daysLeft} أيام. جدّد الآن للاحتفاظ بمشاريعك وترجماتك دون انقطاع.",
+        "button": "تجديد الآن",
+        "signature": "فريق Oda"
+      },
+
+      "subscriptionExpired": {
+        "subject": "انتهى اشتراكك في Oda",
+        "title": "حان وقت التجديد",
+        "greeting": "{userName}،",
+        "body": "انتهى اشتراكك. تم تحويل حسابك إلى الباقة المجانية، ومشاريعك محفوظة. جدّد لاستعادة الميزات المتقدمة.",
+        "button": "تجديد الاشتراك",
+        "signature": "فريق Oda"
+      },
+
+      "paymentSuccess": {
+        "subject": "تأكيد عملية الدفع - {amount}",
+        "title": "تم استلام دفعتك",
+        "greeting": "شكراً {userName}،",
+        "body": "تم خصم {amount} بنجاح عبر {paymentMethod} في {date}. رقم العملية: {transactionId}. ستجد الفاتورة في رابط التحميل أدناه.",
+        "button": "تحميل الفاتورة",
+        "signature": "فريق Oda"
+      },
+
+      "paymentFailed": {
+        "subject": "⚠️ فشل في عملية الدفع",
+        "title": "تعذّر إتمام الدفع",
+        "greeting": "{userName}،",
+        "body": "لم نتمكن من خصم {amount} عبر {paymentMethod}. السبب: {reason}. حدّث وسيلة الدفع لتجنب توقف خدماتك.",
+        "button": "تحديث وسيلة الدفع",
+        "signature": "فريق Oda"
+      },
+
+      "paymentRetry": {
+        "subject": "سنعيد محاولة الدفع خلال {retryDate}",
+        "title": "محاولة جديدة قريباً",
+        "greeting": "أهلاً {userName}،",
+        "body": "سنعيد محاولة سحب {amount} في {retryDate}. تأكد من توفر الرصيد أو حدّث وسيلة الدفع لتجنب فشل المحاولة.",
+        "button": "إدارة الدفع",
+        "signature": "فريق Oda"
+      },
+
+      "invoiceReady": {
+        "subject": "فاتورتك الجديدة من Oda - {invoiceNumber}",
+        "title": "فاتورة جديدة",
+        "greeting": "{userName}،",
+        "body": "فاتورتك رقم {invoiceNumber} بقيمة {amount} جاهزة للتحميل. الفاتورة متوافقة مع متطلبات هيئة الزكاة والضريبة في المملكة العربية السعودية.",
+        "button": "تحميل الفاتورة (PDF)",
+        "signature": "فريق المحاسبة - Oda"
+      },
+
+      "refundProcessed": {
+        "subject": "تمت معالجة طلب استرداد المبلغ",
+        "title": "تم استرداد {amount}",
+        "greeting": "أهلاً {userName}،",
+        "body": "تمت الموافقة على طلب الاسترداد بمبلغ {amount}. سيظهر المبلغ في حسابك خلال 5-10 أيام عمل حسب البنك.",
+        "button": "تفاصيل الاسترداد",
+        "signature": "فريق المحاسبة - Oda"
+      },
+
+      "_comment_section_3": "═══ 3. الترجمة والمحتوى الأدبي (15) ═══",
+
+      "translationStarted": {
+        "subject": "بدأت ترجمة \"{projectTitle}\" 📖",
+        "title": "الترجمة قيد المعالجة",
+        "greeting": "{userName}،",
+        "body": "بدأنا ترجمة عملك \"{projectTitle}\" من {sourceLang} إلى {targetLang}. الوقت المتوقع: {estimatedTime}. سننبهك فور الانتهاء.",
+        "button": "متابعة التقدم",
+        "signature": "فريق Oda"
+      },
+
+      "translationCompleted": {
+        "subject": "اكتملت ترجمة \"{projectTitle}\" ✨",
+        "title": "ترجمتك جاهزة",
+        "greeting": "تفضل {userName}،",
+        "body": "اكتملت ترجمة \"{projectTitle}\" بنجاح. حافظنا على روح النص الأصلي وصوت كاتبه قدر الإمكان. راجعها وأخبرنا برأيك.",
+        "button": "مراجعة الترجمة",
+        "signature": "فريق Oda"
+      },
+
+      "translationFailed": {
+        "subject": "تعذّر إكمال ترجمة \"{projectTitle}\"",
+        "title": "حدث خطأ في المعالجة",
+        "greeting": "نأسف {userName}،",
+        "body": "واجهنا مشكلة أثناء معالجة \"{projectTitle}\". السبب: {reason}. لم يتم خصم رصيدك. أعد المحاولة، وإن استمرت المشكلة تواصل مع {supportEmail}.",
+        "button": "إعادة المحاولة",
+        "signature": "فريق Oda"
+      },
+
+      "translationReviewReady": {
+        "subject": "ترجمة \"{projectTitle}\" بانتظار مراجعتك",
+        "title": "وقت المراجعة",
+        "greeting": "أهلاً {userName}،",
+        "body": "أتممنا ترجمة عملك. المراجعة البشرية هي الخطوة الأهم لضمان أمانة النص الأدبي. لديك {reviewDays} أيام لمراجعتها.",
+        "button": "بدء المراجعة",
+        "signature": "فريق Oda"
+      },
+
+      "translationApproved": {
+        "subject": "تمت الموافقة على ترجمتك ✅",
+        "title": "ترجمة معتمدة",
+        "greeting": "مبارك {userName}،",
+        "body": "ترجمتك لعمل \"{projectTitle}\" تم اعتمادها. أصبحت جاهزة للنشر أو التصدير بأي صيغة تختارها.",
+        "button": "تصدير الترجمة",
+        "signature": "فريق Oda"
+      },
+
+      "translationRejected": {
+        "subject": "ترجمة \"{projectTitle}\" تحتاج مراجعة",
+        "title": "ملاحظات على الترجمة",
+        "greeting": "{userName}،",
+        "body": "بعد المراجعة، نرى أن الترجمة تحتاج تعديلات. الملاحظات: {feedback}. يمكنك تعديل النص الأصلي أو طلب إعادة المعالجة بأسلوب مختلف.",
+        "button": "عرض الملاحظات",
+        "signature": "فريق Oda"
+      },
+
+      "translationExported": {
+        "subject": "تم تصدير ترجمتك بصيغة {format}",
+        "title": "ملفك جاهز",
+        "greeting": "{userName}،",
+        "body": "تم تصدير \"{projectTitle}\" بصيغة {format}. الرابط صالح لمدة 7 أيام. يمكنك أيضاً الوصول للملف من بروفايلك في أي وقت.",
+        "button": "تحميل الملف",
+        "signature": "فريق Oda"
+      },
+
+      "translationShared": {
+        "subject": "تمت مشاركة ترجمتك \"{projectTitle}\"",
+        "title": "ترجمتك تنتشر",
+        "greeting": "{userName}،",
+        "body": "شارك {sharerName} ترجمتك \"{projectTitle}\" مع {viewers} قارئاً. تابع وصول عملك إلى جمهور أوسع.",
+        "button": "إحصائيات المشاركة",
+        "signature": "فريق Oda"
+      },
+
+      "storyUploaded": {
+        "subject": "تم رفع \"{storyTitle}\" بنجاح",
+        "title": "قصتك في أمان",
+        "greeting": "أهلاً {userName}،",
+        "body": "تم رفع قصتك \"{storyTitle}\" ({wordCount} كلمة) بنجاح. هي الآن في مساحتك الخاصة، جاهزة للترجمة أو التحرير.",
+        "button": "فتح القصة",
+        "signature": "فريق Oda"
+      },
+
+      "storyPublished": {
+        "subject": "تم نشر \"{storyTitle}\" 📢",
+        "title": "عملك للعالم الآن",
+        "greeting": "تهانينا {userName}،",
+        "body": "نُشرت قصتك \"{storyTitle}\" على المنصة. أصبحت متاحة للمتابعين والقرّاء، ومرشحة لقسم \"الأعمال المميزة\".",
+        "button": "عرض على المنصة",
+        "signature": "فريق Oda"
+      },
+
+      "storyArchived": {
+        "subject": "تم أرشفة \"{storyTitle}\"",
+        "title": "العمل في الأرشيف",
+        "greeting": "{userName}،",
+        "body": "تم نقل \"{storyTitle}\" إلى الأرشيف. لن يظهر للقرّاء، لكنه محفوظ بكل تعديلاته وترجماته. يمكنك إعادته في أي وقت.",
+        "button": "إدارة الأرشيف",
+        "signature": "فريق Oda"
+      },
+
+      "storyDeleted": {
+        "subject": "تم حذف \"{storyTitle}\"",
+        "title": "تأكيد حذف العمل",
+        "greeting": "{userName}،",
+        "body": "تم حذف \"{storyTitle}\" نهائياً بناءً على طلبك. لم نعد نحتفظ بأي نسخة. نأمل أن تستمر في إثراء المنصة بأعمال جديدة.",
+        "button": "ابدأ مشروعاً جديداً",
+        "signature": "فريق Oda"
+      },
+
+      "draftSaved": {
+        "subject": "تم حفظ المسودة تلقائياً",
+        "title": "عملك في أمان",
+        "greeting": "{userName}،",
+        "body": "حفظنا مسودتك \"{draftTitle}\" تلقائياً. آخر تعديل: {savedAt}. تابع من حيث توقفت في أي وقت.",
+        "button": "متابعة الكتابة",
+        "signature": "فريق Oda"
+      },
+
+      "translationLimitReached": {
+        "subject": "وصلت حد الترجمات الشهري",
+        "title": "استهلكت رصيدك الشهري",
+        "greeting": "{userName}،",
+        "body": "استخدمت {usedCount} من أصل {totalCount} ترجمة في باقتك الحالية. للاستمرار دون انقطاع، رقّ باقتك أو انتظر التجديد في {renewalDate}.",
+        "button": "ترقية الباقة",
+        "signature": "فريق Oda"
+      },
+
+      "translationQuotaWarning": {
+        "subject": "اقتربت من حد الترجمات (%{usedPercent})",
+        "title": "تنبيه استهلاك",
+        "greeting": "أهلاً {userName}،",
+        "body": "استخدمت {usedPercent}% من ترجمات باقتك. تبقّى لك {remaining} ترجمة حتى التجديد في {renewalDate}.",
+        "button": "إدارة الاستهلاك",
+        "signature": "فريق Oda"
+      },
+
+      "_comment_section_4": "═══ 4. التفاعل الاجتماعي (12) ═══",
+
+      "newFollower": {
+        "subject": "{followerName} يتابعك الآن",
+        "title": "متابع جديد",
+        "greeting": "{userName}،",
+        "body": "بدأ {followerName} متابعتك. عدد متابعيك الآن: {followersCount}. زر بروفايله وتعرّف على أعماله.",
+        "button": "زيارة البروفايل",
+        "signature": "فريق Oda"
+      },
+
+      "milestoneFollowers": {
+        "subject": "وصلت إلى {milestone} متابع 🎉",
+        "title": "إنجاز جديد",
+        "greeting": "مبروك {userName}،",
+        "body": "وصل عدد متابعيك إلى {milestone} متابع. شكراً لإثرائك المنصة بأعمالك. شارك إنجازك مع جمهورك.",
+        "button": "مشاركة الإنجاز",
+        "signature": "فريق Oda"
+      },
+
+      "authorFollowedYouBack": {
+        "subject": "{authorName} يتابعك بدوره",
+        "title": "متابعة متبادلة",
+        "greeting": "{userName}،",
+        "body": "بادلك {authorName} المتابعة. هذه فرصة لبدء حوار أدبي مثمر. اطّلع على أحدث أعماله.",
+        "button": "أعمال {authorName}",
+        "signature": "فريق Oda"
+      },
+
+      "newComment": {
+        "subject": "تعليق جديد على \"{contentTitle}\"",
+        "title": "تعليق جديد",
+        "greeting": "{userName}،",
+        "body": "علّق {commenterName} على عملك \"{contentTitle}\": \"{commentPreview}\".",
+        "button": "عرض التعليق",
+        "signature": "فريق Oda"
+      },
+
+      "commentReply": {
+        "subject": "{replierName} ردّ على تعليقك",
+        "title": "رد جديد",
+        "greeting": "{userName}،",
+        "body": "ردّ {replierName} على تعليقك في \"{contentTitle}\". تابع الحوار مع القرّاء.",
+        "button": "قراءة الرد",
+        "signature": "فريق Oda"
+      },
+
+      "newLike": {
+        "subject": "{likerName} أعجب بـ \"{contentTitle}\"",
+        "title": "إعجاب جديد",
+        "greeting": "أهلاً {userName}،",
+        "body": "أعجب {likerName} بعملك \"{contentTitle}\". إجمالي الإعجابات: {likesCount}.",
+        "button": "عرض العمل",
+        "signature": "فريق Oda"
+      },
+
+      "milestoneLikes": {
+        "subject": "\"{contentTitle}\" تجاوز {milestone} إعجاب",
+        "title": "عملك في القمة",
+        "greeting": "تهانينا {userName}،",
+        "body": "وصل عدد الإعجابات على \"{contentTitle}\" إلى {milestone}. جمهورك يقدّر ما تكتب.",
+        "button": "إحصائيات العمل",
+        "signature": "فريق Oda"
+      },
+
+      "mentioned": {
+        "subject": "أشار إليك {mentionerName} في تعليق",
+        "title": "إشارة جديدة",
+        "greeting": "{userName}،",
+        "body": "ذكرك {mentionerName} في \"{contentTitle}\": \"{snippet}\".",
+        "button": "عرض الإشارة",
+        "signature": "فريق Oda"
+      },
+
+      "messageReceived": {
+        "subject": "رسالة جديدة من {senderName} 💬",
+        "title": "لديك رسالة",
+        "greeting": "{userName}،",
+        "body": "أرسل {senderName} رسالة: \"{messagePreview}\".",
+        "button": "قراءة الرسالة",
+        "signature": "فريق Oda"
+      },
+
+      "authorYouFollowPublished": {
+        "subject": "{authorName} نشر عملاً جديداً",
+        "title": "إصدار جديد من مؤلف تتابعه",
+        "greeting": "{userName}،",
+        "body": "نشر {authorName} عمله الجديد \"{workTitle}\". ربما يستحق المطالعة الليلة.",
+        "button": "قراءة العمل",
+        "signature": "فريق Oda"
+      },
+
+      "trendingPost": {
+        "subject": "عملك \"{contentTitle}\" يتصدّر 🔥",
+        "title": "في قائمة الأكثر تفاعلاً",
+        "greeting": "{userName}،",
+        "body": "دخل عملك \"{contentTitle}\" قائمة الأعمال الأكثر تفاعلاً هذا الأسبوع، بمعدل تفاعل أعلى من 87% من أعمال المنصة.",
+        "button": "عرض القائمة",
+        "signature": "فريق Oda"
+      },
+
+      "featuredAuthor": {
+        "subject": "تم اختيارك مؤلفاً مميزاً 🌟",
+        "title": "مؤلف الأسبوع",
+        "greeting": "تهانينا {userName}،",
+        "body": "اختارك فريق Oda مؤلفاً مميزاً لهذا الأسبوع. سيظهر بروفايلك في الصفحة الرئيسية وفي القائمة البريدية للقراء.",
+        "button": "عرض بروفايلك",
+        "signature": "فريق Oda"
+      },
+
+      "_comment_section_5": "═══ 5. الإشعارات والتذكيرات (10) ═══",
+
+      "weeklyDigest": {
+        "subject": "ملخص أسبوعك في Oda 📰",
+        "title": "ماذا حدث هذا الأسبوع",
+        "greeting": "أهلاً {userName}،",
+        "body": "هذا الأسبوع: {newWorks} عمل جديد في مكتبتك، {newFollowers} متابع، {totalReads} قراءة. اكتشف أبرز ما حدث في تقريرك المفصّل.",
+        "button": "عرض التقرير الكامل",
+        "signature": "فريق Oda"
+      },
+
+      "monthlyDigest": {
+        "subject": "ملخص شهر {monthName} - إنجازاتك",
+        "title": "تقرير شهري شامل",
+        "greeting": "{userName}،",
+        "body": "أنجزت هذا الشهر: {translationsCount} ترجمة، {storiesCount} قصة، وحصلت على {newFollowers} متابع جديد. تقريرك الشهري ينتظرك.",
+        "button": "تحميل التقرير",
+        "signature": "فريق Oda"
+      },
+
+      "inactivityReminder": {
+        "subject": "نفتقدك في Oda يا {userName}",
+        "title": "عُد إلى رحلتك الأدبية",
+        "greeting": "{userName}،",
+        "body": "مر {daysAway} يوماً منذ آخر زيارة لك. مسوداتك بانتظارك، ومتابعوك يتطلعون لعمل جديد. عد متى أحببت.",
+        "button": "العودة إلى Oda",
+        "signature": "فريق Oda"
+      },
+
+      "comeBackOffer": {
+        "subject": "خصم {discount}% خاص لعودتك 🎁",
+        "title": "عرض اشتقنالك",
+        "greeting": "أهلاً {userName}،",
+        "body": "بمناسبة عودتك المنتظرة، أعددنا لك خصم {discount}% على باقة {planName} لمدة {duration}. صالح حتى {expiryDate}.",
+        "button": "تفعيل الخصم",
+        "signature": "فريق Oda"
+      },
+
+      "dailyTip": {
+        "subject": "نصيحة اليوم: {tipTitle} 💡",
+        "title": "{tipTitle}",
+        "greeting": "صباح الخير {userName}،",
+        "body": "{tipBody}",
+        "button": "نصائح أكثر",
+        "signature": "فريق Oda"
+      },
+
+      "newFeature": {
+        "subject": "ميزة جديدة في Oda: {featureName} ✨",
+        "title": "{featureName}",
+        "greeting": "{userName}،",
+        "body": "أطلقنا {featureName}. {featureDescription}. جربها الآن في {section}.",
+        "button": "تجربة الميزة",
+        "signature": "فريق Oda"
+      },
+
+      "featureRecommended": {
+        "subject": "ميزة قد تعجبك",
+        "title": "اكتشاف لك",
+        "greeting": "{userName}،",
+        "body": "بناءً على نشاطك الأخير، نظن أن ميزة {featureName} ستفيدك في عملك القادم. {reason}",
+        "button": "استكشاف الميزة",
+        "signature": "فريق Oda"
+      },
+
+      "eventReminder": {
+        "subject": "تذكير: {eventName} يبدأ {timeUntil}",
+        "title": "اقترب موعد الفعالية",
+        "greeting": "{userName}،",
+        "body": "فعالية \"{eventName}\" التي سجّلت بها تبدأ {timeUntil} ({eventDate}). الرابط جاهز في حسابك.",
+        "button": "الانضمام للفعالية",
+        "signature": "فريق فعاليات Oda"
+      },
+
+      "webinarInvite": {
+        "subject": "دعوة: ندوة \"{webinarTitle}\"",
+        "title": "دعوة خاصة لك",
+        "greeting": "أهلاً {userName}،",
+        "body": "ندعوك لندوة عبر الإنترنت بعنوان \"{webinarTitle}\" مع {speakerName} في {webinarDate}. المقاعد محدودة.",
+        "button": "حجز مقعدي",
+        "signature": "فريق فعاليات Oda"
+      },
+
+      "newsletterMonthly": {
+        "subject": "نشرة Oda - {monthName} {year}",
+        "title": "أخبار وقصص هذا الشهر",
+        "greeting": "{userName}،",
+        "body": "في هذا العدد: حوار مع مؤلف الشهر، أبرز الترجمات، وآخر التحديثات على المنصة. قراءة ممتعة.",
+        "button": "قراءة النشرة",
+        "signature": "تحرير - فريق Oda"
+      },
+
+      "_comment_section_6": "═══ 6. الأمان والخصوصية (10) ═══",
+
+      "twoFactorEnabled": {
+        "subject": "تم تفعيل المصادقة الثنائية 🔐",
+        "title": "حسابك أكثر أماناً",
+        "greeting": "ممتاز {userName}،",
+        "body": "تم تفعيل المصادقة الثنائية على حسابك. سنطلب رمزاً إضافياً مع كل دخول جديد. احتفظ برموز الاحتياط في مكان آمن.",
+        "button": "عرض رموز الاحتياط",
+        "signature": "فريق أمان Oda"
+      },
+
+      "twoFactorDisabled": {
+        "subject": "⚠️ تم تعطيل المصادقة الثنائية",
+        "title": "حماية أقل لحسابك",
+        "greeting": "{userName}،",
+        "body": "تم تعطيل المصادقة الثنائية. حسابك أصبح أقل حماية. ننصح بإعادة تفعيلها فوراً، خاصةً إن لم تكن أنت من قام بهذا الإجراء.",
+        "button": "إعادة التفعيل",
+        "signature": "فريق أمان Oda"
+      },
+
+      "apiKeyCreated": {
+        "subject": "تم إنشاء مفتاح API جديد",
+        "title": "مفتاح API",
+        "greeting": "{userName}،",
+        "body": "تم إنشاء مفتاح API بمسمى \"{keyName}\" في {createdAt}. احفظه في مكان آمن. لن نتمكن من إظهاره مرة أخرى.",
+        "button": "إدارة المفاتيح",
+        "signature": "فريق أمان Oda"
+      },
+
+      "apiKeyRevoked": {
+        "subject": "تم إلغاء مفتاح API \"{keyName}\"",
+        "title": "مفتاح ملغي",
+        "greeting": "{userName}،",
+        "body": "أُلغي مفتاح API \"{keyName}\" في {revokedAt}. كل التطبيقات المعتمدة عليه ستتوقف عن العمل.",
+        "button": "إنشاء مفتاح بديل",
+        "signature": "فريق أمان Oda"
+      },
+
+      "dataExportReady": {
+        "subject": "نسخة بياناتك جاهزة للتحميل",
+        "title": "بياناتك بين يديك",
+        "greeting": "{userName}،",
+        "body": "أعددنا نسخة كاملة من بياناتك في Oda (ترجمات، قصص، إعدادات). الرابط صالح لمدة 48 ساعة. هذه ممارسة \"السيادة على البيانات\" التي نؤمن بها.",
+        "button": "تحميل نسختي",
+        "signature": "فريق Oda"
+      },
+
+      "dataDeletionConfirm": {
+        "subject": "تأكيد حذف بياناتك نهائياً",
+        "title": "إجراء لا رجعة فيه",
+        "greeting": "{userName}،",
+        "body": "تلقّينا طلبك بحذف كل بياناتك من Oda. هذا الإجراء لا يمكن التراجع عنه. أكّد خلال 72 ساعة وإلا سيُلغى الطلب.",
+        "button": "تأكيد الحذف النهائي",
+        "signature": "فريق Oda"
+      },
+
+      "privacyPolicyUpdate": {
+        "subject": "تحديث سياسة الخصوصية - {effectiveDate}",
+        "title": "نسخة جديدة من سياسة الخصوصية",
+        "greeting": "أهلاً {userName}،",
+        "body": "حدّثنا سياسة الخصوصية لتعكس مبادئ \"السيادة البرمجية\" بشكل أوضح. التغييرات سارية في {effectiveDate}. ننصح بمراجعتها.",
+        "button": "قراءة السياسة",
+        "signature": "الإدارة القانونية - Oda"
+      },
+
+      "termsUpdate": {
+        "subject": "تحديث شروط الاستخدام",
+        "title": "شروط محدّثة",
+        "greeting": "{userName}،",
+        "body": "حدّثنا شروط استخدام منصة Oda، اعتباراً من {effectiveDate}. باستمرارك في استخدام المنصة، تكون موافقاً على الشروط الجديدة.",
+        "button": "قراءة الشروط",
+        "signature": "الإدارة القانونية - Oda"
+      },
+
+      "securityBreach": {
+        "subject": "🚨 تنبيه أمني مهم",
+        "title": "إجراء عاجل مطلوب",
+        "greeting": "{userName}،",
+        "body": "رصدنا حادثة أمنية قد تؤثر على بياناتك. اتخذنا الإجراءات الفورية لاحتوائها. ننصحك بشدة بتغيير كلمة المرور وتفعيل المصادقة الثنائية.",
+        "button": "تأمين حسابي الآن",
+        "signature": "فريق أمان Oda"
+      },
+
+      "sessionExpired": {
+        "subject": "انتهت جلستك في Oda",
+        "title": "تم تسجيل خروجك تلقائياً",
+        "greeting": "{userName}،",
+        "body": "انتهت جلستك بعد {idleTime} من عدم النشاط، حفاظاً على أمن حسابك. سجّل الدخول مجدداً للمتابعة.",
+        "button": "تسجيل الدخول",
+        "signature": "فريق Oda"
+      },
+
+      "_comment_section_7": "═══ 7. الذكاء الاصطناعي والمميزات المتقدمة (8) ═══",
+
+      "aiCreditsLow": {
+        "subject": "رصيد AI لديك منخفض",
+        "title": "تنبيه رصيد",
+        "greeting": "{userName}،",
+        "body": "تبقّى لديك {remainingCredits} نقطة من رصيد الذكاء الاصطناعي. شحن الرصيد يضمن استمرار مشاريعك دون انقطاع.",
+        "button": "شحن الرصيد",
+        "signature": "فريق Oda"
+      },
+
+      "aiCreditsRefilled": {
+        "subject": "تم شحن {amount} نقطة بنجاح",
+        "title": "رصيدك جاهز",
+        "greeting": "{userName}،",
+        "body": "تم شحن {amount} نقطة AI إلى حسابك. رصيدك الحالي: {totalCredits} نقطة. صالحة حتى {expiryDate}.",
+        "button": "بدء مشروع جديد",
+        "signature": "فريق Oda"
+      },
+
+      "aiModelUpgrade": {
+        "subject": "نموذج ترجمة محسّن متاح الآن",
+        "title": "ترقية في محرّك الترجمة",
+        "greeting": "أهلاً {userName}،",
+        "body": "أصدرنا نموذج {modelName} الجديد. يقدّم ترجمات أعمق للنصوص الأدبية مع حفظ أفضل للصور البلاغية والإيقاع. مفعّل تلقائياً في حسابك.",
+        "button": "تجربة النموذج",
+        "signature": "فريق Oda الهندسي"
+      },
+
+      "aiTrainingComplete": {
+        "subject": "اكتمل تدريب نموذجك المخصص",
+        "title": "نموذجك جاهز",
+        "greeting": "تهانينا {userName}،",
+        "body": "اكتمل تدريب نموذجك المخصص \"{modelName}\" على {samplesCount} نص. أصبح متاحاً لاستخدامه في كل مشاريعك القادمة.",
+        "button": "استخدام النموذج",
+        "signature": "فريق Oda"
+      },
+
+      "customStyleReady": {
+        "subject": "أسلوبك المخصص \"{styleName}\" جاهز",
+        "title": "بصمتك الأدبية",
+        "greeting": "{userName}،",
+        "body": "أعددنا أسلوب الترجمة المخصص \"{styleName}\" بناءً على أعمالك. سيُطبَّق على ترجماتك القادمة لتعكس صوتك الأدبي.",
+        "button": "إدارة الأساليب",
+        "signature": "فريق Oda"
+      },
+
+      "translationStyleSaved": {
+        "subject": "تم حفظ أسلوب \"{styleName}\"",
+        "title": "أسلوب جديد في مكتبتك",
+        "greeting": "{userName}،",
+        "body": "حُفظ أسلوب الترجمة \"{styleName}\". يمكنك استدعاؤه في أي مشروع قادم بنقرة واحدة.",
+        "button": "مكتبة الأساليب",
+        "signature": "فريق Oda"
+      },
+
+      "aiSuggestionsReady": {
+        "subject": "اقتراحات تحسين لـ \"{projectTitle}\"",
+        "title": "اقتراحات ذكية",
+        "greeting": "{userName}،",
+        "body": "حلّل الذكاء الاصطناعي عملك \"{projectTitle}\" وأعدّ {suggestionsCount} اقتراحاً لتحسين السرد والإيقاع. اعتمد ما يناسبك.",
+        "button": "مراجعة الاقتراحات",
+        "signature": "فريق Oda"
+      },
+
+      "dictionaryUpdated": {
+        "subject": "تحديث قاموسك الخاص",
+        "title": "قاموسك أوسع الآن",
+        "greeting": "{userName}،",
+        "body": "أُضيف {newTermsCount} مصطلحاً جديداً إلى قاموسك المخصص بناءً على ترجماتك. هذا يُحسّن دقة وثبات ترجماتك القادمة.",
+        "button": "إدارة القاموس",
+        "signature": "فريق Oda"
+      },
+
+      "_comment_section_8": "═══ 8. التعاون والمشاركة (8) ═══",
+
+      "invitationSent": {
+        "subject": "تم إرسال دعوتك إلى {inviteeName}",
+        "title": "دعوة في الطريق",
+        "greeting": "{userName}،",
+        "body": "أُرسلت دعوتك إلى {inviteeEmail} للانضمام إلى مشروع \"{projectName}\". سننبهك حال قبولها.",
+        "button": "إدارة الدعوات",
+        "signature": "فريق Oda"
+      },
+
+      "invitationAccepted": {
+        "subject": "{inviteeName} قبل دعوتك ✅",
+        "title": "تعاون جديد",
+        "greeting": "{userName}،",
+        "body": "قبل {inviteeName} الانضمام إلى مشروعك \"{projectName}\". يمكنه الآن العمل معك على النص.",
+        "button": "فتح المشروع",
+        "signature": "فريق Oda"
+      },
+
+      "teamMemberAdded": {
+        "subject": "تمت إضافتك إلى فريق \"{teamName}\"",
+        "title": "أهلاً بك في الفريق",
+        "greeting": "أهلاً {userName}،",
+        "body": "أضافك {addedBy} إلى فريق \"{teamName}\" بصلاحية {role}. يمكنك الآن المساهمة في مشاريع الفريق.",
+        "button": "دخول مساحة الفريق",
+        "signature": "فريق Oda"
+      },
+
+      "teamMemberRemoved": {
+        "subject": "تم إزالتك من فريق \"{teamName}\"",
+        "title": "تغيير في عضويتك",
+        "greeting": "{userName}،",
+        "body": "أُزيلت عضويتك من فريق \"{teamName}\". لم تعد ترى مشاريع الفريق، لكن مساهماتك السابقة محفوظة.",
+        "button": "فرقي الأخرى",
+        "signature": "فريق Oda"
+      },
+
+      "projectShared": {
+        "subject": "{sharerName} شارك معك \"{projectName}\"",
+        "title": "مشروع جديد للعمل عليه",
+        "greeting": "{userName}،",
+        "body": "شارك {sharerName} معك مشروع \"{projectName}\" بصلاحية {permission}. اطلع عليه وأبدِ ملاحظاتك.",
+        "button": "فتح المشروع",
+        "signature": "فريق Oda"
+      },
+
+      "collaboratorEdited": {
+        "subject": "{editorName} عدّل في \"{projectName}\"",
+        "title": "تعديلات جديدة",
+        "greeting": "{userName}،",
+        "body": "أجرى {editorName} تعديلات على مشروع \"{projectName}\". {editsCount} تغييراً في {sectionsCount} قسم.",
+        "button": "مراجعة التعديلات",
+        "signature": "فريق Oda"
+      },
+
+      "workspaceCreated": {
+        "subject": "تم إنشاء مساحة عمل \"{workspaceName}\"",
+        "title": "مساحتك الجديدة",
+        "greeting": "{userName}،",
+        "body": "تم إنشاء مساحة عمل \"{workspaceName}\". يمكنك دعوة المتعاونين، وتنظيم المشاريع، ومشاركة الموارد بحرية.",
+        "button": "فتح مساحة العمل",
+        "signature": "فريق Oda"
+      },
+
+      "permissionGranted": {
+        "subject": "صلاحية جديدة على \"{resourceName}\"",
+        "title": "صلاحياتك توسّعت",
+        "greeting": "{userName}،",
+        "body": "منحك {grantedBy} صلاحية {permission} على \"{resourceName}\". أنت الآن قادر على {capability}.",
+        "button": "استخدام الصلاحية",
+        "signature": "فريق Oda"
+      },
+
+      "_comment_section_9": "═══ 9. الجوائز والمكافآت (5) ═══",
+
+      "badgeEarned": {
+        "subject": "حصلت على وسام \"{badgeName}\" 🏅",
+        "title": "وسام جديد",
+        "greeting": "تهانينا {userName}،",
+        "body": "حصلت على وسام \"{badgeName}\" تقديراً لـ {achievement}. سيظهر الوسام في بروفايلك العام.",
+        "button": "عرض الأوسمة",
+        "signature": "فريق Oda"
+      },
+
+      "levelUp": {
+        "subject": "ترقية إلى المستوى {newLevel} ⬆️",
+        "title": "مستوى أعلى",
+        "greeting": "أحسنت {userName}،",
+        "body": "ارتقيت إلى المستوى {newLevel}. مع كل مستوى تفتح ميزات جديدة وحدود أعلى. تابع رحلتك الإبداعية.",
+        "button": "ميزات المستوى الجديد",
+        "signature": "فريق Oda"
+      },
+
+      "firstTranslation": {
+        "subject": "أول ترجمة لك في Oda 🎊",
+        "title": "البداية الأهم",
+        "greeting": "مبروك {userName}،",
+        "body": "أتممت أول ترجمة لك على المنصة. هذه نقطة البداية في رحلة طويلة. أهديناك {bonusCredits} نقطة AI كهدية بداية.",
+        "button": "بدء الترجمة الثانية",
+        "signature": "فريق Oda"
+      },
+
+      "anniversaryYear": {
+        "subject": "سنة معك في Oda 🎂",
+        "title": "ذكرى سنوية سعيدة",
+        "greeting": "{userName}،",
+        "body": "أتممت سنة كاملة معنا. خلال هذه السنة: {translationsCount} ترجمة، {storiesCount} قصة، و{followersGained} متابعاً جديداً. شكراً لرحلة جميلة.",
+        "button": "تقريرك السنوي",
+        "signature": "فريق Oda"
+      },
+
+      "specialReward": {
+        "subject": "مكافأة خاصة لك من Oda 🎁",
+        "title": "هدية شكر",
+        "greeting": "{userName}،",
+        "body": "إكراماً لمساهماتك في إثراء المنصة، نهديك {rewardDescription}. صالحة حتى {expiryDate}.",
+        "button": "استلام المكافأة",
+        "signature": "فريق Oda"
+      },
+
+      "_comment_section_10": "═══ 10. أحداث المنصة والشراكات (5) ═══",
+
+      "ministerOfCulturePartnership": {
+        "subject": "شراكة Oda مع وزارة الثقافة 🇸🇦",
+        "title": "خطوة وطنية كبيرة",
+        "greeting": "أهلاً {userName}،",
+        "body": "نفخر بالإعلان عن شراكتنا مع وزارة الثقافة في المملكة العربية السعودية لدعم الترجمة الأدبية بالذكاء الاصطناعي. كمؤلف معنا، تستفيد من برامج خاصة قادمة.",
+        "button": "تفاصيل الشراكة",
+        "signature": "إدارة Oda"
+      },
+
+      "codelabPartnership": {
+        "subject": "Oda وCodelab: تحالف تقني",
+        "title": "شراكة تقنية جديدة",
+        "greeting": "{userName}،",
+        "body": "أعلنّا اليوم عن شراكتنا مع Codelab لدعم البنية التقنية لمنصة Oda، بما يضمن استمرار التزامنا بمبادئ السيادة البرمجية والنشر على Ubuntu.",
+        "button": "قراءة الإعلان",
+        "signature": "إدارة Oda"
+      },
+
+      "competitionLaunch": {
+        "subject": "إطلاق مسابقة \"{competitionName}\" 📚",
+        "title": "تحدٍّ أدبي جديد",
+        "greeting": "{userName}،",
+        "body": "نطلق مسابقة \"{competitionName}\" بجوائز إجمالية {totalPrizes}. آخر موعد للتسجيل {deadline}. شارك بأفضل ترجماتك.",
+        "button": "التسجيل في المسابقة",
+        "signature": "فريق فعاليات Oda"
+      },
+
+      "competitionWinner": {
+        "subject": "🏆 فزت بمسابقة \"{competitionName}\"",
+        "title": "تهانينا أيها الفائز",
+        "greeting": "مبروك {userName}،",
+        "body": "أعلنت لجنة التحكيم فوزك في {position} ضمن مسابقة \"{competitionName}\" بجائزة {prize}. سنتواصل معك لتسليم الجائزة.",
+        "button": "تفاصيل الفوز",
+        "signature": "لجنة التحكيم - Oda"
+      },
+
+      "platformAnnouncement": {
+        "subject": "إعلان مهم من Oda - {announcementTitle}",
+        "title": "{announcementTitle}",
+        "greeting": "أهلاً {userName}،",
+        "body": "{announcementBody}",
+        "button": "اقرأ التفاصيل كاملة",
+        "signature": "إدارة Oda"
+      }
+
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { type FC, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { API_BASE_URL } from "../config/api";
+import { useTranslation } from "react-i18next";
+import { API_BASE_URL, getToken } from "../config/api";
 
 interface AuthorStory { id: number; title: string; genre: string; created_at: string; }
 interface AuthorData {
@@ -11,6 +12,7 @@ interface AuthorData {
 const AuthorProfile: FC = () => {
     const { authorId } = useParams<{ authorId: string }>();
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [author, setAuthor] = useState<AuthorData | null>(null);
     const [isFollowing, setIsFollowing] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -18,7 +20,7 @@ const AuthorProfile: FC = () => {
     const [followersCount, setFollowersCount] = useState(0);
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
+        const token = getToken();
         if (!token) { navigate("/login"); return; }
         fetch(`${API_BASE_URL}/accounts/authors/${authorId}/`, { headers: { Authorization: `Token ${token}` } })
             .then(res => {
@@ -27,12 +29,12 @@ const AuthorProfile: FC = () => {
                 return res.json();
             })
             .then(data => { setAuthor(data); setFollowersCount(data.followers_count); })
-            .catch(err => setError(err.message === "subscription_required" ? "يجب الاشتراك لرؤية ملف الكاتب" : "الكاتب غير موجود"))
+            .catch(err => setError(err.message === "subscription_required" ? t('profile.subscriptionRequired') : t('profile.authorNotFound')))
             .finally(() => setLoading(false));
     }, [authorId, navigate]);
 
     const handleFollowToggle = async () => {
-        const token = localStorage.getItem("token");
+        const token = getToken();
         if (!token || !author) return;
         if (isFollowing) {
             const res = await fetch(`${API_BASE_URL}/accounts/unfollow/${author.id}/`, { method: "POST", headers: { Authorization: `Token ${token}` } });
@@ -47,7 +49,7 @@ const AuthorProfile: FC = () => {
         }
     };
 
-    if (loading) return <div style={{ textAlign: "center", padding: "50px" }}>جاري التحميل...</div>;
+    if (loading) return <div style={{ textAlign: "center", padding: "50px" }}>{t('common.loading')}</div>;
     if (error) return <div style={{ textAlign: "center", padding: "50px", color: "red" }}>{error}</div>;
     if (!author) return null;
 
@@ -60,20 +62,20 @@ const AuthorProfile: FC = () => {
                     <h1 style={{ margin: 0, fontSize: "1.8em", color: "#222" }}>{displayName}</h1>
                     {author.country && <p style={{ color: "#888", margin: "5px 0" }}>📍 {author.country}</p>}
                     <div style={{ display: "flex", gap: "20px", marginTop: "10px" }}>
-                        <span><strong>{followersCount}</strong> متابِع</span>
-                        <span><strong>{author.stories_count}</strong> قصة</span>
+                        <span><strong>{followersCount}</strong> {t('profile.follower')}</span>
+                        <span><strong>{author.stories_count}</strong> {t('profile.stories')}</span>
                     </div>
                 </div>
                 <button onClick={handleFollowToggle}
                     style={{ padding: "8px 20px", borderRadius: "20px", border: isFollowing ? "1px solid #ccc" : "none", fontWeight: "bold", cursor: "pointer", backgroundColor: isFollowing ? "#fff" : "#1a73e8", color: isFollowing ? "#333" : "#fff" }}>
-                    {isFollowing ? "إلغاء المتابعة" : "متابعة"}
+                    {isFollowing ? t('profile.unfollow') : t('profile.follow')}
                 </button>
             </div>
 
             <hr style={{ border: "0", borderTop: "1px solid #eee", margin: "20px 0" }} />
-            <h3>القصص المنشورة</h3>
+            <h3>{t('profile.publishedStories')}</h3>
 
-            {author.stories.length === 0 ? <p style={{ color: "#888" }}>لا توجد قصص منشورة.</p> : (
+            {author.stories.length === 0 ? <p style={{ color: "#888" }}>{t('profile.noStories')}</p> : (
                 <ul style={{ listStyleType: "none", padding: 0 }}>
                     {author.stories.map(story => (
                         <li key={story.id} style={{ marginBottom: "12px", padding: "12px", borderBottom: "1px solid #eee" }}>

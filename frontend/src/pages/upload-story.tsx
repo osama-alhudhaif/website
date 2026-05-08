@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { API_BASE_URL } from '../config/api';
+import { useTranslation } from 'react-i18next';
+import { API_BASE_URL, getToken } from '../config/api';
 import './upload-story.css';
 
 const UploadStory = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     title: '',
     genre: [] as string[],
@@ -58,7 +60,7 @@ const UploadStory = () => {
     }
 
     try {
-      const token = localStorage.getItem('token');
+      const token = getToken();
       const response = await fetch(`${API_BASE_URL}/stories/stories/`, {
         method: 'POST',
         headers: {
@@ -68,17 +70,17 @@ const UploadStory = () => {
       });
 
       if (response.ok) {
-        setSuccess('تم رفع القصة بنجاح!');
+        setSuccess(t('uploadStory.successMessage'));
         setTimeout(() => {
           navigate('/profel/MyProfile');
         }, 2000);
       } else {
         const errorData = await response.json();
-        setError(errorData.detail || 'فشل رفع القصة');
+        setError(errorData.detail || t('uploadStory.failMessage'));
       }
     } catch (err: unknown) {
       console.error('Upload error:', err);
-      setError('حدث خطأ في الاتصال');
+      setError(t('uploadStory.connectionError'));
     } finally {
       setUploading(false);
     }
@@ -87,8 +89,8 @@ const UploadStory = () => {
   return (
     <div className="upload-story-container">
       <div className="upload-story-header">
-        <h1>رفع قصة جديدة</h1>
-        <p>شارك قصتك مع القراء</p>
+        <h1>{t('uploadStory.pageTitle')}</h1>
+        <p>{t('uploadStory.pageSubtitle')}</p>
       </div>
 
       {error && <div className="error-message">{error}</div>}
@@ -96,7 +98,7 @@ const UploadStory = () => {
 
       <form onSubmit={handleSubmit} className="upload-story-form">
         <div className="form-group">
-          <label htmlFor="title" className="title-label">عنوان القصة *</label>
+          <label htmlFor="title" className="title-label">{t('uploadStory.storyTitle')} *</label>
           <input
             type="text"
             id="title"
@@ -104,13 +106,13 @@ const UploadStory = () => {
             value={formData.title}
             onChange={handleChange}
             required
-            placeholder="أدخل عنوان القصة"
+            placeholder={t('uploadStory.titlePlaceholder')}
             className="title-input"
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="file_path" className="file-label">ملف القصة *</label>
+          <label htmlFor="file_path" className="file-label">{t('uploadStory.storyFile')} *</label>
           <input
             type="file"
             id="file_path"
@@ -120,11 +122,11 @@ const UploadStory = () => {
             accept=".pdf,.doc,.docx,.txt"
             className="file-input"
           />
-          <small className="file-hint">الصيغ المسموح بها: PDF, DOC, DOCX, TXT</small>
+          <small className="file-hint">{t('uploadStory.allowedFormats')}</small>
         </div>
 
         <div className="form-group">
-          <label className="genre-label">النوع *</label>
+          <label className="genre-label">{t('uploadStory.genre')} *</label>
           <div className="checkbox-group">
             {['رومانسي', 'خيال علمي', 'غموض', 'تاريخي', 'مغامرات', 'دراما', 'كوميدي', 'رعب', 'أخرى'].map(genre => (
               <label key={genre} className="checkbox-label">
@@ -143,7 +145,7 @@ const UploadStory = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="status" className="status-label">الحالة</label>
+          <label htmlFor="status" className="status-label">{t('uploadStory.status')}</label>
           <select
             id="status"
             name="status"
@@ -151,24 +153,24 @@ const UploadStory = () => {
             onChange={handleChange}
             className="status-select"
           >
-            <option value="draft">مسودة</option>
-            <option value="published">منشورة</option>
+            <option value="draft">{t('uploadStory.draft')}</option>
+            <option value="published">{t('uploadStory.published')}</option>
           </select>
         </div>
 
         <div className="form-group">
-          <label htmlFor="description" className="description-label">المقدمة</label>
+          <label htmlFor="description" className="description-label">{t('uploadStory.intro')}</label>
           <textarea
             id="description"
             name="description"
             value={formData.description}
             onChange={handleChange}
-            placeholder="اكتب نبذة عن القصة (لا تتجاوز 300 حرف)"
+            placeholder={t('uploadStory.introPlaceholder')}
             rows={3}
             maxLength={300}
             className="description-textarea"
           />
-          <small className="description-counter">{formData.description.length}/300 حرف</small>
+          <small className="description-counter">{t('uploadStory.charCount', { count: formData.description.length })}</small>
         </div>
 
         <div className="form-actions">
@@ -177,14 +179,14 @@ const UploadStory = () => {
             className="cancel-btn"
             onClick={() => navigate('/profel/MyProfile')}
           >
-            إلغاء
+            {t('common.cancel')}
           </button>
           <button
             type="submit"
             className="submit-btn"
             disabled={uploading}
           >
-            {uploading ? 'جاري الرفع...' : 'رفع القصة'}
+            {uploading ? t('uploadStory.uploading') : t('uploadStory.submit')}
           </button>
         </div>
       </form>

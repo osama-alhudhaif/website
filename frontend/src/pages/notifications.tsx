@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { API_BASE_URL } from '../config/api';
+import { useTranslation } from 'react-i18next';
+import { API_BASE_URL, getToken } from '../config/api';
 
 interface Notification {
     id: number;
@@ -23,10 +24,12 @@ const NOTIF_ICONS: Record<string, string> = {
 };
 
 const Notifications: React.FC = () => {
+    const { t, i18n } = useTranslation();
+    const isRTL = i18n.language === 'ar' || i18n.language.startsWith('ar');
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-    const token = localStorage.getItem('token');
+    const token = getToken();
 
     useEffect(() => {
         if (!token) { navigate('/login'); return; }
@@ -65,15 +68,15 @@ const Notifications: React.FC = () => {
     const unreadCount = notifications.filter(n => !n.is_read).length;
 
     return (
-        <div style={{ maxWidth: '700px', margin: '0 auto', padding: '24px 20px', direction: 'rtl' }}>
+        <div style={{ maxWidth: '700px', margin: '0 auto', padding: '24px 20px', direction: isRTL ? 'rtl' : 'ltr' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                 <div>
                     <h1 style={{ fontSize: '24px', fontWeight: '700', color: '#111', margin: 0 }}>
-                        🔔 الإشعارات
+                        🔔 {t('notifications.title')}
                     </h1>
                     {unreadCount > 0 && (
                         <p style={{ color: '#888', fontSize: '13px', margin: '4px 0 0' }}>
-                            {unreadCount} إشعار غير مقروء
+                            {unreadCount} {t('notifications.new')}
                         </p>
                     )}
                 </div>
@@ -82,17 +85,17 @@ const Notifications: React.FC = () => {
                         onClick={markAllRead}
                         style={{ padding: '8px 16px', backgroundColor: '#f0f4ff', color: '#1a73e8', border: '1px solid #c7d8ff', borderRadius: '8px', cursor: 'pointer', fontSize: '13px', fontWeight: '500' }}
                     >
-                        تعليم الكل كمقروء
+                        {t('notifications.markAllRead')}
                     </button>
                 )}
             </div>
 
             {loading ? (
-                <div style={{ textAlign: 'center', padding: '60px', color: '#888' }}>جاري التحميل...</div>
+                <div style={{ textAlign: 'center', padding: '60px', color: '#888' }}>{t('common.loading')}</div>
             ) : notifications.length === 0 ? (
                 <div style={{ textAlign: 'center', padding: '80px 20px' }}>
                     <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔔</div>
-                    <p style={{ color: '#888', fontSize: '16px' }}>لا توجد إشعارات حتى الآن</p>
+                    <p style={{ color: '#888', fontSize: '16px' }}>{t('notifications.noNotifications')}</p>
                 </div>
             ) : (
                 <div>
@@ -127,7 +130,7 @@ const Notifications: React.FC = () => {
                                         <span style={{ fontSize: '12px', color: '#1a73e8' }}>@{notif.sender_username}</span>
                                     )}
                                     <span style={{ fontSize: '11px', color: '#aaa' }}>
-                                        {new Date(notif.created_at).toLocaleString('ar-SA')}
+                                        {new Date(notif.created_at).toLocaleString(isRTL ? 'ar-SA' : 'en-US')}
                                     </span>
                                 </div>
                             </div>

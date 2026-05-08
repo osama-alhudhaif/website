@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { API_BASE_URL } from '../config/api';
+import { useTranslation } from 'react-i18next';
+import { API_BASE_URL, getToken, getUserId } from '../config/api';
 
 interface Story {
     id: number; title: string; description: string;
@@ -10,12 +11,13 @@ interface Story {
     views_count: number; average_rating: number;
     ratings_count: number; comments_count: number; created_at: string;
 }
-interface Comment { id: number; user_username: string; content: string; created_at: string; }
+interface Comment { id: number; user: number; user_username: string; content: string; created_at: string; }
 
 const getExt = (filename: string) => filename?.split('.').pop()?.toLowerCase() || '';
 
 const Reading: React.FC = () => {
     const { id } = useParams<{ id: string }>();
+    const { t } = useTranslation();
     const [story, setStory] = useState<Story | null>(null);
     const [fileContent, setFileContent] = useState<string | null>(null);
     const [comments, setComments] = useState<Comment[]>([]);
@@ -31,7 +33,11 @@ const Reading: React.FC = () => {
     const [isLiked, setIsLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(0);
     const [likeLoading, setLikeLoading] = useState(false);
-    const token = localStorage.getItem('token');
+    const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
+    const [editContent, setEditContent] = useState('');
+    const token = getToken();
+    const currentUserId = getUserId();
+    const translateTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(() => {
         if (!id) return;
@@ -68,23 +74,57 @@ const Reading: React.FC = () => {
         setCommentLoading(false);
     };
 
-    const handleTextSelection = () => {
-        const text = window.getSelection()?.toString().trim();
-        if (text && text.length > 2) { setSelectedText(text); setTranslatedText(''); setShowTranslateBar(true); }
-    };
-
-    const translateSelected = async () => {
-        if (!selectedText || !token) return;
+    const translateText = async (text: string, lang: string) => {
+        if (!text || !token) return;
         setTranslateLoading(true);
         const res = await fetch(`${API_BASE_URL}/stories/translate/`, {
             method: 'POST',
             headers: { Authorization: `Token ${token}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text: selectedText, source_lang: 'ar', target_lang: targetLang }),
+            body: JSON.stringify({ text, source_lang: 'ar', target_lang: lang }),
         }).catch(() => null);
         setTranslateLoading(false);
         if (!res) return;
         const data = await res.json();
         if (data.translated_text) setTranslatedText(data.translated_text);
+    };
+
+    const handleTextSelection = () => {
+        const text = window.getSelection()?.toString().trim();
+        if (text && text.length > 2) {
+            setSelectedText(text);
+            setTranslatedText('');
+            setShowTranslateBar(true);
+            if (translateTimerRef.current) clearTimeout(translateTimerRef.current);
+            translateTimerRef.current = setTimeout(() => translateText(text, targetLang), 600);
+        }
+    };
+
+    const deleteComment = async (commentId: number) => {
+        if (!token || !window.confirm(t('reading.deleteCommentConfirm'))) return;
+        const res = await fetch(`${API_BASE_URL}/stories/comments/${commentId}/`, {
+            method: 'DELETE',
+            headers: { Authorization: `Token ${token}` },
+        }).catch(() => null);
+        if (res && res.ok) setComments(prev => prev.filter(c => c.id !== commentId));
+    };
+
+    const startEditComment = (comment: Comment) => {
+        setEditingCommentId(comment.id);
+        setEditContent(comment.content);
+    };
+
+    const saveEditComment = async (commentId: number) => {
+        if (!token || !editContent.trim()) return;
+        const res = await fetch(`${API_BASE_URL}/stories/comments/${commentId}/`, {
+            method: 'PATCH',
+            headers: { Authorization: `Token ${token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ content: editContent }),
+        }).catch(() => null);
+        if (res && res.ok) {
+            const updated = await res.json();
+            setComments(prev => prev.map(c => c.id === commentId ? { ...c, content: updated.content } : c));
+            setEditingCommentId(null);
+        }
     };
 
     const toggleLike = async () => {
@@ -111,8 +151,8 @@ const Reading: React.FC = () => {
         });
     };
 
-    if (loading) return <div style={{ textAlign: 'center', padding: '60px' }}>جاري التحميل...</div>;
-    if (!story) return <div style={{ textAlign: 'center', padding: '60px' }}>القصة غير موجودة</div>;
+    if (loading) return <div style={{ textAlign: 'center', padding: '60px' }}>{t('common.loading')}</div>;
+    if (!story) return <div style={{ textAlign: 'center', padding: '60px' }}>{t('reading.storyNotFound')}</div>;
 
     const ext = getExt(story.file_name || story.file_path);
 
@@ -124,13 +164,13 @@ const Reading: React.FC = () => {
         if (['doc', 'docx'].includes(ext) && story.file_path)
             return (
                 <div style={{ textAlign: 'center', padding: '40px', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
-                    <p>لا يمكن عرض هذا النوع مباشرة.</p>
-                    <a href={story.file_path} download style={{ padding: '10px 20px', backgroundColor: '#1a73e8', color: '#fff', borderRadius: '6px', textDecoration: 'none' }}>تحميل الملف</a>
+                    <p>{t('reading.cannotDisplay')}</p>
+                    <a href={story.file_path} download style={{ padding: '10px 20px', backgroundColor: '#1a73e8', color: '#fff', borderRadius: '6px', textDecoration: 'none' }}>{t('reading.downloadFile')}</a>
                 </div>
             );
         if (story.description)
             return <article style={{ lineHeight: '2', fontSize: '17px', color: '#333' }}>{story.description}</article>;
-        return <p style={{ color: '#888' }}>لا يوجد محتوى متاح.</p>;
+        return <p style={{ color: '#888' }}>{t('reading.noContent')}</p>;
     };
 
     return (
@@ -138,10 +178,10 @@ const Reading: React.FC = () => {
             <header style={{ marginBottom: '24px' }}>
                 <h1 style={{ fontSize: '2em', color: '#111', marginBottom: '8px' }}>{story.title}</h1>
                 <div style={{ color: '#666', fontSize: '14px', display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                    <span>بقلم: <Link to={`/profile/author/${story.author}`} style={{ color: '#1a73e8', textDecoration: 'none' }}>{story.author_username}</Link></span>
+                    <span>{t('reading.by')}: <Link to={`/profile/author/${story.author}`} style={{ color: '#1a73e8', textDecoration: 'none' }}>{story.author_username}</Link></span>
                     {story.genre && <span>📚 {story.genre}</span>}
-                    <span>👁 {story.views_count} مشاهدة</span>
-                    <span>⭐ {story.average_rating?.toFixed(1) ?? '—'} ({story.ratings_count} تقييم)</span>
+                    <span>👁 {story.views_count} {t('reading.views')}</span>
+                    <span>⭐ {story.average_rating?.toFixed(1) ?? '—'} ({story.ratings_count} {t('reading.rating')})</span>
                     <span>{new Date(story.created_at).toLocaleDateString('ar-SA')}</span>
                 </div>
             </header>
@@ -162,7 +202,7 @@ const Reading: React.FC = () => {
                             transition: 'all 0.2s', fontSize: '14px',
                         }}
                     >
-                        {isLiked ? '❤️' : '🤍'} {likesCount.toLocaleString('ar-EG')} إعجاب
+                        {isLiked ? '❤️' : '🤍'} {t('reading.likesCount', { count: likesCount })}
                     </button>
                 </div>
             )}
@@ -180,28 +220,28 @@ const Reading: React.FC = () => {
             {token && showTranslateBar && (
                 <div style={{ position: 'sticky', bottom: '16px', backgroundColor: '#fff', border: '1px solid #ddd', borderRadius: '12px', padding: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.15)', marginBottom: '20px', zIndex: 100 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                        <strong style={{ fontSize: '14px' }}>🌐 ترجمة فورية</strong>
+                        <strong style={{ fontSize: '14px' }}>🌐 {t('reading.translateBarTitle')}</strong>
                         <button onClick={() => setShowTranslateBar(false)} style={{ border: 'none', background: 'none', cursor: 'pointer', fontSize: '18px', color: '#999' }}>✕</button>
                     </div>
                     <div style={{ backgroundColor: '#f5f5f5', padding: '8px 12px', borderRadius: '6px', marginBottom: '10px', fontSize: '14px', color: '#555', maxHeight: '80px', overflow: 'auto' }}>
                         {selectedText}
                     </div>
                     <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
-                        <select value={targetLang} onChange={(e) => setTargetLang(e.target.value)}
+                        <select value={targetLang} onChange={(e) => { setTargetLang(e.target.value); if (selectedText) translateText(selectedText, e.target.value); }}
                             style={{ padding: '6px 10px', borderRadius: '6px', border: '1px solid #ddd', fontSize: '13px' }}>
-                            <option value="en">الإنجليزية</option>
-                            <option value="ar">العربية</option>
-                            <option value="fr">الفرنسية</option>
-                            <option value="de">الألمانية</option>
-                            <option value="es">الإسبانية</option>
-                            <option value="tr">التركية</option>
-                            <option value="zh">الصينية</option>
-                            <option value="ru">الروسية</option>
-                            <option value="ja">اليابانية</option>
+                            <option value="en">{t('reading.langEn')}</option>
+                            <option value="ar">{t('reading.langAr')}</option>
+                            <option value="fr">{t('reading.langFr')}</option>
+                            <option value="de">{t('reading.langDe')}</option>
+                            <option value="es">{t('reading.langEs')}</option>
+                            <option value="tr">{t('reading.langTr')}</option>
+                            <option value="zh">{t('reading.langZh')}</option>
+                            <option value="ru">{t('reading.langRu')}</option>
+                            <option value="ja">{t('reading.langJa')}</option>
                         </select>
-                        <button onClick={translateSelected} disabled={translateLoading}
+                        <button onClick={() => translateText(selectedText, targetLang)} disabled={translateLoading}
                             style={{ padding: '6px 16px', backgroundColor: '#1a73e8', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '13px' }}>
-                            {translateLoading ? '...' : 'ترجم'}
+                            {translateLoading ? '...' : t('reading.retranslate')}
                         </button>
                     </div>
                     {translatedText && (
@@ -215,7 +255,7 @@ const Reading: React.FC = () => {
             {/* التقييم */}
             {token && (
                 <div style={{ marginBottom: '30px', padding: '16px', backgroundColor: '#fafafa', borderRadius: '8px', border: '1px solid #eee' }}>
-                    <p style={{ marginBottom: '8px', fontWeight: 'bold' }}>قيّم هذه القصة:</p>
+                    <p style={{ marginBottom: '8px', fontWeight: 'bold' }}>{t('reading.rateStory')}</p>
                     <div style={{ display: 'flex', gap: '6px' }}>
                         {[1, 2, 3, 4, 5].map(star => (
                             <button key={star} onClick={() => submitRating(star)}
@@ -227,27 +267,58 @@ const Reading: React.FC = () => {
 
             {/* التعليقات */}
             <div>
-                <h3 style={{ marginBottom: '16px' }}>التعليقات ({comments.length})</h3>
+                <h3 style={{ marginBottom: '16px' }}>{t('reading.comments', { count: comments.length })}</h3>
                 {token ? (
                     <div style={{ marginBottom: '20px' }}>
                         <textarea value={newComment} onChange={(e) => setNewComment(e.target.value)}
-                            placeholder="أضف تعليقك..." rows={3}
+                            placeholder={t('reading.addComment')} rows={3}
                             style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd', resize: 'vertical', fontSize: '14px' }} />
                         <button onClick={submitComment} disabled={commentLoading || !newComment.trim()}
                             style={{ marginTop: '8px', padding: '8px 20px', backgroundColor: '#1a73e8', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
-                            {commentLoading ? 'جاري الإرسال...' : 'إرسال التعليق'}
+                            {commentLoading ? t('reading.sending') : t('reading.sendComment')}
                         </button>
                     </div>
                 ) : (
                     <p style={{ color: '#888', marginBottom: '16px' }}>
-                        <Link to="/login" style={{ color: '#1a73e8' }}>سجّل الدخول</Link> لإضافة تعليق.
+                        <Link to="/login" style={{ color: '#1a73e8' }}>{t('header.login')}</Link> {t('reading.loginToComment')}
                     </p>
                 )}
-                {comments.length === 0 ? <p style={{ color: '#aaa' }}>لا توجد تعليقات بعد.</p> : (
+                {comments.length === 0 ? <p style={{ color: '#aaa' }}>{t('reading.noComments')}</p> : (
                     comments.map(c => (
                         <div key={c.id} style={{ padding: '12px', marginBottom: '10px', backgroundColor: '#f9f9f9', borderRadius: '8px', border: '1px solid #eee' }}>
-                            <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>{c.user_username}</div>
-                            <p style={{ margin: 0, color: '#555', lineHeight: '1.6' }}>{c.content}</p>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                                <span style={{ fontWeight: 'bold' }}>{c.user_username}</span>
+                                {currentUserId === c.user && editingCommentId !== c.id && (
+                                    <div style={{ display: 'flex', gap: '6px' }}>
+                                        <button onClick={() => startEditComment(c)}
+                                            style={{ padding: '3px 10px', fontSize: '12px', border: '1px solid #1a73e8', borderRadius: '4px', background: 'none', color: '#1a73e8', cursor: 'pointer' }}>
+                                            {t('common.edit')}
+                                        </button>
+                                        <button onClick={() => deleteComment(c.id)}
+                                            style={{ padding: '3px 10px', fontSize: '12px', border: '1px solid #e74c3c', borderRadius: '4px', background: 'none', color: '#e74c3c', cursor: 'pointer' }}>
+                                            {t('common.delete')}
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                            {editingCommentId === c.id ? (
+                                <div>
+                                    <textarea value={editContent} onChange={(e) => setEditContent(e.target.value)} rows={3}
+                                        style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #ddd', fontSize: '14px', resize: 'vertical' }} />
+                                    <div style={{ display: 'flex', gap: '8px', marginTop: '6px' }}>
+                                        <button onClick={() => saveEditComment(c.id)}
+                                            style={{ padding: '5px 14px', backgroundColor: '#1a73e8', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '13px' }}>
+                                            {t('common.save')}
+                                        </button>
+                                        <button onClick={() => setEditingCommentId(null)}
+                                            style={{ padding: '5px 14px', border: '1px solid #ccc', borderRadius: '4px', cursor: 'pointer', fontSize: '13px', background: '#fff' }}>
+                                            {t('common.cancel')}
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <p style={{ margin: 0, color: '#555', lineHeight: '1.6' }}>{c.content}</p>
+                            )}
                             <small style={{ color: '#aaa' }}>{new Date(c.created_at).toLocaleDateString('ar-SA')}</small>
                         </div>
                     ))

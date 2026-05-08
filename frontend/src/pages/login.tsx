@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { API_BASE_URL } from "../config/api";
 
-// الإصدار 2 و 4: إزالة تخزين التوكن في cookies غير آمنة من طرف العميل
-// التوكن يُخزَّن في sessionStorage عند عدم تفعيل "تذكرني"، وفي localStorage عند تفعيله
-// لا يجب تعيين cookies تحتوي على التوكن من JavaScript لأنها لا تدعم HttpOnly
-
 const Login = () => {
+    const { t } = useTranslation();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [rememberMe, setRememberMe] = useState(false);
@@ -15,7 +13,6 @@ const Login = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // التحقق من وجود توكن محفوظ في أحد المخزنين
         const savedToken = localStorage.getItem("token") || sessionStorage.getItem("token");
         if (savedToken) { navigate("/"); }
     }, [navigate]);
@@ -32,20 +29,20 @@ const Login = () => {
             const data = await response.json();
             if (response.ok) {
                 if (rememberMe) {
-                    // الإصدار 2: تخزين التوكن في localStorage عند اختيار "تذكرني"
                     localStorage.setItem("token", data.token);
                     localStorage.setItem("username", data.user.username);
+                    localStorage.setItem("user_id", String(data.user.id));
                 } else {
-                    // الإصدار 2: تخزين التوكن في sessionStorage (يُمسح عند إغلاق المتصفح)
                     sessionStorage.setItem("token", data.token);
                     sessionStorage.setItem("username", data.user.username);
+                    sessionStorage.setItem("user_id", String(data.user.id));
                 }
                 navigate("/");
             } else {
-                setError(data.detail || "خطأ في اسم المستخدم أو كلمة المرور");
+                setError(data.detail || t('login.invalidCredentials'));
             }
         } catch {
-            setError("تعذر الاتصال بالخادم");
+            setError(t('common.serverError'));
         } finally {
             setLoading(false);
         }
@@ -53,21 +50,23 @@ const Login = () => {
 
     return (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-            <h1>تسجيل الدخول</h1>
+            <h1>{t('login.title')}</h1>
             {error && <p style={{ color: "red" }}>{error}</p>}
             <form onSubmit={handleSubmit}>
-                <label htmlFor="username">اسم المستخدم</label>
+                <label htmlFor="username">{t('login.username')}</label>
                 <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} required /><br />
-                <label htmlFor="password">كلمة المرور</label>
+                <label htmlFor="password">{t('login.password')}</label>
                 <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required /><br />
                 <label htmlFor="rememberMe" style={{ display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}>
                     <input type="checkbox" id="rememberMe" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
-                    تذكرني
+                    {t('login.rememberMe')}
                 </label><br />
-                <button type="submit" disabled={loading}>{loading ? "جاري التحميل..." : "تسجيل الدخول"}</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? t('common.loading') : t('login.submit')}
+                </button>
                 <div style={{ marginTop: "10px", display: "flex", justifyContent: "space-between" }}>
-                    <Link to="/register">إنشاء حساب</Link>
-                    <Link to="/forgot-password">نسيت كلمة المرور؟</Link>
+                    <Link to="/register">{t('login.register')}</Link>
+                    <Link to="/forgot-password">{t('login.forgotPassword')}</Link>
                 </div>
             </form>
         </div>

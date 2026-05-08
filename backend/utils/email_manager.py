@@ -10,75 +10,74 @@ def send_oda_email(user_email, email_key, context_vars, sender_type='no-reply'):
     دالة إرسال الإيميلات الاحترافية لمنصة Oda
     :param user_email: بريد المستلم
     :param email_key: المفتاح الموجود في ar.json (مثل 'welcome', 'loginAlert')
-    :param context_vars: ديكشنري يحتوي على القيم المراد استبدالها (userName, link, إلخ)
+    :param context_vars: ديكشنري يحتوي على القيم المراد استبدالها + action_url (الرابط في الزر)
     :param sender_type: نوع المرسل (no-reply, support, security, welcome)
     """
-    
-    # 1. تحديد مسار ملف النصوص ar.json (موجود خارج مجلد backend بمرة واحدة)
-    json_path = os.path.join(settings.BASE_DIR, '..', 'locales', 'ar.json')
-    
+
+    # مسار ملف النصوص
+    json_path = os.path.join(settings.BASE_DIR, 'templates', 'emails', 'msg', 'ar.json')
+
     try:
         with open(json_path, 'r', encoding='utf-8') as f:
             full_data = json.load(f)
-            # الوصول لنصوص النوع المحدد من الإيميلات في القسم العربي
             email_texts = full_data['ar']['email'][email_key]
-    except (FileNotFoundError, KeyError) as e:
-        print(f"❌ خطأ في تحميل بيانات الإيميل لـ {email_key}: {e}")
+    except FileNotFoundError:
+        print(f"❌ ملف ar.json غير موجود في: {json_path}")
+        return 0
+    except KeyError as e:
+        print(f"❌ المفتاح {e} غير موجود في ar.json")
         return 0
 
-    # 2. إعداد المرسل بناءً على النوع (بريد @oda.com الرسمي)
-    # مثال: sender_type='security' سيجعل المرسل 'Oda Security <security@oda.com>'
+    # إعداد المرسل
     display_name = f"Oda {sender_type.capitalize()}" if sender_type != 'no-reply' else "Oda"
     from_email = f"{display_name} <{sender_type}@oda.com>"
 
-    # 3. دمج المتغيرات مع النصوص (Formatting)
-    # إضافة متغيرات عامة لمنصة Oda ليتم استبدالها في النصوص تلقائياً
+    # المتغيرات الافتراضية مع ما يمرره المستدعي
     full_context = {
         'appName': 'Oda',
         'supportEmail': 'support@oda.com',
         'securityEmail': 'security@oda.com',
-        **context_vars
+        'action_url': '#',
+        **context_vars,
     }
 
-    # معالجة النصوص واستبدال الأقواس {userName} بالقيم الحقيقية
+    # استبدال {variable} في نصوص JSON بالقيم الحقيقية
     processed_content = {}
     for key, text in email_texts.items():
         if isinstance(text, str):
             try:
                 processed_content[key] = text.format(**full_context)
             except KeyError as e:
-                # في حال نسيان تمرير متغير مطلوب في context_vars
                 processed_content[key] = text
-                print(f"⚠️ تحذير: المتغير {e} مطلوب في نص {email_key} ولم يتم تمريره.")
-    
-    # عنوان الرسالة
+                print(f"⚠️ المتغير {e} مطلوب في '{email_key}.{key}' ولم يُمرَّر.")
+
+    # تحويل \n إلى <br> في التوقيع حتى يظهر صح في HTML
+    if 'signature' in processed_content:
+        processed_content['signature'] = processed_content['signature'].replace('\n', '<br>')
+
+    # action_url للزر (يُمرَّر مباشرةً للقالب)
+    processed_content['action_url'] = full_context['action_url']
+
     subject = processed_content.get('subject', f"تنبيه من {full_context['appName']}")
 
-    # 4. دمج النصوص مع قالب الـ HTML (الناتج من MJML)
-    # يبحث Django عن القالب في templates/emails/html/welcome.html مثلاً
-    template_path = f'emails/html/{email_key}.html'
-    
+    # قالب HTML واحد لجميع أنواع الإيميلات
+    template_path = 'emails/html/welcome.html'
+
     try:
         html_content = render_to_string(template_path, processed_content)
-        text_content = strip_tags(html_content) # نسخة نصية احتياطية
+        text_content = strip_tags(html_content)
     except Exception as e:
-        print(f"❌ خطأ في معالجة قالب الـ HTML: {e}")
+        print(f"❌ خطأ في تحميل القالب '{template_path}': {e}")
         return 0
 
-    # 5. الإرسال الفعلي
-    msg = EmailMultiAlternatives(
-        subject, 
-        text_content, 
-        from_email, 
-        [user_email]
-    )
+    # الإرسال
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [user_email])
     msg.attach_alternative(html_content, "text/html")
-    
-    # تنفيذ الإرسال (سيوضع في التيرمينال حالياً بسبب إعداد ConsoleBackend)
+
     try:
         result = msg.send()
-        print(f"✅ تم إرسال إيميل ({email_key}) بنجاح من {from_email} إلى {user_email}")
+        print(f"✅ إيميل ({email_key}) من {from_email} إلى {user_email}")
         return result
     except Exception as e:
-        print(f"❌ فشل إرسال الإيميل: {e}")
+        print(f"❌ فشل الإرسال: {e}")
         return 0

@@ -18,7 +18,7 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
 
 class StoryViewSet(viewsets.ModelViewSet):
     serializer_class = StorySerializer
-    permission_classes = [permissions.IsAuthenticated, IsAuthorOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['title', 'description', 'author__username', 'genre']
     ordering_fields = ['created_at', 'views_count', 'title']
@@ -30,7 +30,7 @@ class StoryViewSet(viewsets.ModelViewSet):
         if genre:
             queryset = queryset.filter(genre__iexact=genre)
         # إذا طلب المستخدم قصصه الخاصة (مسودة + منشورة)
-        if self.request.query_params.get('my_stories'):
+        if self.request.query_params.get('my_stories') and self.request.user.is_authenticated:
             queryset = Story.objects.select_related('author').filter(author=self.request.user)
         return queryset
 
@@ -67,7 +67,7 @@ class StoryViewSet(viewsets.ModelViewSet):
 
 class CommentListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
         return Comment.objects.filter(story_id=self.kwargs['story_id'], is_approved=True)

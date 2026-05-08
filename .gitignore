@@ -64,3 +64,6 @@ awalimna/db.sqlite3
 
 # Visual Studio cache
 .vs/
+
+# Claude Code settings
+.claude/

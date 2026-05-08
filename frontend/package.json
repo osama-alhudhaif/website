@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "country-list": "^2.4.1",
+    "i18next": "^26.0.10",
+    "i18next-browser-languagedetector": "^8.2.1",
     "react": "^19.0.0",
     "react-country-flag": "^3.1.0",
     "react-dom": "^19.0.0",
+    "react-i18next": "^17.0.7",
     "react-router-dom": "^7.0.0",
     "website": "file:.."
   },
