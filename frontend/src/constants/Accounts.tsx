@@ -213,30 +213,32 @@ const Accounts: FC = () => {
                                 {isRTL ? "اختر لغة الواجهة" : "Choose interface language"}
                             </div>
                         </div>
-                        <div style={{ display: "flex", gap: "8px" }}>
-                            <button
-                                onClick={() => i18n.changeLanguage('ar')}
-                                style={{
-                                    padding: "6px 14px", borderRadius: "6px", cursor: "pointer", fontSize: "13px",
-                                    border: isRTL ? "2px solid #1a73e8" : "1px solid #ccc",
-                                    backgroundColor: isRTL ? "#e8f0fe" : "#fff",
-                                    color: isRTL ? "#1a73e8" : "#333",
-                                    fontWeight: isRTL ? "bold" : "normal",
-                                }}>
-                                {t('settings.arabic')}
-                            </button>
-                            <button
-                                onClick={() => i18n.changeLanguage('en')}
-                                style={{
-                                    padding: "6px 14px", borderRadius: "6px", cursor: "pointer", fontSize: "13px",
-                                    border: !isRTL ? "2px solid #1a73e8" : "1px solid #ccc",
-                                    backgroundColor: !isRTL ? "#e8f0fe" : "#fff",
-                                    color: !isRTL ? "#1a73e8" : "#333",
-                                    fontWeight: !isRTL ? "bold" : "normal",
-                                }}>
-                                {t('settings.english')}
-                            </button>
-                        </div>
+                        <select
+                            value={i18n.language}
+                            onChange={e => i18n.changeLanguage(e.target.value)}
+                            style={{
+                                padding: "6px 12px", borderRadius: "6px", cursor: "pointer", fontSize: "13px",
+                                border: "1px solid #ccc", backgroundColor: "#fff", color: "#333",
+                                outline: "none", minWidth: "140px",
+                            }}>
+                            <option value="ar">العربية</option>
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                            <option value="de">Deutsch</option>
+                            <option value="es">Español</option>
+                            <option value="tr">Türkçe</option>
+                            <option value="zh">中文</option>
+                            <option value="ru">Русский</option>
+                            <option value="ja">日本語</option>
+                            <option value="pt">Português</option>
+                            <option value="it">Italiano</option>
+                            <option value="ko">한국어</option>
+                            <option value="nl">Nederlands</option>
+                            <option value="pl">Polski</option>
+                            <option value="uk">Українська</option>
+                            <option value="id">Bahasa Indonesia</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
                     </div>
 
                     {/* Dark Mode */}
