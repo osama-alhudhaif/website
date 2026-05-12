@@ -16,6 +16,7 @@ const Register = () => {
 
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,26 +26,29 @@ const Register = () => {
         e.preventDefault();
         setMessage('');
         setError('');
-        
+
         if (formData.password !== formData.password_confirm) {
             setError("كلمات المرور غير متطابقة!");
             return;
         }
 
+        setLoading(true);
         try {
-            const res = await fetch(`${API_BASE_URL}/accounts/register/`, {
+            const response = await fetch(`${API_BASE_URL}/accounts/register/`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
             });
-            if (res.ok) {
+            const data = await response.json();
+            if (response.ok) {
                 setMessage("تم إنشاء حسابك في Oda بنجاح! جرب تسجيل الدخول الآن.");
             } else {
-                const data = await res.json();
                 setError("فشل التسجيل: " + JSON.stringify(data));
             }
         } catch {
             setError("خطأ في الاتصال بالسيرفر");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -89,7 +93,9 @@ const Register = () => {
                 <label>البلد</label><br/>
                 <input type="text" name="country" placeholder="مثلاً: Saudi Arabia" onChange={handleChange} required style={inputStyle} /><br/><br/>
 
-                <button type="submit" style={buttonStyle}>إنشاء الحساب</button>
+                <button type="submit" disabled={loading} style={buttonStyle}>
+                    {loading ? 'جاري الإنشاء...' : 'إنشاء الحساب'}
+                </button>
             </form>
         </div>
     );
