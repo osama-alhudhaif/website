@@ -14,6 +14,7 @@ restartPolicyMaxRetries = 3
 PYTHONDONTWRITEBYTECODE = "1"
 PYTHONUNBUFFERED = "1"
 DJANGO_SETTINGS_MODULE = "core.settings"
+DATABASE_URL = "${{Postgres.DATABASE_URL}}"
 # المتغيرات التالية يجب ضبطها يدوياً في Railway Dashboard:
 # DEBUG=False
 # SECRET_KEY=<مفتاح سري قوي>
