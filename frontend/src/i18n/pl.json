@@ -37,7 +37,7 @@
     "searchPlaceholder": "Szukaj historii, autora lub gatunku...",
     "search": "Szukaj",
     "category": "Kategoria",
-    "searchResults": "Wyniki dla „{{query}}" — {{count}} historii",
+    "searchResults": "Wyniki dla \"{{query}}\" — {{count}} historii",
     "noStories": "Nie znaleziono historii.",
     "prev": "Poprzedni",
     "next": "Następny",
