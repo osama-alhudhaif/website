@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { API_BASE_URL } from '../config/api';
 
 const Register = () => {
@@ -33,17 +32,19 @@ const Register = () => {
         }
 
         try {
-            // الرابط الكامل الذي تأكدنا من عمله في الباك-إند
-            await axios.post(`${API_BASE_URL}/accounts/register/`, formData);
-            setMessage("تم إنشاء حسابك في Oda بنجاح! جرب تسجيل الدخول الآن.");
-            // الإصدار 12: إزالة console.log الذي قد يعرض بيانات المستخدم (الاسم، البريد، إلخ)
-        } catch (err: any) {
-            // الإصدار 12: إزالة console.error الذي قد يعرض بيانات حساسة من استجابة الخادم
-            // عرض تفاصيل الخطأ بدقة (مثل: اسم المستخدم موجود مسبقاً)
-            const errorMsg = err.response?.data 
-                ? JSON.stringify(err.response.data) 
-                : "خطأ في الاتصال بالسيرفر";
-            setError("فشل التسجيل: " + errorMsg);
+            const res = await fetch(`${API_BASE_URL}/accounts/register/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+            if (res.ok) {
+                setMessage("تم إنشاء حسابك في Oda بنجاح! جرب تسجيل الدخول الآن.");
+            } else {
+                const data = await res.json();
+                setError("فشل التسجيل: " + JSON.stringify(data));
+            }
+        } catch {
+            setError("خطأ في الاتصال بالسيرفر");
         }
     };
 
