@@ -8,8 +8,8 @@ import os
 import mimetypes
 from django.core.exceptions import ValidationError
 
-# الحجم الأقصى للملف: 50 ميجابايت
-MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024
+# الحجم الأقصى للملف: 50 جيجابايت
+MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024 * 1024
 
 # الامتدادات المسموح بها لملفات القصص
 ALLOWED_STORY_EXTENSIONS = {'.pdf', '.doc', '.docx', '.txt', '.epub'}
@@ -48,7 +48,7 @@ DANGEROUS_MIME_TYPES = {
 def validate_story_file(file):
     """
     التحقق من صلاحية ملف القصة المرفوع:
-    1. التحقق من الحجم (أقل من 50 ميجابايت)
+    1. التحقق من الحجم (أقل من 50 جيجابايت)
     2. التحقق من الامتداد
     3. التحقق من نوع MIME
     4. رفض الملفات الخطيرة
@@ -56,7 +56,7 @@ def validate_story_file(file):
     # التحقق من الحجم
     if file.size > MAX_FILE_SIZE_BYTES:
         raise ValidationError(
-            f'حجم الملف يتجاوز الحد الأقصى المسموح به ({MAX_FILE_SIZE_BYTES // (1024 * 1024)} ميجابايت).'
+            f'حجم الملف يتجاوز الحد الأقصى المسموح به ({MAX_FILE_SIZE_BYTES // (1024 * 1024 * 1024)} جيجابايت).'
         )
 
     # التحقق من الامتداد
