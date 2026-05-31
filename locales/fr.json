@@ -1,0 +1,14 @@
+{
+  "fr": {
+    "email": {
+      "welcome": {
+        "subject": "Bienvenue sur la plateforme Oda {userName} 🚀",
+        "title": "Bienvenue sur Oda",
+        "greeting": "Cher {userName},",
+        "body": "Nous sommes ravis de vous accueillir dans notre aventure de développement de contenu littéraire utilisant l'intelligence artificielle.",
+        "button": "Commencer",
+        "signature": "L'équipe Oda"
+      }
+    }
+  }
+}

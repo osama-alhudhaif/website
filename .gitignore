@@ -10,3 +10,6 @@ __pycache__/
 .vscode/
 .idea/
 node_modules
+
+# Added by ggshield
+.cache_ggshield

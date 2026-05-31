@@ -1,0 +1,816 @@
+{
+  "en": {
+    "email": {
+      "_comment_section_1": "═══ 1. Authentication & Account (15) ═══",
+      "welcome": {
+        "subject": "Welcome to Oda Platform {userName} 🚀",
+        "title": "Welcome to Oda",
+        "greeting": "Dear {userName},",
+        "body": "We're delighted to have you join our journey of literary and artistic translation with artificial intelligence. Here, words are translated by their spirit, not just their letters. We've prepared a short tour to help you start your first translation project.",
+        "button": "Start Your Tour",
+        "signature": "Best wishes,\nThe Oda Team"
+      },
+      "emailVerification": {
+        "subject": "Verify your email to continue",
+        "title": "One Last Step to Activate Your Account",
+        "greeting": "Hello {userName},",
+        "body": "To complete creating your Oda account, please verify your email within 24 hours. This step protects your account and ensures your notifications reach you.",
+        "button": "Verify Email",
+        "signature": "The Oda Team"
+      },
+      "emailVerified": {
+        "subject": "Your email has been successfully verified ✅",
+        "title": "Your Account Is Ready to Go",
+        "greeting": "Hello {userName},",
+        "body": "Your email has been successfully verified. All of Oda's features are now at your fingertips, from literary translation to creative editing tools.",
+        "button": "Go to My Dashboard",
+        "signature": "The Oda Team"
+      },
+      "passwordReset": {
+        "subject": "Password Reset Request",
+        "title": "Reset Your Password",
+        "greeting": "Hello {userName},",
+        "body": "We received a request to reset your account password. The link below is valid for one hour only. If you didn't request this, ignore this message and inform the security team.",
+        "button": "Reset Password",
+        "signature": "Oda Security Team"
+      },
+      "passwordResetSuccess": {
+        "subject": "Password changed successfully",
+        "title": "Password Updated",
+        "greeting": "Hello {userName},",
+        "body": "Your account password was successfully changed at {time}. If it wasn't you, please contact {securityEmail} immediately to secure your account.",
+        "button": "Sign In",
+        "signature": "Oda Security Team"
+      },
+      "passwordChanged": {
+        "subject": "Alert: Your password has been updated",
+        "title": "Password Updated",
+        "greeting": "Dear {userName},",
+        "body": "We're informing you that your account password was just changed from your device. If you didn't perform this action, contact us immediately.",
+        "button": "Secure My Account",
+        "signature": "Oda Security Team"
+      },
+      "loginAlert": {
+        "subject": "New sign-in to your account",
+        "title": "Sign-in Alert",
+        "greeting": "Hello {userName},",
+        "body": "Your account was signed into at {time} from {location} via {device}. If that was you, ignore this message. If not, secure your account now.",
+        "button": "Review Activity",
+        "signature": "Oda Security Team"
+      },
+      "loginNewDevice": {
+        "subject": "Sign-in from a new device 🔐",
+        "title": "New Device Detected",
+        "greeting": "Hello {userName},",
+        "body": "Someone signed into your account from a device we didn't recognize: {device} - {location}. If this was you, no need to worry. Otherwise, change your password immediately.",
+        "button": "Manage Devices",
+        "signature": "Oda Security Team"
+      },
+      "loginSuspicious": {
+        "subject": "⚠️ Suspicious sign-in attempt",
+        "title": "Unusual Activity on Your Account",
+        "greeting": "Alert {userName},",
+        "body": "We detected a suspicious sign-in attempt to your account from {location} at {time}. The attempt was automatically blocked. We strongly advise changing your password and enabling two-factor authentication.",
+        "button": "Secure Account Now",
+        "signature": "Oda Security Team"
+      },
+      "accountLocked": {
+        "subject": "Your account has been temporarily locked 🔒",
+        "title": "Your Account Is Locked for Your Protection",
+        "greeting": "Dear {userName},",
+        "body": "The number of failed sign-in attempts was exceeded, so we've temporarily locked your account for {duration}. You can restore access now by resetting your password.",
+        "button": "Restore Account",
+        "signature": "Oda Security Team"
+      },
+      "accountUnlocked": {
+        "subject": "Your account has been unlocked",
+        "title": "Your Account Is Ready to Use",
+        "greeting": "Hello {userName},",
+        "body": "Your account has been reopened. You can now sign in normally. We recommend reviewing your security settings to avoid recurrence.",
+        "button": "Sign In",
+        "signature": "The Oda Team"
+      },
+      "emailChange": {
+        "subject": "Confirm email address change",
+        "title": "Confirm New Email",
+        "greeting": "Hello {userName},",
+        "body": "We received a request to change your email address to {newEmail}. Confirm the change within an hour to complete the process.",
+        "button": "Confirm Change",
+        "signature": "The Oda Team"
+      },
+      "emailChanged": {
+        "subject": "Your email address has been updated",
+        "title": "Email Address Updated",
+        "greeting": "{userName},",
+        "body": "Your account email was successfully updated to {newEmail}. All future notifications will be sent to this email.",
+        "button": "Manage Account",
+        "signature": "The Oda Team"
+      },
+      "usernameChanged": {
+        "subject": "Username has been changed",
+        "title": "Username Updated",
+        "greeting": "Hello {userName},",
+        "body": "Your username has been updated to @{newUsername}. This name will appear on all your translations and posts.",
+        "button": "My Profile",
+        "signature": "The Oda Team"
+      },
+      "accountDeactivated": {
+        "subject": "Your account has been temporarily deactivated",
+        "title": "We Hope to See You Back Soon",
+        "greeting": "{userName},",
+        "body": "Your account has been deactivated at your request. Your data is preserved for {duration}, during which you can reactivate the account by signing in again. After that, the account will be permanently deleted.",
+        "button": "Reactivate Account",
+        "signature": "The Oda Team"
+      },
+      "_comment_section_2": "═══ 2. Subscriptions & Payments (12) ═══",
+      "subscriptionStarted": {
+        "subject": "Your {planName} subscription has been activated 🎉",
+        "title": "Welcome to {planName}",
+        "greeting": "Congratulations {userName},",
+        "body": "Your {planName} plan subscription has been activated. You can now access unlimited translations and advanced AI tools until {expiryDate}.",
+        "button": "Discover Your Features",
+        "signature": "The Oda Team"
+      },
+      "subscriptionUpgraded": {
+        "subject": "Your subscription has been upgraded to {planName} ⬆️",
+        "title": "Upgrade Successful",
+        "greeting": "{userName},",
+        "body": "Your subscription has been upgraded to the {planName} plan. All new features are activated from this moment and will appear in your next invoice.",
+        "button": "Explore What's New",
+        "signature": "The Oda Team"
+      },
+      "subscriptionDowngraded": {
+        "subject": "Your subscription has been downgraded to {planName}",
+        "title": "Plan Change",
+        "greeting": "Hello {userName},",
+        "body": "Your subscription has been downgraded to the {planName} plan, effective from {effectiveDate}. Until then, you enjoy the full features of your current plan.",
+        "button": "Manage Subscription",
+        "signature": "The Oda Team"
+      },
+      "subscriptionCancelled": {
+        "subject": "Your subscription has been cancelled",
+        "title": "We're Sorry to See You Go",
+        "greeting": "Dear {userName},",
+        "body": "Your {planName} subscription has been cancelled. Your features will continue until the end of the paid period on {expiryDate}. We wish you well, and our door is open whenever you return.",
+        "button": "Renew Subscription",
+        "signature": "The Oda Team"
+      },
+      "subscriptionRenewed": {
+        "subject": "Your subscription has been automatically renewed",
+        "title": "Your Subscription Is Renewed",
+        "greeting": "{userName},",
+        "body": "Your {planName} subscription was successfully renewed for {amount}. The subscription is valid until {newExpiryDate}.",
+        "button": "View Invoice",
+        "signature": "The Oda Team"
+      },
+      "subscriptionExpiringSoon": {
+        "subject": "Your subscription expires in {daysLeft} days",
+        "title": "Subscription Expiry Reminder",
+        "greeting": "Hello {userName},",
+        "body": "Your {planName} subscription expires in {daysLeft} days. Renew now to keep your projects and translations without interruption.",
+        "button": "Renew Now",
+        "signature": "The Oda Team"
+      },
+      "subscriptionExpired": {
+        "subject": "Your Oda subscription has expired",
+        "title": "Time to Renew",
+        "greeting": "{userName},",
+        "body": "Your subscription has expired. Your account has been moved to the free plan, and your projects are saved. Renew to restore advanced features.",
+        "button": "Renew Subscription",
+        "signature": "The Oda Team"
+      },
+      "paymentSuccess": {
+        "subject": "Payment Confirmation - {amount}",
+        "title": "Your Payment Was Received",
+        "greeting": "Thank you {userName},",
+        "body": "{amount} was successfully charged via {paymentMethod} on {date}. Transaction ID: {transactionId}. You'll find the invoice in the download link below.",
+        "button": "Download Invoice",
+        "signature": "The Oda Team"
+      },
+      "paymentFailed": {
+        "subject": "⚠️ Payment Failed",
+        "title": "Unable to Complete Payment",
+        "greeting": "{userName},",
+        "body": "We were unable to charge {amount} via {paymentMethod}. Reason: {reason}. Update your payment method to avoid service interruption.",
+        "button": "Update Payment Method",
+        "signature": "The Oda Team"
+      },
+      "paymentRetry": {
+        "subject": "We'll retry your payment by {retryDate}",
+        "title": "New Attempt Coming Soon",
+        "greeting": "Hello {userName},",
+        "body": "We'll retry charging {amount} on {retryDate}. Make sure your balance is available or update your payment method to avoid a failed attempt.",
+        "button": "Manage Payment",
+        "signature": "The Oda Team"
+      },
+      "invoiceReady": {
+        "subject": "Your new invoice from Oda - {invoiceNumber}",
+        "title": "New Invoice",
+        "greeting": "{userName},",
+        "body": "Your invoice {invoiceNumber} for {amount} is ready for download. The invoice is compliant with the requirements of the Zakat, Tax and Customs Authority in Saudi Arabia.",
+        "button": "Download Invoice (PDF)",
+        "signature": "Accounting Team - Oda"
+      },
+      "refundProcessed": {
+        "subject": "Your refund request has been processed",
+        "title": "{amount} Refunded",
+        "greeting": "Hello {userName},",
+        "body": "Your refund request for {amount} has been approved. The amount will appear in your account within 5-10 business days depending on your bank.",
+        "button": "Refund Details",
+        "signature": "Accounting Team - Oda"
+      },
+      "_comment_section_3": "═══ 3. Translation & Literary Content (15) ═══",
+      "translationStarted": {
+        "subject": "Translation of \"{projectTitle}\" has started 📖",
+        "title": "Translation in Progress",
+        "greeting": "{userName},",
+        "body": "We've started translating your work \"{projectTitle}\" from {sourceLang} to {targetLang}. Estimated time: {estimatedTime}. We'll notify you as soon as it's done.",
+        "button": "Track Progress",
+        "signature": "The Oda Team"
+      },
+      "translationCompleted": {
+        "subject": "Translation of \"{projectTitle}\" is complete ✨",
+        "title": "Your Translation Is Ready",
+        "greeting": "Here you go {userName},",
+        "body": "The translation of \"{projectTitle}\" has been completed successfully. We preserved the spirit of the original text and the author's voice as much as possible. Please review it and let us know your thoughts.",
+        "button": "Review Translation",
+        "signature": "The Oda Team"
+      },
+      "translationFailed": {
+        "subject": "Unable to complete translation of \"{projectTitle}\"",
+        "title": "An Error Occurred During Processing",
+        "greeting": "We're sorry {userName},",
+        "body": "We encountered a problem while processing \"{projectTitle}\". Reason: {reason}. Your credits were not deducted. Please try again, and if the problem persists, contact {supportEmail}.",
+        "button": "Try Again",
+        "signature": "The Oda Team"
+      },
+      "translationReviewReady": {
+        "subject": "Translation of \"{projectTitle}\" is awaiting your review",
+        "title": "Time to Review",
+        "greeting": "Hello {userName},",
+        "body": "We've completed translating your work. Human review is the most important step to ensure literary fidelity. You have {reviewDays} days to review it.",
+        "button": "Start Review",
+        "signature": "The Oda Team"
+      },
+      "translationApproved": {
+        "subject": "Your translation has been approved ✅",
+        "title": "Translation Approved",
+        "greeting": "Congratulations {userName},",
+        "body": "Your translation of \"{projectTitle}\" has been approved. It is now ready for publishing or export in any format you choose.",
+        "button": "Export Translation",
+        "signature": "The Oda Team"
+      },
+      "translationRejected": {
+        "subject": "Translation of \"{projectTitle}\" needs review",
+        "title": "Translation Feedback",
+        "greeting": "{userName},",
+        "body": "After review, we find that the translation needs revisions. Notes: {feedback}. You can edit the original text or request reprocessing with a different style.",
+        "button": "View Feedback",
+        "signature": "The Oda Team"
+      },
+      "translationExported": {
+        "subject": "Your translation has been exported in {format} format",
+        "title": "Your File Is Ready",
+        "greeting": "{userName},",
+        "body": "\"{projectTitle}\" has been exported in {format} format. The link is valid for 7 days. You can also access the file from your profile at any time.",
+        "button": "Download File",
+        "signature": "The Oda Team"
+      },
+      "translationShared": {
+        "subject": "Your translation \"{projectTitle}\" has been shared",
+        "title": "Your Translation Is Spreading",
+        "greeting": "{userName},",
+        "body": "{sharerName} shared your translation \"{projectTitle}\" with {viewers} readers. Follow your work reaching a wider audience.",
+        "button": "Sharing Statistics",
+        "signature": "The Oda Team"
+      },
+      "storyUploaded": {
+        "subject": "\"{storyTitle}\" has been uploaded successfully",
+        "title": "Your Story Is Safe",
+        "greeting": "Hello {userName},",
+        "body": "Your story \"{storyTitle}\" ({wordCount} words) has been uploaded successfully. It is now in your private space, ready for translation or editing.",
+        "button": "Open Story",
+        "signature": "The Oda Team"
+      },
+      "storyPublished": {
+        "subject": "\"{storyTitle}\" has been published 📢",
+        "title": "Your Work Is Now for the World",
+        "greeting": "Congratulations {userName},",
+        "body": "Your story \"{storyTitle}\" has been published on the platform. It is now available to followers and readers, and is a candidate for the \"Featured Works\" section.",
+        "button": "View on Platform",
+        "signature": "The Oda Team"
+      },
+      "storyArchived": {
+        "subject": "\"{storyTitle}\" has been archived",
+        "title": "Work in Archive",
+        "greeting": "{userName},",
+        "body": "\"{storyTitle}\" has been moved to the archive. It won't be visible to readers, but it's preserved with all its edits and translations. You can restore it at any time.",
+        "button": "Manage Archive",
+        "signature": "The Oda Team"
+      },
+      "storyDeleted": {
+        "subject": "\"{storyTitle}\" has been deleted",
+        "title": "Work Deletion Confirmed",
+        "greeting": "{userName},",
+        "body": "\"{storyTitle}\" has been permanently deleted at your request. We no longer retain any copy. We hope you continue enriching the platform with new works.",
+        "button": "Start a New Project",
+        "signature": "The Oda Team"
+      },
+      "draftSaved": {
+        "subject": "Draft automatically saved",
+        "title": "Your Work Is Safe",
+        "greeting": "{userName},",
+        "body": "We automatically saved your draft \"{draftTitle}\". Last edited: {savedAt}. Continue from where you left off at any time.",
+        "button": "Continue Writing",
+        "signature": "The Oda Team"
+      },
+      "translationLimitReached": {
+        "subject": "You've reached your monthly translation limit",
+        "title": "Monthly Credits Exhausted",
+        "greeting": "{userName},",
+        "body": "You've used {usedCount} out of {totalCount} translations in your current plan. To continue without interruption, upgrade your plan or wait for renewal on {renewalDate}.",
+        "button": "Upgrade Plan",
+        "signature": "The Oda Team"
+      },
+      "translationQuotaWarning": {
+        "subject": "You're approaching your translation limit (%{usedPercent})",
+        "title": "Usage Alert",
+        "greeting": "Hello {userName},",
+        "body": "You've used {usedPercent}% of your plan's translations. You have {remaining} translations left until renewal on {renewalDate}.",
+        "button": "Manage Usage",
+        "signature": "The Oda Team"
+      },
+      "_comment_section_4": "═══ 4. Social Interaction (12) ═══",
+      "newFollower": {
+        "subject": "{followerName} is now following you",
+        "title": "New Follower",
+        "greeting": "{userName},",
+        "body": "{followerName} started following you. Your follower count is now: {followersCount}. Visit their profile and discover their works.",
+        "button": "Visit Profile",
+        "signature": "The Oda Team"
+      },
+      "milestoneFollowers": {
+        "subject": "You've reached {milestone} followers 🎉",
+        "title": "New Achievement",
+        "greeting": "Congratulations {userName},",
+        "body": "Your follower count has reached {milestone}. Thank you for enriching the platform with your works. Share your achievement with your audience.",
+        "button": "Share Achievement",
+        "signature": "The Oda Team"
+      },
+      "authorFollowedYouBack": {
+        "subject": "{authorName} is now following you back",
+        "title": "Mutual Following",
+        "greeting": "{userName},",
+        "body": "{authorName} has followed you back. This is an opportunity to start a fruitful literary dialogue. Check out their latest works.",
+        "button": "{authorName}'s Works",
+        "signature": "The Oda Team"
+      },
+      "newComment": {
+        "subject": "New comment on \"{contentTitle}\"",
+        "title": "New Comment",
+        "greeting": "{userName},",
+        "body": "{commenterName} commented on your work \"{contentTitle}\": \"{commentPreview}\".",
+        "button": "View Comment",
+        "signature": "The Oda Team"
+      },
+      "commentReply": {
+        "subject": "{replierName} replied to your comment",
+        "title": "New Reply",
+        "greeting": "{userName},",
+        "body": "{replierName} replied to your comment in \"{contentTitle}\". Continue the conversation with readers.",
+        "button": "Read Reply",
+        "signature": "The Oda Team"
+      },
+      "newLike": {
+        "subject": "{likerName} liked \"{contentTitle}\"",
+        "title": "New Like",
+        "greeting": "Hello {userName},",
+        "body": "{likerName} liked your work \"{contentTitle}\". Total likes: {likesCount}.",
+        "button": "View Work",
+        "signature": "The Oda Team"
+      },
+      "milestoneLikes": {
+        "subject": "\"{contentTitle}\" surpassed {milestone} likes",
+        "title": "Your Work Is at the Top",
+        "greeting": "Congratulations {userName},",
+        "body": "The likes on \"{contentTitle}\" have reached {milestone}. Your audience appreciates what you write.",
+        "button": "Work Statistics",
+        "signature": "The Oda Team"
+      },
+      "mentioned": {
+        "subject": "{mentionerName} mentioned you in a comment",
+        "title": "New Mention",
+        "greeting": "{userName},",
+        "body": "{mentionerName} mentioned you in \"{contentTitle}\": \"{snippet}\".",
+        "button": "View Mention",
+        "signature": "The Oda Team"
+      },
+      "messageReceived": {
+        "subject": "New message from {senderName} 💬",
+        "title": "You Have a Message",
+        "greeting": "{userName},",
+        "body": "{senderName} sent you a message: \"{messagePreview}\".",
+        "button": "Read Message",
+        "signature": "The Oda Team"
+      },
+      "authorYouFollowPublished": {
+        "subject": "{authorName} published a new work",
+        "title": "New Release from an Author You Follow",
+        "greeting": "{userName},",
+        "body": "{authorName} published their new work \"{workTitle}\". Perhaps worth reading tonight.",
+        "button": "Read Work",
+        "signature": "The Oda Team"
+      },
+      "trendingPost": {
+        "subject": "Your work \"{contentTitle}\" is trending 🔥",
+        "title": "On the Most Engaged List",
+        "greeting": "{userName},",
+        "body": "Your work \"{contentTitle}\" entered the most engaged works list this week, with an engagement rate higher than 87% of platform works.",
+        "button": "View List",
+        "signature": "The Oda Team"
+      },
+      "featuredAuthor": {
+        "subject": "You've been selected as a featured author 🌟",
+        "title": "Author of the Week",
+        "greeting": "Congratulations {userName},",
+        "body": "The Oda team has selected you as this week's featured author. Your profile will be featured on the homepage and in the readers' mailing list.",
+        "button": "View Your Profile",
+        "signature": "The Oda Team"
+      },
+      "_comment_section_5": "═══ 5. Notifications & Reminders (10) ═══",
+      "weeklyDigest": {
+        "subject": "Your weekly summary on Oda 📰",
+        "title": "What Happened This Week",
+        "greeting": "Hello {userName},",
+        "body": "This week: {newWorks} new works in your library, {newFollowers} followers, {totalReads} reads. Discover the highlights in your detailed report.",
+        "button": "View Full Report",
+        "signature": "The Oda Team"
+      },
+      "monthlyDigest": {
+        "subject": "Summary of {monthName} - Your Achievements",
+        "title": "Comprehensive Monthly Report",
+        "greeting": "{userName},",
+        "body": "This month you accomplished: {translationsCount} translations, {storiesCount} stories, and gained {newFollowers} new followers. Your monthly report awaits you.",
+        "button": "Download Report",
+        "signature": "The Oda Team"
+      },
+      "inactivityReminder": {
+        "subject": "We miss you on Oda, {userName}",
+        "title": "Return to Your Literary Journey",
+        "greeting": "{userName},",
+        "body": "{daysAway} days have passed since your last visit. Your drafts are waiting, and your followers are looking forward to a new work. Come back whenever you like.",
+        "button": "Return to Oda",
+        "signature": "The Oda Team"
+      },
+      "comeBackOffer": {
+        "subject": "A special {discount}% discount for your return 🎁",
+        "title": "We Missed You Offer",
+        "greeting": "Hello {userName},",
+        "body": "In celebration of your anticipated return, we've prepared a {discount}% discount on the {planName} plan for {duration}. Valid until {expiryDate}.",
+        "button": "Activate Discount",
+        "signature": "The Oda Team"
+      },
+      "dailyTip": {
+        "subject": "Tip of the Day: {tipTitle} 💡",
+        "title": "{tipTitle}",
+        "greeting": "Good morning {userName},",
+        "body": "{tipBody}",
+        "button": "More Tips",
+        "signature": "The Oda Team"
+      },
+      "newFeature": {
+        "subject": "New feature on Oda: {featureName} ✨",
+        "title": "{featureName}",
+        "greeting": "{userName},",
+        "body": "We've launched {featureName}. {featureDescription}. Try it now in {section}.",
+        "button": "Try the Feature",
+        "signature": "The Oda Team"
+      },
+      "featureRecommended": {
+        "subject": "A feature you might like",
+        "title": "A Discovery for You",
+        "greeting": "{userName},",
+        "body": "Based on your recent activity, we think the {featureName} feature will help you in your next project. {reason}",
+        "button": "Explore Feature",
+        "signature": "The Oda Team"
+      },
+      "eventReminder": {
+        "subject": "Reminder: {eventName} starts {timeUntil}",
+        "title": "Event Coming Up",
+        "greeting": "{userName},",
+        "body": "The \"{eventName}\" event you registered for starts {timeUntil} ({eventDate}). The link is ready in your account.",
+        "button": "Join Event",
+        "signature": "Oda Events Team"
+      },
+      "webinarInvite": {
+        "subject": "Invitation: \"{webinarTitle}\" Webinar",
+        "title": "A Special Invitation for You",
+        "greeting": "Hello {userName},",
+        "body": "We invite you to a webinar titled \"{webinarTitle}\" with {speakerName} on {webinarDate}. Seats are limited.",
+        "button": "Reserve My Seat",
+        "signature": "Oda Events Team"
+      },
+      "newsletterMonthly": {
+        "subject": "Oda Newsletter - {monthName} {year}",
+        "title": "News and Stories This Month",
+        "greeting": "{userName},",
+        "body": "In this issue: an interview with the author of the month, top translations, and the latest platform updates. Enjoy reading.",
+        "button": "Read Newsletter",
+        "signature": "Editorial - Oda Team"
+      },
+      "_comment_section_6": "═══ 6. Security & Privacy (10) ═══",
+      "twoFactorEnabled": {
+        "subject": "Two-factor authentication has been enabled 🔐",
+        "title": "Your Account Is More Secure",
+        "greeting": "Excellent {userName},",
+        "body": "Two-factor authentication has been enabled on your account. We'll require an additional code with every new sign-in. Keep your backup codes in a safe place.",
+        "button": "View Backup Codes",
+        "signature": "Oda Security Team"
+      },
+      "twoFactorDisabled": {
+        "subject": "⚠️ Two-factor authentication has been disabled",
+        "title": "Less Protection for Your Account",
+        "greeting": "{userName},",
+        "body": "Two-factor authentication has been disabled. Your account is now less secure. We strongly recommend re-enabling it immediately, especially if you didn't perform this action.",
+        "button": "Re-enable",
+        "signature": "Oda Security Team"
+      },
+      "apiKeyCreated": {
+        "subject": "A new API key has been created",
+        "title": "API Key",
+        "greeting": "{userName},",
+        "body": "An API key named \"{keyName}\" was created at {createdAt}. Keep it in a safe place. We will not be able to show it again.",
+        "button": "Manage Keys",
+        "signature": "Oda Security Team"
+      },
+      "apiKeyRevoked": {
+        "subject": "API key \"{keyName}\" has been revoked",
+        "title": "Key Revoked",
+        "greeting": "{userName},",
+        "body": "API key \"{keyName}\" was revoked at {revokedAt}. All applications depending on it will stop working.",
+        "button": "Create Replacement Key",
+        "signature": "Oda Security Team"
+      },
+      "dataExportReady": {
+        "subject": "Your data export is ready for download",
+        "title": "Your Data Is in Your Hands",
+        "greeting": "{userName},",
+        "body": "We've prepared a complete copy of your Oda data (translations, stories, settings). The link is valid for 48 hours. This is the \"data sovereignty\" practice we believe in.",
+        "button": "Download My Copy",
+        "signature": "The Oda Team"
+      },
+      "dataDeletionConfirm": {
+        "subject": "Confirm permanent deletion of your data",
+        "title": "An Irreversible Action",
+        "greeting": "{userName},",
+        "body": "We received your request to delete all your data from Oda. This action cannot be undone. Confirm within 72 hours or the request will be cancelled.",
+        "button": "Confirm Permanent Deletion",
+        "signature": "The Oda Team"
+      },
+      "privacyPolicyUpdate": {
+        "subject": "Privacy Policy Update - {effectiveDate}",
+        "title": "New Version of the Privacy Policy",
+        "greeting": "Hello {userName},",
+        "body": "We updated our privacy policy to more clearly reflect the principles of \"software sovereignty\". Changes are effective on {effectiveDate}. We recommend reviewing them.",
+        "button": "Read the Policy",
+        "signature": "Legal Department - Oda"
+      },
+      "termsUpdate": {
+        "subject": "Terms of Service Update",
+        "title": "Updated Terms",
+        "greeting": "{userName},",
+        "body": "We've updated the Oda platform terms of service, effective from {effectiveDate}. By continuing to use the platform, you agree to the new terms.",
+        "button": "Read the Terms",
+        "signature": "Legal Department - Oda"
+      },
+      "securityBreach": {
+        "subject": "🚨 Important Security Alert",
+        "title": "Urgent Action Required",
+        "greeting": "{userName},",
+        "body": "We detected a security incident that may affect your data. We've taken immediate measures to contain it. We strongly advise you to change your password and enable two-factor authentication.",
+        "button": "Secure My Account Now",
+        "signature": "Oda Security Team"
+      },
+      "sessionExpired": {
+        "subject": "Your Oda session has expired",
+        "title": "You've Been Automatically Signed Out",
+        "greeting": "{userName},",
+        "body": "Your session ended after {idleTime} of inactivity, to protect your account security. Sign in again to continue.",
+        "button": "Sign In",
+        "signature": "The Oda Team"
+      },
+      "_comment_section_7": "═══ 7. AI & Advanced Features (8) ═══",
+      "aiCreditsLow": {
+        "subject": "Your AI credits are running low",
+        "title": "Credits Alert",
+        "greeting": "{userName},",
+        "body": "You have {remainingCredits} points remaining from your AI credits. Topping up ensures your projects continue without interruption.",
+        "button": "Top Up Credits",
+        "signature": "The Oda Team"
+      },
+      "aiCreditsRefilled": {
+        "subject": "{amount} points successfully added",
+        "title": "Your Credits Are Ready",
+        "greeting": "{userName},",
+        "body": "{amount} AI points have been added to your account. Current balance: {totalCredits} points. Valid until {expiryDate}.",
+        "button": "Start a New Project",
+        "signature": "The Oda Team"
+      },
+      "aiModelUpgrade": {
+        "subject": "Improved translation model now available",
+        "title": "Translation Engine Upgrade",
+        "greeting": "Hello {userName},",
+        "body": "We've released the new {modelName} model. It delivers deeper translations for literary texts with better preservation of rhetorical figures and rhythm. Automatically enabled in your account.",
+        "button": "Try the Model",
+        "signature": "Oda Engineering Team"
+      },
+      "aiTrainingComplete": {
+        "subject": "Your custom model training is complete",
+        "title": "Your Model Is Ready",
+        "greeting": "Congratulations {userName},",
+        "body": "Your custom model \"{modelName}\" has been trained on {samplesCount} texts. It is now available for use in all your upcoming projects.",
+        "button": "Use the Model",
+        "signature": "The Oda Team"
+      },
+      "customStyleReady": {
+        "subject": "Your custom style \"{styleName}\" is ready",
+        "title": "Your Literary Signature",
+        "greeting": "{userName},",
+        "body": "We've prepared the custom translation style \"{styleName}\" based on your works. It will be applied to your upcoming translations to reflect your literary voice.",
+        "button": "Manage Styles",
+        "signature": "The Oda Team"
+      },
+      "translationStyleSaved": {
+        "subject": "Style \"{styleName}\" has been saved",
+        "title": "New Style in Your Library",
+        "greeting": "{userName},",
+        "body": "Translation style \"{styleName}\" has been saved. You can invoke it in any upcoming project with a single click.",
+        "button": "Styles Library",
+        "signature": "The Oda Team"
+      },
+      "aiSuggestionsReady": {
+        "subject": "Improvement suggestions for \"{projectTitle}\"",
+        "title": "Smart Suggestions",
+        "greeting": "{userName},",
+        "body": "The AI analyzed your work \"{projectTitle}\" and prepared {suggestionsCount} suggestions to improve the narrative and rhythm. Adopt what suits you.",
+        "button": "Review Suggestions",
+        "signature": "The Oda Team"
+      },
+      "dictionaryUpdated": {
+        "subject": "Your personal dictionary has been updated",
+        "title": "Your Dictionary Is Now Wider",
+        "greeting": "{userName},",
+        "body": "{newTermsCount} new terms have been added to your custom dictionary based on your translations. This improves the accuracy and consistency of your upcoming translations.",
+        "button": "Manage Dictionary",
+        "signature": "The Oda Team"
+      },
+      "_comment_section_8": "═══ 8. Collaboration & Sharing (8) ═══",
+      "invitationSent": {
+        "subject": "Your invitation to {inviteeName} has been sent",
+        "title": "Invitation on the Way",
+        "greeting": "{userName},",
+        "body": "Your invitation was sent to {inviteeEmail} to join project \"{projectName}\". We'll notify you when it's accepted.",
+        "button": "Manage Invitations",
+        "signature": "The Oda Team"
+      },
+      "invitationAccepted": {
+        "subject": "{inviteeName} accepted your invitation ✅",
+        "title": "New Collaboration",
+        "greeting": "{userName},",
+        "body": "{inviteeName} has joined your project \"{projectName}\". They can now work with you on the text.",
+        "button": "Open Project",
+        "signature": "The Oda Team"
+      },
+      "teamMemberAdded": {
+        "subject": "You've been added to the \"{teamName}\" team",
+        "title": "Welcome to the Team",
+        "greeting": "Hello {userName},",
+        "body": "{addedBy} added you to the \"{teamName}\" team with {role} permission. You can now contribute to team projects.",
+        "button": "Enter Team Space",
+        "signature": "The Oda Team"
+      },
+      "teamMemberRemoved": {
+        "subject": "You've been removed from the \"{teamName}\" team",
+        "title": "Change in Your Membership",
+        "greeting": "{userName},",
+        "body": "Your membership in the \"{teamName}\" team has been removed. You can no longer see team projects, but your previous contributions are preserved.",
+        "button": "My Other Teams",
+        "signature": "The Oda Team"
+      },
+      "projectShared": {
+        "subject": "{sharerName} shared \"{projectName}\" with you",
+        "title": "New Project to Work On",
+        "greeting": "{userName},",
+        "body": "{sharerName} shared project \"{projectName}\" with you with {permission} permission. Review it and share your feedback.",
+        "button": "Open Project",
+        "signature": "The Oda Team"
+      },
+      "collaboratorEdited": {
+        "subject": "{editorName} made edits in \"{projectName}\"",
+        "title": "New Edits",
+        "greeting": "{userName},",
+        "body": "{editorName} made edits to project \"{projectName}\". {editsCount} changes in {sectionsCount} sections.",
+        "button": "Review Edits",
+        "signature": "The Oda Team"
+      },
+      "workspaceCreated": {
+        "subject": "Workspace \"{workspaceName}\" has been created",
+        "title": "Your New Space",
+        "greeting": "{userName},",
+        "body": "Workspace \"{workspaceName}\" has been created. You can invite collaborators, organize projects, and share resources freely.",
+        "button": "Open Workspace",
+        "signature": "The Oda Team"
+      },
+      "permissionGranted": {
+        "subject": "New permission on \"{resourceName}\"",
+        "title": "Your Permissions Have Expanded",
+        "greeting": "{userName},",
+        "body": "{grantedBy} granted you {permission} permission on \"{resourceName}\". You are now able to {capability}.",
+        "button": "Use Permission",
+        "signature": "The Oda Team"
+      },
+      "_comment_section_9": "═══ 9. Awards & Rewards (5) ═══",
+      "badgeEarned": {
+        "subject": "You earned the \"{badgeName}\" badge 🏅",
+        "title": "New Badge",
+        "greeting": "Congratulations {userName},",
+        "body": "You earned the \"{badgeName}\" badge in recognition of {achievement}. The badge will appear on your public profile.",
+        "button": "View Badges",
+        "signature": "The Oda Team"
+      },
+      "levelUp": {
+        "subject": "Promoted to Level {newLevel} ⬆️",
+        "title": "Higher Level",
+        "greeting": "Well done {userName},",
+        "body": "You've risen to level {newLevel}. With each level, you unlock new features and higher limits. Continue your creative journey.",
+        "button": "New Level Features",
+        "signature": "The Oda Team"
+      },
+      "firstTranslation": {
+        "subject": "Your first translation on Oda 🎊",
+        "title": "The Most Important Beginning",
+        "greeting": "Congratulations {userName},",
+        "body": "You've completed your first translation on the platform. This is the starting point of a long journey. We've gifted you {bonusCredits} AI points as a welcome gift.",
+        "button": "Start Second Translation",
+        "signature": "The Oda Team"
+      },
+      "anniversaryYear": {
+        "subject": "A year together on Oda 🎂",
+        "title": "Happy Anniversary",
+        "greeting": "{userName},",
+        "body": "You've completed a full year with us. During this year: {translationsCount} translations, {storiesCount} stories, and {followersGained} new followers. Thank you for a wonderful journey.",
+        "button": "Your Annual Report",
+        "signature": "The Oda Team"
+      },
+      "specialReward": {
+        "subject": "A special reward for you from Oda 🎁",
+        "title": "Thank You Gift",
+        "greeting": "{userName},",
+        "body": "In appreciation of your contributions to enriching the platform, we gift you {rewardDescription}. Valid until {expiryDate}.",
+        "button": "Claim Reward",
+        "signature": "The Oda Team"
+      },
+      "_comment_section_10": "═══ 10. Platform Events & Partnerships (5) ═══",
+      "ministerOfCulturePartnership": {
+        "subject": "Oda's Partnership with the Ministry of Culture 🇸🇦",
+        "title": "A Major National Step",
+        "greeting": "Hello {userName},",
+        "body": "We are proud to announce our partnership with the Ministry of Culture of Saudi Arabia to support literary translation with artificial intelligence. As an author with us, you benefit from special upcoming programs.",
+        "button": "Partnership Details",
+        "signature": "Oda Management"
+      },
+      "codelabPartnership": {
+        "subject": "Oda and Codelab: A Technical Alliance",
+        "title": "New Technical Partnership",
+        "greeting": "{userName},",
+        "body": "We announced today our partnership with Codelab to support the technical infrastructure of the Oda platform, ensuring continued commitment to the principles of software sovereignty and deployment on Ubuntu.",
+        "button": "Read Announcement",
+        "signature": "Oda Management"
+      },
+      "competitionLaunch": {
+        "subject": "Launching \"{competitionName}\" Competition 📚",
+        "title": "A New Literary Challenge",
+        "greeting": "{userName},",
+        "body": "We're launching the \"{competitionName}\" competition with total prizes of {totalPrizes}. Registration deadline: {deadline}. Participate with your best translations.",
+        "button": "Register for Competition",
+        "signature": "Oda Events Team"
+      },
+      "competitionWinner": {
+        "subject": "🏆 You won the \"{competitionName}\" competition",
+        "title": "Congratulations, Winner",
+        "greeting": "Congratulations {userName},",
+        "body": "The judging panel announced your victory in {position} in the \"{competitionName}\" competition with prize {prize}. We will contact you for prize delivery.",
+        "button": "Victory Details",
+        "signature": "Judging Panel - Oda"
+      },
+      "platformAnnouncement": {
+        "subject": "Important announcement from Oda - {announcementTitle}",
+        "title": "{announcementTitle}",
+        "greeting": "Hello {userName},",
+        "body": "{announcementBody}",
+        "button": "Read Full Details",
+        "signature": "Oda Management"
+      }
+    }
+  }
+}

@@ -1,9 +1,7 @@
 {
   "ar": {
     "email": {
-
       "_comment_section_1": "═══ 1. المصادقة والحساب (15) ═══",
-
       "welcome": {
         "subject": "أهلاً بك في منصة Oda {userName} 🚀",
         "title": "مرحباً بك في Oda",
@@ -12,7 +10,6 @@
         "button": "ابدأ جولتك",
         "signature": "بالتوفيق،\nفريق Oda"
       },
-
       "emailVerification": {
         "subject": "أكّد بريدك الإلكتروني للمتابعة",
         "title": "خطوة أخيرة لتفعيل حسابك",
@@ -21,7 +18,6 @@
         "button": "تأكيد البريد الإلكتروني",
         "signature": "فريق Oda"
       },
-
       "emailVerified": {
         "subject": "تم تأكيد بريدك بنجاح ✅",
         "title": "حسابك جاهز للانطلاق",
@@ -30,7 +26,6 @@
         "button": "اذهب إلى لوحتي",
         "signature": "فريق Oda"
       },
-
       "passwordReset": {
         "subject": "طلب إعادة تعيين كلمة المرور",
         "title": "إعادة تعيين كلمة المرور",
@@ -39,7 +34,6 @@
         "button": "إعادة تعيين كلمة المرور",
         "signature": "فريق أمان Oda"
       },
-
       "passwordResetSuccess": {
         "subject": "تم تغيير كلمة المرور بنجاح",
         "title": "كلمة المرور محدّثة",
@@ -48,7 +42,6 @@
         "button": "تسجيل الدخول",
         "signature": "فريق أمان Oda"
       },
-
       "passwordChanged": {
         "subject": "تنبيه: كلمة المرور تم تحديثها",
         "title": "تم تحديث كلمة المرور",
@@ -57,7 +50,6 @@
         "button": "تأمين حسابي",
         "signature": "فريق أمان Oda"
       },
-
       "loginAlert": {
         "subject": "تسجيل دخول جديد إلى حسابك",
         "title": "تنبيه دخول",
@@ -66,7 +58,6 @@
         "button": "مراجعة النشاط",
         "signature": "فريق أمان Oda"
       },
-
       "loginNewDevice": {
         "subject": "دخول من جهاز جديد 🔐",
         "title": "تم اكتشاف جهاز جديد",
@@ -75,7 +66,6 @@
         "button": "إدارة الأجهزة",
         "signature": "فريق أمان Oda"
       },
-
       "loginSuspicious": {
         "subject": "⚠️ محاولة دخول مشبوهة",
         "title": "نشاط غير معتاد على حسابك",
@@ -84,7 +74,6 @@
         "button": "تأمين الحساب الآن",
         "signature": "فريق أمان Oda"
       },
-
       "accountLocked": {
         "subject": "تم قفل حسابك مؤقتاً 🔒",
         "title": "حسابك مقفل لحمايتك",
@@ -93,7 +82,6 @@
         "button": "استعادة الحساب",
         "signature": "فريق أمان Oda"
       },
-
       "accountUnlocked": {
         "subject": "تم فتح حسابك",
         "title": "حسابك جاهز للاستخدام",
@@ -102,7 +90,6 @@
         "button": "تسجيل الدخول",
         "signature": "فريق Oda"
       },
-
       "emailChange": {
         "subject": "تأكيد تغيير البريد الإلكتروني",
         "title": "تأكيد البريد الجديد",
@@ -111,7 +98,6 @@
         "button": "تأكيد التغيير",
         "signature": "فريق Oda"
       },
-
       "emailChanged": {
         "subject": "تم تحديث بريدك الإلكتروني",
         "title": "البريد الإلكتروني محدّث",
@@ -120,7 +106,6 @@
         "button": "إدارة الحساب",
         "signature": "فريق Oda"
       },
-
       "usernameChanged": {
         "subject": "تم تغيير اسم المستخدم",
         "title": "اسم المستخدم محدّث",
@@ -129,7 +114,6 @@
         "button": "بروفايلي",
         "signature": "فريق Oda"
       },
-
       "accountDeactivated": {
         "subject": "تم تعطيل حسابك مؤقتاً",
         "title": "نأمل عودتك قريباً",
@@ -138,9 +122,7 @@
         "button": "إعادة تفعيل الحساب",
         "signature": "فريق Oda"
       },
-
       "_comment_section_2": "═══ 2. الاشتراكات والدفع (12) ═══",
-
       "subscriptionStarted": {
         "subject": "تم تفعيل اشتراكك في {planName} 🎉",
         "title": "أهلاً بك في {planName}",
@@ -149,7 +131,6 @@
         "button": "اكتشف ميزاتك",
         "signature": "فريق Oda"
       },
-
       "subscriptionUpgraded": {
         "subject": "تم ترقية اشتراكك إلى {planName} ⬆️",
         "title": "ترقية ناجحة",
@@ -158,7 +139,6 @@
         "button": "استكشاف الجديد",
         "signature": "فريق Oda"
       },
-
       "subscriptionDowngraded": {
         "subject": "تم تخفيض اشتراكك إلى {planName}",
         "title": "تغيير الباقة",
@@ -167,7 +147,6 @@
         "button": "إدارة الاشتراك",
         "signature": "فريق Oda"
       },
-
       "subscriptionCancelled": {
         "subject": "تم إلغاء اشتراكك",
         "title": "نأسف لمغادرتك",
@@ -176,7 +155,6 @@
         "button": "تجديد الاشتراك",
         "signature": "فريق Oda"
       },
-
       "subscriptionRenewed": {
         "subject": "تم تجديد اشتراكك تلقائياً",
         "title": "اشتراكك متجدد",
@@ -185,7 +163,6 @@
         "button": "عرض الفاتورة",
         "signature": "فريق Oda"
       },
-
       "subscriptionExpiringSoon": {
         "subject": "اشتراكك ينتهي خلال {daysLeft} أيام",
         "title": "تذكير بانتهاء الاشتراك",
@@ -194,7 +171,6 @@
         "button": "تجديد الآن",
         "signature": "فريق Oda"
       },
-
       "subscriptionExpired": {
         "subject": "انتهى اشتراكك في Oda",
         "title": "حان وقت التجديد",
@@ -203,7 +179,6 @@
         "button": "تجديد الاشتراك",
         "signature": "فريق Oda"
       },
-
       "paymentSuccess": {
         "subject": "تأكيد عملية الدفع - {amount}",
         "title": "تم استلام دفعتك",
@@ -212,7 +187,6 @@
         "button": "تحميل الفاتورة",
         "signature": "فريق Oda"
       },
-
       "paymentFailed": {
         "subject": "⚠️ فشل في عملية الدفع",
         "title": "تعذّر إتمام الدفع",
@@ -221,7 +195,6 @@
         "button": "تحديث وسيلة الدفع",
         "signature": "فريق Oda"
       },
-
       "paymentRetry": {
         "subject": "سنعيد محاولة الدفع خلال {retryDate}",
         "title": "محاولة جديدة قريباً",
@@ -230,7 +203,6 @@
         "button": "إدارة الدفع",
         "signature": "فريق Oda"
       },
-
       "invoiceReady": {
         "subject": "فاتورتك الجديدة من Oda - {invoiceNumber}",
         "title": "فاتورة جديدة",
@@ -239,7 +211,6 @@
         "button": "تحميل الفاتورة (PDF)",
         "signature": "فريق المحاسبة - Oda"
       },
-
       "refundProcessed": {
         "subject": "تمت معالجة طلب استرداد المبلغ",
         "title": "تم استرداد {amount}",
@@ -248,9 +219,7 @@
         "button": "تفاصيل الاسترداد",
         "signature": "فريق المحاسبة - Oda"
       },
-
       "_comment_section_3": "═══ 3. الترجمة والمحتوى الأدبي (15) ═══",
-
       "translationStarted": {
         "subject": "بدأت ترجمة \"{projectTitle}\" 📖",
         "title": "الترجمة قيد المعالجة",
@@ -259,7 +228,6 @@
         "button": "متابعة التقدم",
         "signature": "فريق Oda"
       },
-
       "translationCompleted": {
         "subject": "اكتملت ترجمة \"{projectTitle}\" ✨",
         "title": "ترجمتك جاهزة",
@@ -268,7 +236,6 @@
         "button": "مراجعة الترجمة",
         "signature": "فريق Oda"
       },
-
       "translationFailed": {
         "subject": "تعذّر إكمال ترجمة \"{projectTitle}\"",
         "title": "حدث خطأ في المعالجة",
@@ -277,7 +244,6 @@
         "button": "إعادة المحاولة",
         "signature": "فريق Oda"
       },
-
       "translationReviewReady": {
         "subject": "ترجمة \"{projectTitle}\" بانتظار مراجعتك",
         "title": "وقت المراجعة",
@@ -286,7 +252,6 @@
         "button": "بدء المراجعة",
         "signature": "فريق Oda"
       },
-
       "translationApproved": {
         "subject": "تمت الموافقة على ترجمتك ✅",
         "title": "ترجمة معتمدة",
@@ -295,7 +260,6 @@
         "button": "تصدير الترجمة",
         "signature": "فريق Oda"
       },
-
       "translationRejected": {
         "subject": "ترجمة \"{projectTitle}\" تحتاج مراجعة",
         "title": "ملاحظات على الترجمة",
@@ -304,7 +268,6 @@
         "button": "عرض الملاحظات",
         "signature": "فريق Oda"
       },
-
       "translationExported": {
         "subject": "تم تصدير ترجمتك بصيغة {format}",
         "title": "ملفك جاهز",
@@ -313,7 +276,6 @@
         "button": "تحميل الملف",
         "signature": "فريق Oda"
       },
-
       "translationShared": {
         "subject": "تمت مشاركة ترجمتك \"{projectTitle}\"",
         "title": "ترجمتك تنتشر",
@@ -322,7 +284,6 @@
         "button": "إحصائيات المشاركة",
         "signature": "فريق Oda"
       },
-
       "storyUploaded": {
         "subject": "تم رفع \"{storyTitle}\" بنجاح",
         "title": "قصتك في أمان",
@@ -331,7 +292,6 @@
         "button": "فتح القصة",
         "signature": "فريق Oda"
       },
-
       "storyPublished": {
         "subject": "تم نشر \"{storyTitle}\" 📢",
         "title": "عملك للعالم الآن",
@@ -340,7 +300,6 @@
         "button": "عرض على المنصة",
         "signature": "فريق Oda"
       },
-
       "storyArchived": {
         "subject": "تم أرشفة \"{storyTitle}\"",
         "title": "العمل في الأرشيف",
@@ -349,7 +308,6 @@
         "button": "إدارة الأرشيف",
         "signature": "فريق Oda"
       },
-
       "storyDeleted": {
         "subject": "تم حذف \"{storyTitle}\"",
         "title": "تأكيد حذف العمل",
@@ -358,7 +316,6 @@
         "button": "ابدأ مشروعاً جديداً",
         "signature": "فريق Oda"
       },
-
       "draftSaved": {
         "subject": "تم حفظ المسودة تلقائياً",
         "title": "عملك في أمان",
@@ -367,7 +324,6 @@
         "button": "متابعة الكتابة",
         "signature": "فريق Oda"
       },
-
       "translationLimitReached": {
         "subject": "وصلت حد الترجمات الشهري",
         "title": "استهلكت رصيدك الشهري",
@@ -376,7 +332,6 @@
         "button": "ترقية الباقة",
         "signature": "فريق Oda"
       },
-
       "translationQuotaWarning": {
         "subject": "اقتربت من حد الترجمات (%{usedPercent})",
         "title": "تنبيه استهلاك",
@@ -385,9 +340,7 @@
         "button": "إدارة الاستهلاك",
         "signature": "فريق Oda"
       },
-
       "_comment_section_4": "═══ 4. التفاعل الاجتماعي (12) ═══",
-
       "newFollower": {
         "subject": "{followerName} يتابعك الآن",
         "title": "متابع جديد",
@@ -396,7 +349,6 @@
         "button": "زيارة البروفايل",
         "signature": "فريق Oda"
       },
-
       "milestoneFollowers": {
         "subject": "وصلت إلى {milestone} متابع 🎉",
         "title": "إنجاز جديد",
@@ -405,7 +357,6 @@
         "button": "مشاركة الإنجاز",
         "signature": "فريق Oda"
       },
-
       "authorFollowedYouBack": {
         "subject": "{authorName} يتابعك بدوره",
         "title": "متابعة متبادلة",
@@ -414,7 +365,6 @@
         "button": "أعمال {authorName}",
         "signature": "فريق Oda"
       },
-
       "newComment": {
         "subject": "تعليق جديد على \"{contentTitle}\"",
         "title": "تعليق جديد",
@@ -423,7 +373,6 @@
         "button": "عرض التعليق",
         "signature": "فريق Oda"
       },
-
       "commentReply": {
         "subject": "{replierName} ردّ على تعليقك",
         "title": "رد جديد",
@@ -432,7 +381,6 @@
         "button": "قراءة الرد",
         "signature": "فريق Oda"
       },
-
       "newLike": {
         "subject": "{likerName} أعجب بـ \"{contentTitle}\"",
         "title": "إعجاب جديد",
@@ -441,7 +389,6 @@
         "button": "عرض العمل",
         "signature": "فريق Oda"
       },
-
       "milestoneLikes": {
         "subject": "\"{contentTitle}\" تجاوز {milestone} إعجاب",
         "title": "عملك في القمة",
@@ -450,7 +397,6 @@
         "button": "إحصائيات العمل",
         "signature": "فريق Oda"
       },
-
       "mentioned": {
         "subject": "أشار إليك {mentionerName} في تعليق",
         "title": "إشارة جديدة",
@@ -459,7 +405,6 @@
         "button": "عرض الإشارة",
         "signature": "فريق Oda"
       },
-
       "messageReceived": {
         "subject": "رسالة جديدة من {senderName} 💬",
         "title": "لديك رسالة",
@@ -468,7 +413,6 @@
         "button": "قراءة الرسالة",
         "signature": "فريق Oda"
       },
-
       "authorYouFollowPublished": {
         "subject": "{authorName} نشر عملاً جديداً",
         "title": "إصدار جديد من مؤلف تتابعه",
@@ -477,7 +421,6 @@
         "button": "قراءة العمل",
         "signature": "فريق Oda"
       },
-
       "trendingPost": {
         "subject": "عملك \"{contentTitle}\" يتصدّر 🔥",
         "title": "في قائمة الأكثر تفاعلاً",
@@ -486,7 +429,6 @@
         "button": "عرض القائمة",
         "signature": "فريق Oda"
       },
-
       "featuredAuthor": {
         "subject": "تم اختيارك مؤلفاً مميزاً 🌟",
         "title": "مؤلف الأسبوع",
@@ -495,9 +437,7 @@
         "button": "عرض بروفايلك",
         "signature": "فريق Oda"
       },
-
       "_comment_section_5": "═══ 5. الإشعارات والتذكيرات (10) ═══",
-
       "weeklyDigest": {
         "subject": "ملخص أسبوعك في Oda 📰",
         "title": "ماذا حدث هذا الأسبوع",
@@ -506,7 +446,6 @@
         "button": "عرض التقرير الكامل",
         "signature": "فريق Oda"
       },
-
       "monthlyDigest": {
         "subject": "ملخص شهر {monthName} - إنجازاتك",
         "title": "تقرير شهري شامل",
@@ -515,7 +454,6 @@
         "button": "تحميل التقرير",
         "signature": "فريق Oda"
       },
-
       "inactivityReminder": {
         "subject": "نفتقدك في Oda يا {userName}",
         "title": "عُد إلى رحلتك الأدبية",
@@ -524,7 +462,6 @@
         "button": "العودة إلى Oda",
         "signature": "فريق Oda"
       },
-
       "comeBackOffer": {
         "subject": "خصم {discount}% خاص لعودتك 🎁",
         "title": "عرض اشتقنالك",
@@ -533,7 +470,6 @@
         "button": "تفعيل الخصم",
         "signature": "فريق Oda"
       },
-
       "dailyTip": {
         "subject": "نصيحة اليوم: {tipTitle} 💡",
         "title": "{tipTitle}",
@@ -542,7 +478,6 @@
         "button": "نصائح أكثر",
         "signature": "فريق Oda"
       },
-
       "newFeature": {
         "subject": "ميزة جديدة في Oda: {featureName} ✨",
         "title": "{featureName}",
@@ -551,7 +486,6 @@
         "button": "تجربة الميزة",
         "signature": "فريق Oda"
       },
-
       "featureRecommended": {
         "subject": "ميزة قد تعجبك",
         "title": "اكتشاف لك",
@@ -560,7 +494,6 @@
         "button": "استكشاف الميزة",
         "signature": "فريق Oda"
       },
-
       "eventReminder": {
         "subject": "تذكير: {eventName} يبدأ {timeUntil}",
         "title": "اقترب موعد الفعالية",
@@ -569,7 +502,6 @@
         "button": "الانضمام للفعالية",
         "signature": "فريق فعاليات Oda"
       },
-
       "webinarInvite": {
         "subject": "دعوة: ندوة \"{webinarTitle}\"",
         "title": "دعوة خاصة لك",
@@ -578,7 +510,6 @@
         "button": "حجز مقعدي",
         "signature": "فريق فعاليات Oda"
       },
-
       "newsletterMonthly": {
         "subject": "نشرة Oda - {monthName} {year}",
         "title": "أخبار وقصص هذا الشهر",
@@ -587,9 +518,7 @@
         "button": "قراءة النشرة",
         "signature": "تحرير - فريق Oda"
       },
-
       "_comment_section_6": "═══ 6. الأمان والخصوصية (10) ═══",
-
       "twoFactorEnabled": {
         "subject": "تم تفعيل المصادقة الثنائية 🔐",
         "title": "حسابك أكثر أماناً",
@@ -598,7 +527,6 @@
         "button": "عرض رموز الاحتياط",
         "signature": "فريق أمان Oda"
       },
-
       "twoFactorDisabled": {
         "subject": "⚠️ تم تعطيل المصادقة الثنائية",
         "title": "حماية أقل لحسابك",
@@ -607,7 +535,6 @@
         "button": "إعادة التفعيل",
         "signature": "فريق أمان Oda"
       },
-
       "apiKeyCreated": {
         "subject": "تم إنشاء مفتاح API جديد",
         "title": "مفتاح API",
@@ -616,7 +543,6 @@
         "button": "إدارة المفاتيح",
         "signature": "فريق أمان Oda"
       },
-
       "apiKeyRevoked": {
         "subject": "تم إلغاء مفتاح API \"{keyName}\"",
         "title": "مفتاح ملغي",
@@ -625,7 +551,6 @@
         "button": "إنشاء مفتاح بديل",
         "signature": "فريق أمان Oda"
       },
-
       "dataExportReady": {
         "subject": "نسخة بياناتك جاهزة للتحميل",
         "title": "بياناتك بين يديك",
@@ -634,7 +559,6 @@
         "button": "تحميل نسختي",
         "signature": "فريق Oda"
       },
-
       "dataDeletionConfirm": {
         "subject": "تأكيد حذف بياناتك نهائياً",
         "title": "إجراء لا رجعة فيه",
@@ -643,7 +567,6 @@
         "button": "تأكيد الحذف النهائي",
         "signature": "فريق Oda"
       },
-
       "privacyPolicyUpdate": {
         "subject": "تحديث سياسة الخصوصية - {effectiveDate}",
         "title": "نسخة جديدة من سياسة الخصوصية",
@@ -652,7 +575,6 @@
         "button": "قراءة السياسة",
         "signature": "الإدارة القانونية - Oda"
       },
-
       "termsUpdate": {
         "subject": "تحديث شروط الاستخدام",
         "title": "شروط محدّثة",
@@ -661,7 +583,6 @@
         "button": "قراءة الشروط",
         "signature": "الإدارة القانونية - Oda"
       },
-
       "securityBreach": {
         "subject": "🚨 تنبيه أمني مهم",
         "title": "إجراء عاجل مطلوب",
@@ -670,7 +591,6 @@
         "button": "تأمين حسابي الآن",
         "signature": "فريق أمان Oda"
       },
-
       "sessionExpired": {
         "subject": "انتهت جلستك في Oda",
         "title": "تم تسجيل خروجك تلقائياً",
@@ -679,9 +599,7 @@
         "button": "تسجيل الدخول",
         "signature": "فريق Oda"
       },
-
       "_comment_section_7": "═══ 7. الذكاء الاصطناعي والمميزات المتقدمة (8) ═══",
-
       "aiCreditsLow": {
         "subject": "رصيد AI لديك منخفض",
         "title": "تنبيه رصيد",
@@ -690,7 +608,6 @@
         "button": "شحن الرصيد",
         "signature": "فريق Oda"
       },
-
       "aiCreditsRefilled": {
         "subject": "تم شحن {amount} نقطة بنجاح",
         "title": "رصيدك جاهز",
@@ -699,7 +616,6 @@
         "button": "بدء مشروع جديد",
         "signature": "فريق Oda"
       },
-
       "aiModelUpgrade": {
         "subject": "نموذج ترجمة محسّن متاح الآن",
         "title": "ترقية في محرّك الترجمة",
@@ -708,7 +624,6 @@
         "button": "تجربة النموذج",
         "signature": "فريق Oda الهندسي"
       },
-
       "aiTrainingComplete": {
         "subject": "اكتمل تدريب نموذجك المخصص",
         "title": "نموذجك جاهز",
@@ -717,7 +632,6 @@
         "button": "استخدام النموذج",
         "signature": "فريق Oda"
       },
-
       "customStyleReady": {
         "subject": "أسلوبك المخصص \"{styleName}\" جاهز",
         "title": "بصمتك الأدبية",
@@ -726,7 +640,6 @@
         "button": "إدارة الأساليب",
         "signature": "فريق Oda"
       },
-
       "translationStyleSaved": {
         "subject": "تم حفظ أسلوب \"{styleName}\"",
         "title": "أسلوب جديد في مكتبتك",
@@ -735,7 +648,6 @@
         "button": "مكتبة الأساليب",
         "signature": "فريق Oda"
       },
-
       "aiSuggestionsReady": {
         "subject": "اقتراحات تحسين لـ \"{projectTitle}\"",
         "title": "اقتراحات ذكية",
@@ -744,7 +656,6 @@
         "button": "مراجعة الاقتراحات",
         "signature": "فريق Oda"
       },
-
       "dictionaryUpdated": {
         "subject": "تحديث قاموسك الخاص",
         "title": "قاموسك أوسع الآن",
@@ -753,9 +664,7 @@
         "button": "إدارة القاموس",
         "signature": "فريق Oda"
       },
-
       "_comment_section_8": "═══ 8. التعاون والمشاركة (8) ═══",
-
       "invitationSent": {
         "subject": "تم إرسال دعوتك إلى {inviteeName}",
         "title": "دعوة في الطريق",
@@ -764,7 +673,6 @@
         "button": "إدارة الدعوات",
         "signature": "فريق Oda"
       },
-
       "invitationAccepted": {
         "subject": "{inviteeName} قبل دعوتك ✅",
         "title": "تعاون جديد",
@@ -773,7 +681,6 @@
         "button": "فتح المشروع",
         "signature": "فريق Oda"
       },
-
       "teamMemberAdded": {
         "subject": "تمت إضافتك إلى فريق \"{teamName}\"",
         "title": "أهلاً بك في الفريق",
@@ -782,7 +689,6 @@
         "button": "دخول مساحة الفريق",
         "signature": "فريق Oda"
       },
-
       "teamMemberRemoved": {
         "subject": "تم إزالتك من فريق \"{teamName}\"",
         "title": "تغيير في عضويتك",
@@ -791,7 +697,6 @@
         "button": "فرقي الأخرى",
         "signature": "فريق Oda"
       },
-
       "projectShared": {
         "subject": "{sharerName} شارك معك \"{projectName}\"",
         "title": "مشروع جديد للعمل عليه",
@@ -800,7 +705,6 @@
         "button": "فتح المشروع",
         "signature": "فريق Oda"
       },
-
       "collaboratorEdited": {
         "subject": "{editorName} عدّل في \"{projectName}\"",
         "title": "تعديلات جديدة",
@@ -809,7 +713,6 @@
         "button": "مراجعة التعديلات",
         "signature": "فريق Oda"
       },
-
       "workspaceCreated": {
         "subject": "تم إنشاء مساحة عمل \"{workspaceName}\"",
         "title": "مساحتك الجديدة",
@@ -818,7 +721,6 @@
         "button": "فتح مساحة العمل",
         "signature": "فريق Oda"
       },
-
       "permissionGranted": {
         "subject": "صلاحية جديدة على \"{resourceName}\"",
         "title": "صلاحياتك توسّعت",
@@ -827,9 +729,7 @@
         "button": "استخدام الصلاحية",
         "signature": "فريق Oda"
       },
-
       "_comment_section_9": "═══ 9. الجوائز والمكافآت (5) ═══",
-
       "badgeEarned": {
         "subject": "حصلت على وسام \"{badgeName}\" 🏅",
         "title": "وسام جديد",
@@ -838,7 +738,6 @@
         "button": "عرض الأوسمة",
         "signature": "فريق Oda"
       },
-
       "levelUp": {
         "subject": "ترقية إلى المستوى {newLevel} ⬆️",
         "title": "مستوى أعلى",
@@ -847,7 +746,6 @@
         "button": "ميزات المستوى الجديد",
         "signature": "فريق Oda"
       },
-
       "firstTranslation": {
         "subject": "أول ترجمة لك في Oda 🎊",
         "title": "البداية الأهم",
@@ -856,7 +754,6 @@
         "button": "بدء الترجمة الثانية",
         "signature": "فريق Oda"
       },
-
       "anniversaryYear": {
         "subject": "سنة معك في Oda 🎂",
         "title": "ذكرى سنوية سعيدة",
@@ -865,7 +762,6 @@
         "button": "تقريرك السنوي",
         "signature": "فريق Oda"
       },
-
       "specialReward": {
         "subject": "مكافأة خاصة لك من Oda 🎁",
         "title": "هدية شكر",
@@ -874,9 +770,7 @@
         "button": "استلام المكافأة",
         "signature": "فريق Oda"
       },
-
       "_comment_section_10": "═══ 10. أحداث المنصة والشراكات (5) ═══",
-
       "ministerOfCulturePartnership": {
         "subject": "شراكة Oda مع وزارة الثقافة 🇸🇦",
         "title": "خطوة وطنية كبيرة",
@@ -885,7 +779,6 @@
         "button": "تفاصيل الشراكة",
         "signature": "إدارة Oda"
       },
-
       "codelabPartnership": {
         "subject": "Oda وCodelab: تحالف تقني",
         "title": "شراكة تقنية جديدة",
@@ -894,7 +787,6 @@
         "button": "قراءة الإعلان",
         "signature": "إدارة Oda"
       },
-
       "competitionLaunch": {
         "subject": "إطلاق مسابقة \"{competitionName}\" 📚",
         "title": "تحدٍّ أدبي جديد",
@@ -903,7 +795,6 @@
         "button": "التسجيل في المسابقة",
         "signature": "فريق فعاليات Oda"
       },
-
       "competitionWinner": {
         "subject": "🏆 فزت بمسابقة \"{competitionName}\"",
         "title": "تهانينا أيها الفائز",
@@ -912,7 +803,6 @@
         "button": "تفاصيل الفوز",
         "signature": "لجنة التحكيم - Oda"
       },
-
       "platformAnnouncement": {
         "subject": "إعلان مهم من Oda - {announcementTitle}",
         "title": "{announcementTitle}",
@@ -921,7 +811,6 @@
         "button": "اقرأ التفاصيل كاملة",
         "signature": "إدارة Oda"
       }
-
     }
   }
 }

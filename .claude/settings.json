@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm show *)",
+      "Bash(systemctl is-active *)",
+      "Bash(pg_isready)",
+      "Bash(/home/osama-alhudhaif/Desktop/website/oda/bin/python manage.py *)"
+    ]
+  }
+}
